@@ -1,16 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { ThemeProviderWrapper } from "@/components/provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,10 +13,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
   return (
     <html lang="ko">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+      <body>
+        {/* MUI 동적 스타일을 SSR에도 적용하기 위함  */}
+        <AppRouterCacheProvider>
+          <ThemeProviderWrapper>
+            {children}
+          </ThemeProviderWrapper>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );

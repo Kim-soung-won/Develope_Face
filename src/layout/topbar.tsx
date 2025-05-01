@@ -1,6 +1,6 @@
 import { AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-
+import ThemeToggleSwitch from '@/components/ThemeToggleSwitch';
 
 export function TopMenuBar() {
   return (
@@ -15,6 +15,7 @@ export function TopMenuBar() {
           MyService
         </Typography>
         {/* 우측: 로그인/회원가입 등 버튼 */}
+        <ThemeToggleSwitch />
         <Button color="inherit">로그인</Button>
         <Button color="inherit">회원가입</Button>
       </Toolbar>
