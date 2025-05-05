@@ -1,8 +1,8 @@
 "use client";
-import { AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import ThemeToggleSwitch from '@/components/ThemeToggleSwitch';
+import { AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import ThemeToggleSwitch from '@/components/ThemeToggleSwitch';
 import { LoadingCircleSpinner } from '@/stared/ui';
 
 export function TopMenuBar() {

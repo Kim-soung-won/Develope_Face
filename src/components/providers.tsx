@@ -25,5 +25,5 @@ export function DefaultProviders({
         {children}
       </I18nProvider>
     </ThemeProviderWrapper>
-  )
+  );
 }

@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
+import type { Metadata } from "next";
 import "./globals.css";
 import { DefaultProviders } from "@/components/providers";
 
@@ -20,7 +20,7 @@ export default function RootLayout({
         {/* MUI 동적 스타일을 SSR에도 적용하기 위함  */}
         <AppRouterCacheProvider>
           <DefaultProviders>
-              {children}
+            {children}
           </DefaultProviders>
         </AppRouterCacheProvider>
       </body>
