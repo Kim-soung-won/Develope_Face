@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ThemeToggleSwitch from '@/components/ThemeToggleSwitch';
 import { useTranslation } from 'react-i18next';
+import { LoadingCircleSpinner } from '@/stared/ui';
 
 export function TopMenuBar() {
   const { t } = useTranslation();
@@ -21,6 +22,7 @@ export function TopMenuBar() {
         <ThemeToggleSwitch />
         <Button color="inherit">{t("button.login")}</Button>
         <Button color="inherit">{t("button.signup")}</Button>
+        <LoadingCircleSpinner />
       </Toolbar>
     </AppBar>
   );
