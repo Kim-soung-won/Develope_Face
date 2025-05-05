@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import "./globals.css";
-import { ThemeProviderWrapper } from "@/components/provider";
+import { DefaultProviders } from "@/components/providers";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,9 +19,9 @@ export default function RootLayout({
       <body>
         {/* MUI 동적 스타일을 SSR에도 적용하기 위함  */}
         <AppRouterCacheProvider>
-          <ThemeProviderWrapper>
-            {children}
-          </ThemeProviderWrapper>
+          <DefaultProviders>
+              {children}
+          </DefaultProviders>
         </AppRouterCacheProvider>
       </body>
     </html>

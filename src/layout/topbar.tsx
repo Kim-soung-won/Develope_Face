@@ -1,8 +1,11 @@
+"use client";
 import { AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ThemeToggleSwitch from '@/components/ThemeToggleSwitch';
+import { useTranslation } from 'react-i18next';
 
 export function TopMenuBar() {
+  const { t } = useTranslation();
   return (
     <AppBar position="sticky" color="default" elevation={1}>
       <Toolbar>
@@ -16,8 +19,8 @@ export function TopMenuBar() {
         </Typography>
         {/* 우측: 로그인/회원가입 등 버튼 */}
         <ThemeToggleSwitch />
-        <Button color="inherit">로그인</Button>
-        <Button color="inherit">회원가입</Button>
+        <Button color="inherit">{t("button.login")}</Button>
+        <Button color="inherit">{t("button.signup")}</Button>
       </Toolbar>
     </AppBar>
   );
