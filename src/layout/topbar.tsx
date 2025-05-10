@@ -22,7 +22,6 @@ export function TopMenuBar() {
         <ThemeToggleSwitch />
         <Button color="inherit">{t("button.login")}</Button>
         <Button color="inherit">{t("button.signup")}</Button>
-        <LoadingCircleSpinner />
       </Toolbar>
     </AppBar>
   );
