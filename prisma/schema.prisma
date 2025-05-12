@@ -1,0 +1,22 @@
+// Prisma Schema 정의 파일, 
+// 
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Post {
+  post_id          BigInt   @id @unique
+  title            String
+  markdown_content String
+  created_at       DateTime @default(now())
+  
+  @@map("post") // 실제 DB 테이블명이 post임을 명시
+}
