@@ -3,8 +3,8 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import IconButton from '@mui/material/IconButton';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Color } from '@/stared/constants';
-import useThemeStore from "@/stared/store/useLayoutStore";
+import { Color } from '@/shared/constants';
+import useThemeStore from "@/shared/store/useLayoutStore";
 
 
 export default function ThemeToggleSwitch() {
