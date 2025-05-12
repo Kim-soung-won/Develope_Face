@@ -2028,7 +2028,7 @@ export namespace Prisma {
     title?: StringFilter<"Post"> | string
     markdown_content?: StringFilter<"Post"> | string
     created_at?: DateTimeFilter<"Post"> | Date | string
-  }, "post_id" | "post_id">
+  }, "post_id">
 
   export type PostOrderByWithAggregationInput = {
     post_id?: SortOrder
@@ -2053,14 +2053,14 @@ export namespace Prisma {
   }
 
   export type PostCreateInput = {
-    post_id: bigint | number
+    post_id?: bigint | number
     title: string
     markdown_content: string
     created_at?: Date | string
   }
 
   export type PostUncheckedCreateInput = {
-    post_id: bigint | number
+    post_id?: bigint | number
     title: string
     markdown_content: string
     created_at?: Date | string
@@ -2081,7 +2081,7 @@ export namespace Prisma {
   }
 
   export type PostCreateManyInput = {
-    post_id: bigint | number
+    post_id?: bigint | number
     title: string
     markdown_content: string
     created_at?: Date | string
