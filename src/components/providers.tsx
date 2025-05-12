@@ -1,24 +1,24 @@
-"use client";
-import { useEffect, useState } from "react";
-import { ScrollAnimation } from "@/stared/ui";
-import { I18nProvider } from "./provider/i18nProviderWrapper";
-import { ThemeProviderWrapper } from "./provider/ThemeProviderWrapper";
+'use client'
+import { useEffect, useState } from 'react'
+import { ScrollAnimation } from '@/shared/ui'
+import { I18nProvider } from './provider/i18nProviderWrapper'
+import { ThemeProviderWrapper } from './provider/ThemeProviderWrapper'
 
 export function DefaultProviders({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
-  const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState(false)
 
   // 마운트 전에는 아무것도 렌더링하지 않음(theme 적용 전에 기본으로 렌더링되는 것 방지지)
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    setMounted(true)
+  }, [])
 
   if (!mounted) {
-    return null;
-  };
+    return null
+  }
 
   return (
     <ThemeProviderWrapper>
@@ -27,5 +27,5 @@ export function DefaultProviders({
         {children}
       </I18nProvider>
     </ThemeProviderWrapper>
-  );
+  )
 }

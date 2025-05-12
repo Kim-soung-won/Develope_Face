@@ -1,6 +1,6 @@
 import { Button, Typography } from '@mui/material'
 import { TopMenuBar } from '@/layout/topbar'
-import { PostQuery } from '@/stared/db/post'
+import { PostQuery } from '@/shared/db/post'
 
 export default async function Home() {
   const data = await PostQuery.getAll()

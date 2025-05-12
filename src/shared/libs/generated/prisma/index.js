@@ -162,8 +162,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// Prisma Schema 정의 파일\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/shared/libs/generated/prisma\"\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"DATABASE_URL\")\n  directUrl = env(\"DIRECT_URL\")\n}\n\nmodel Post {\n  post_id          BigInt   @id @default(autoincrement())\n  title            String\n  markdown_content String\n  created_at       DateTime @default(now())\n\n  @@map(\"post\") // 실제 DB 테이블명이 post임을 명시\n}\n",
-  "inlineSchemaHash": "4b11ccafd7aa5e667adfa9ca40ad65b94483fd639d072b2de2edca97f289e356",
+  "inlineSchema": "// Prisma Schema 정의 파일\n\ngenerator client {\n  provider = \"prisma-client-js\"\n\n  // generated 기본 파일 경로\n  output = \"../src/shared/libs/generated/prisma\"\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"DATABASE_URL\")\n  directUrl = env(\"DIRECT_URL\")\n}\n\nmodel Post {\n  post_id          BigInt   @id @default(autoincrement())\n  title            String\n  markdown_content String\n  created_at       DateTime @default(now())\n\n  @@map(\"post\") // 실제 DB 테이블명이 post임을 명시\n}\n",
+  "inlineSchemaHash": "cebe6725b99c5a9d76e1e02a70a1e9200351936060f47eed693477ef923f9e1e",
   "copyEngine": true
 }
 

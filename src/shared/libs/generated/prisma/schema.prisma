@@ -2,7 +2,9 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/shared/libs/generated/prisma"
+
+  // generated 기본 파일 경로
+  output = "../src/shared/libs/generated/prisma"
 }
 
 datasource db {
