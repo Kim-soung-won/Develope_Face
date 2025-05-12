@@ -7,7 +7,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",
@@ -19,12 +20,14 @@
     "@mui/material-nextjs": "^7.0.2",
     "@next/mdx": "^15.3.2",
     "autoprefixer": "^10.4.21",
+    "@prisma/client": "^6.7.0",
     "framer-motion": "^12.9.7",
     "i18next": "^25.0.2",
     "motion": "^12.9.7",
     "next": "15.3.1",
     "next-mdx-remote": "^5.0.0",
     "postcss": "^8.5.3",
+    "pg": "^8.15.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-i18next": "^15.5.1",
@@ -35,6 +38,7 @@
     "@tailwindcss/postcss": "^4.1.6",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",
+    "@types/pg": "^8.15.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@typescript-eslint/eslint-plugin": "^8.31.1",
@@ -47,6 +51,7 @@
     "eslint-plugin-prettier": "^5.4.0",
     "prettier": "^3.5.3",
     "tailwindcss": "^4.1.6",
+    "prisma": "^6.7.0",
     "typescript": "^5",
     "typescript-eslint": "^8.32.0"
   }
