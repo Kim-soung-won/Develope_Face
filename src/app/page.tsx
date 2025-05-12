@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 import { TopMenuBar } from '@/layout/topbar'
 import { PostQuery } from '@/stared/db/post'
 
@@ -8,6 +8,7 @@ export default async function Home() {
   return (
     <>
       <TopMenuBar />
+      <Button>{data[0].title}</Button>
       <Typography
         variant="h1"
         sx={{
