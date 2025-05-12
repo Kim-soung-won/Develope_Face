@@ -11,12 +11,12 @@
 ## Guide
 1. CloudFlare Page  https://pages.cloudflare.com/ 접속  
 
-2. Project 생성
+2. Project 생성  
 ![create-project](assets/post-img/cloud-flare/step1.png)
 
 3. Github 계정, 저장소 연결
 
-4. Framework preset 설정
+4. Framework preset 설정  
 ![connect](assets/post-img/cloud-flare/step2.png)
 
 5. Deploy
