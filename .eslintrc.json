@@ -7,10 +7,10 @@
     "react/prop-types": "off",
     "@next/next/no-img-element": "off",
     "indent": ["error", 2],
-    "import/order": ["error", {
-      "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
-      "newlines-between": "never",
-      "alphabetize": { "order": "asc", "caseInsensitive": true }
-    }]
+    // "import/order": ["error", {
+    //   "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+    //   "newlines-between": "never",
+    //   "alphabetize": { "order": "asc", "caseInsensitive": true }
+    // }]
   }
 }

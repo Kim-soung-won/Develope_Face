@@ -1,9 +1,9 @@
 'use client'
+import Link from 'next/link'
 import MenuIcon from '@mui/icons-material/Menu'
 import { AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import ThemeToggleSwitch from '@/components/ThemeToggleSwitch'
-import Link from 'next/link'
 
 export function TopMenuBar() {
   const { t } = useTranslation()
