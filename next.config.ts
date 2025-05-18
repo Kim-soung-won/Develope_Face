@@ -3,6 +3,11 @@ import type { NextConfig } from "next";
 
 const withMDX = nextMDX({
   extension: /\.mdx?$/,
+  options: {
+    // MDX 처리 옵션
+    remarkPlugins: [],
+    rehypePlugins: [require('rehype-highlight')],
+  },
 });
 
 /** @type {import('next').NextConfig} */

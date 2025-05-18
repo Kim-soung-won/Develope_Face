@@ -5,11 +5,22 @@ import IconButton from '@mui/material/IconButton';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Color } from '@/shared/constants';
 import useThemeStore from "@/shared/store/useLayoutStore";
+import { useEffect } from 'react';
 
 
 export default function ThemeToggleSwitch() {
   const theme = useThemeStore((state) => state.theme)
   const toggleTheme = useThemeStore((state) => state.toggleTheme)
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+  }, [theme]);
+
 
   return (
     <IconButton 

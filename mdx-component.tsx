@@ -1,24 +1,80 @@
 import type { MDXComponents } from 'mdx/types';
+import { Typography, Link as MuiLink, List, ListItem, Divider, Box } from '@mui/material';
+import { Callout, Code, Pre } from '@/shared/libs/mdx';
 
 /**
- * Next.js에서 MDX 컴포넌트를 사용하기 위한 기본 설정.
- * Nextjs의 컨벤션기반 설정에 의해 root경로에 해당 파일이 위치해야한다.
+ * MDX에서 사용될 MUI 기반 컴포넌트 정의
  */
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
-    // 기본 컴포넌트 오버라이드
     h1: ({ children }) => (
-      <h1 className="text-4xl font-bold my-4">{children}</h1>
+      <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
+        {children}
+      </Typography>
     ),
     h2: ({ children }) => (
-      <h2 className="text-3xl font-semibold my-3">{children}</h2>
-    ),
-    a: ({ href, children }) => (
-      <a href={href} className="text-blue-600 hover:underline">
+      <Typography variant="h4" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
         {children}
-      </a>
+      </Typography>
     ),
-    // 기존 컴포넌트 유지
+    h3: ({ children }) => (
+      <Typography variant="h5" component="h3" gutterBottom sx={{ fontWeight: 500 }}>
+        {children}
+      </Typography>
+    ),
+
+    p: ({ children }) => (
+      <Typography variant="body1" paragraph>
+        {children}
+      </Typography>
+    ),
+
+    a: ({ href, children }) => (
+      <MuiLink href={href} underline="hover" color="primary">
+        {children}
+      </MuiLink>
+    ),
+
+    ul: ({ children }) => (
+      <List sx={{ listStyleType: 'disc', pl: 3 }}>
+        {children}
+      </List>
+    ),
+    ol: ({ children }) => (
+      <List sx={{ listStyleType: 'decimal', pl: 3 }}>
+        {children}
+      </List>
+    ),
+    li: ({ children }) => (
+      <ListItem sx={{ display: 'list-item', py: 0.5 }}>
+        {children}
+      </ListItem>
+    ),
+
+    code: Code,
+    pre: Pre,
+    
+    blockquote: ({ children }) => (
+      <Box
+        component="blockquote"
+        sx={{
+          borderLeft: '4px solid',
+          borderColor: 'grey.400',
+          pl: 2,
+          my: 2,
+          fontStyle: 'italic',
+          color: 'text.secondary',
+        }}
+      >
+        {children}
+      </Box>
+    ),
+
+    hr: () => <Divider sx={{ my: 4 }} />,
+
+    Callout,
+
+    // 병합된 사용자 정의 컴포넌트 유지
     ...components,
   };
 }
