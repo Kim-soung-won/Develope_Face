@@ -12,15 +12,15 @@
 1. CloudFlare Page  https://pages.cloudflare.com/ 접속  
 
 2. Project 생성  
-![create-project](assets/post-img/cloud-flare/step1.png)
+![create-project](/assets/post-img/cloud-flare/step1.png)
 
 3. Github 계정, 저장소 연결
 
 4. Framework preset 설정  
-![connect](assets/post-img/cloud-flare/step2.png)
+![connect](/assets/post-img/cloud-flare/step2.png)
 
 5. Deploy
-![Deploy](assets/post-img/cloud-flare/final.png)
+![Deploy](/assets/post-img/cloud-flare/final.png)
 
 ## Error 대응
 
@@ -36,9 +36,9 @@ CloudFlare의 Default Node.js 버전과 프로젝트 환경이 상이하여 발�
 
 2. Deploy 후 Node.js 호환성 오류  
 Deploy 후 생성된 Url로 접근했을때, 해당 오류 발생
-![error](assets/post-img/cloud-flare/error.png)
+![error](/assets/post-img/cloud-flare/error.png)
 배포에는 성공했으나, 실행시 Node.js의 내장 모듈에 접근할 수 없어 웹 사이트가 제대로 동작하지 않는 오류  
 <br/>
 <strong>해결 방법</strong>  
 -프로젝트 설정 Runtime flags -> nodejs_compat 플래그 추가
-![fix](assets/post-img/cloud-flare/setting.png)
+![fix](/assets/post-img/cloud-flare/setting.png)
