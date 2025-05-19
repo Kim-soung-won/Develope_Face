@@ -21,7 +21,9 @@ export function TopMenuBar() {
         </IconButton>
         {/* 서비스명 또는 로고 */}
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          MyService
+          <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+            MyService
+          </Link>
         </Typography>
         {/* 우측: 로그인/회원가입 등 버튼 */}
         <ThemeToggleSwitch />
