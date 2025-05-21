@@ -38,7 +38,7 @@ export function Pre({ children }: { children: React.ReactNode }) {
         my: 2,
         borderRadius: 2, // <pre> 태그의 전체적인 스타일
         overflowX: 'auto',
-        backgroundColor: theme.palette.mode === 'dark' ? '#282c34' : '#f5f5f5', // 테마에 맞는 배경색
+        backgroundColor: '#282c34',
         padding: '16px',
         fontSize: '0.875rem', // 폰트 크기
         fontFamily: 'Monospace', // 폰트

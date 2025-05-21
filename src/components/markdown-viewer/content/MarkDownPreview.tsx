@@ -76,8 +76,6 @@ export const MarkDownPreviewUI = ({
       sx={{
         p: 2,
         flexGrow: 1,
-        overflowY: 'auto',
-        position: 'relative',
         fontSize: '0.9rem',
       }}
     >
