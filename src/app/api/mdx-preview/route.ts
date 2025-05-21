@@ -1,3 +1,5 @@
+export const runtime = 'edge'; // 이 줄을 파일 최상단에 추가!
+
 import { NextRequest, NextResponse } from 'next/server';
 import { serialize } from 'next-mdx-remote/serialize';
 
