@@ -28,6 +28,9 @@ export function TopMenuBar() {
         {/* 우측: 로그인/회원가입 등 버튼 */}
         <ThemeToggleSwitch />
         <Button color="inherit">
+          <Link href="/posting">글쓰기</Link>
+        </Button>
+        <Button color="inherit">
           <Link href="/blog">POST</Link>
         </Button>
         {/* <Button color="inherit">{t('button.signup')}</Button> */}

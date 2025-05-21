@@ -4,7 +4,7 @@ import './TopNotificationBanner.css'
 import { useState } from 'react'
 
 export const TopNotificationBanner = () => {
-  const [visible, setVisible] = useState(true)
+  const [visible, setVisible] = useState(false)
 
   return (
     <>
