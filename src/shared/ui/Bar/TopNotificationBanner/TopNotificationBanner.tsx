@@ -1,15 +1,15 @@
 'use client'
 import { motion, AnimatePresence } from 'framer-motion'
 import './TopNotificationBanner.css'
-import { useState } from 'react'
+import { useTopNotificationStore } from '@/shared/store/notification'
 
 export const TopNotificationBanner = () => {
-  const [visible, setVisible] = useState(false)
+  const { notification, close } = useTopNotificationStore()
 
   return (
     <>
       <AnimatePresence>
-        {visible && (
+        {notification.active && (
           <motion.div
             className="top-notification-banner"
             initial={{ y: -40, opacity: 0 }}
@@ -18,8 +18,8 @@ export const TopNotificationBanner = () => {
             transition={{ duration: 0.3, ease: 'easeInOut' }}
           >
             <div className="banner-content">
-              <span className="banner-title">🚀 새로운 알림 메시지입니다</span>
-              <button className="hide-btn" onClick={() => setVisible(false)}>
+              <span className="banner-title">{notification.message}</span>
+              <button className="hide-btn" onClick={close}>
                 닫기
               </button>
             </div>
@@ -27,7 +27,7 @@ export const TopNotificationBanner = () => {
         )}
       </AnimatePresence>
 
-      {!visible && (
+      {/* {!visible && (
         <motion.button
           className="reopen-btn"
           initial={{ opacity: 0, y: -20 }}
@@ -38,7 +38,7 @@ export const TopNotificationBanner = () => {
         >
           🔔 알림 보기
         </motion.button>
-      )}
+      )} */}
     </>
   )
 }
