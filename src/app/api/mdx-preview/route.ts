@@ -3,7 +3,7 @@ export const runtime = 'edge'; // Edge Runtime은 전 세계 여러 지역에 �
 import { NextRequest, NextResponse } from 'next/server';
 import { serialize } from 'next-mdx-remote/serialize';
 
-import rehypePrettyCode from 'rehype-pretty-code';
+import rehypeHighlight from 'rehype-highlight';
 
 export async function POST(req: NextRequest) {
   try {
@@ -19,15 +19,7 @@ export async function POST(req: NextRequest) {
       mdxOptions: {
         // remarkPlugins: [remarkGfm], // GFM 사용 시
         rehypePlugins: [
-          [
-            rehypePrettyCode,
-            {
-              theme: 'github-dark', // rehype-pretty-code 테마 (예: 'github-dark', 'material-theme-palenight')
-              // keepBackground: true, // 테마 배경 유지 여부
-              // 필요한 다른 rehype-pretty-code 옵션들
-            },
-          ],
-          // 만약 다른 rehype 플러그인(rehype-slug, rehype-autolink-headings 등)을 사용한다면 여기에 추가
+          rehypeHighlight, // 옵션이 필요 없다면 이렇게만 추가
         ],
         format: 'mdx', // 'mdx' 또는 'md'
       },
