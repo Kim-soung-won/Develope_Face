@@ -6,83 +6,39 @@ import LinkIcon from '@mui/icons-material/Link'
 import LooksOneIcon from '@mui/icons-material/LooksOne'
 import CodeIcon from '@mui/icons-material/Code' // 코드블록용 아이콘 예시
 import CampaignIcon from '@mui/icons-material/Campaign'
+import CreateIcon from '@mui/icons-material/Create'; // 쓰기 아이콘 예시 (원하는 아이콘으로 변경 가능)
+import { insertMarkdownSyntax, MarkdownInput } from '../Method'
 
-type MarkdownInput =
-  | 'bold'
-  | 'italic'
-  | 'h1'
-  | 'link'
-  | 'quote'
-  | 'codeblock'
-  | 'callout'
 
+/**
+ * textareaRef: 입력 필드 Ref
+ * markdownInput: 마크다운 입력값
+ * setMarkdownInput: 입력 필드 값 상태 업데이트
+ * handleWrite: 우측 끝 쓰기 버튼 클릭시 호출 함수수
+ */
 interface MarkdownSyntaxProps {
   textareaRef: React.RefObject<HTMLTextAreaElement | null>
   markdownInput: string
   setMarkdownInput: React.Dispatch<React.SetStateAction<string>>
+  handleWrite: () => void
 }
 
 export const MarkdownSyntaxToolbar = ({
   textareaRef,
   markdownInput,
   setMarkdownInput,
+  handleWrite,
 }: MarkdownSyntaxProps) => {
-  const insertMarkdownSyntax = (type: MarkdownInput) => {
+  const clickToolbarType = (type: MarkdownInput) => {
     if (!textareaRef.current) return
 
     const textarea = textareaRef.current
     const start = textarea.selectionStart
     const end = textarea.selectionEnd
     const selectedText = markdownInput.substring(start, end)
-    let prefix = '',
-      suffix = '',
-      placeholder = ''
-    let textToInsert = ''
 
-    switch (type) {
-      case 'bold':
-        prefix = '**'
-        suffix = '**'
-        placeholder = '굵은 텍스트'
-        break
-      case 'italic':
-        prefix = '*'
-        suffix = '*'
-        placeholder = '기울인 텍스트'
-        break
-      case 'h1':
-        prefix = '\n# '
-        suffix = '\n'
-        placeholder = '제목 1'
-        break
-      case 'link':
-        prefix = '['
-        suffix = `](${prompt('링크 URL을 입력하세요:', 'https://') || ''})`
-        placeholder = '링크 텍스트'
-        break
-      case 'quote':
-        prefix = '\n> '
-        suffix = '\n'
-        placeholder = '인용문'
-        break
-      case 'codeblock':
-        prefix = '\n```javascript\n'
-        suffix = '\n```\n'
-        placeholder = 'console.log("Hello");'
-        break // 언어는 javascript 예시
-      case 'callout':
-        prefix = '\n<Callout type="info">\n  '
-        suffix = '\n</Callout>\n'
-        placeholder = '콜아웃 내용'
-        break
-      // TODO: 다른 타입들 추가 (h2, h3, 리스트 등)
-    }
+    const textToInsert = insertMarkdownSyntax({ type, selectedText })
 
-    if (selectedText) {
-      textToInsert = `${prefix}${selectedText}${suffix}`
-    } else {
-      textToInsert = `${prefix}${placeholder}${suffix}`
-    }
 
     const newText =
       markdownInput.substring(0, start) +
@@ -98,6 +54,12 @@ export const MarkdownSyntaxToolbar = ({
 
   return (
     <Paper elevation={1} sx={{ p: 1, mb: 1, flexShrink: 0 }}>
+       <Stack
+        direction="row"
+        justifyContent="space-between" // ⭐ 양쪽 정렬
+        alignItems="center"
+        width="100%" // ⭐ Stack이 Paper 전체 너비를 차지하도록
+      >
       <Stack
         direction="row"
         spacing={{ xs: 0.2, sm: 0.5 }}
@@ -106,14 +68,14 @@ export const MarkdownSyntaxToolbar = ({
       >
         <IconButton
           size="small"
-          onClick={() => insertMarkdownSyntax('bold')}
+          onClick={() => clickToolbarType('bold')}
           title="굵게"
         >
           <FormatBoldIcon />
         </IconButton>
         <IconButton
           size="small"
-          onClick={() => insertMarkdownSyntax('italic')}
+          onClick={() => clickToolbarType('italic')}
           title="기울임꼴"
         >
           <FormatItalicIcon />
@@ -125,12 +87,11 @@ export const MarkdownSyntaxToolbar = ({
         />
         <IconButton
           size="small"
-          onClick={() => insertMarkdownSyntax('h1')}
+          onClick={() => clickToolbarType('h1')}
           title="제목1"
         >
           <LooksOneIcon />
         </IconButton>
-        {/* <IconButton size="small" onClick={() => insertMarkdownSyntax('h2')} title="제목2"><LooksTwoIcon /></IconButton> */}
         <Divider
           orientation="vertical"
           flexItem
@@ -138,21 +99,21 @@ export const MarkdownSyntaxToolbar = ({
         />
         <IconButton
           size="small"
-          onClick={() => insertMarkdownSyntax('link')}
+          onClick={() => clickToolbarType('link')}
           title="링크"
         >
           <LinkIcon />
         </IconButton>
         <IconButton
           size="small"
-          onClick={() => insertMarkdownSyntax('quote')}
+          onClick={() => clickToolbarType('quote')}
           title="인용"
         >
           <FormatQuoteIcon />
         </IconButton>
         <IconButton
           size="small"
-          onClick={() => insertMarkdownSyntax('codeblock')}
+          onClick={() => clickToolbarType('codeblock')}
           title="코드블록"
         >
           <CodeIcon />
@@ -165,7 +126,7 @@ export const MarkdownSyntaxToolbar = ({
         <Button
           size="small"
           startIcon={<CampaignIcon />}
-          onClick={() => insertMarkdownSyntax('callout')} // 'callout'은 네 커스텀 컴포넌트에 맞게
+          onClick={() => clickToolbarType('callout')} // 'callout'은 네 커스텀 컴포넌트에 맞게
           sx={{
             textTransform: 'none',
             fontSize: '0.8rem',
@@ -174,6 +135,23 @@ export const MarkdownSyntaxToolbar = ({
         >
           Callout
         </Button>
+      </Stack>
+          {/* 여기까지 툴바 버튼의 우측에 배치될 Stack */}
+          <Button
+            variant="contained" // 눈에 띄게 contained 스타일 적용
+            color="primary"     // primary 색상 사용
+            size="small"
+            startIcon={<CreateIcon />} // 쓰기 아이콘 추가
+            onClick={handleWrite}      // 위에서 만든 핸들러 연결
+            sx={{
+              marginLeft: 'auto',    // 이 부분이 핵심! 오른쪽 끝으로 밀어낸다.
+              textTransform: 'none',
+              fontSize: '0.8rem',
+              p: { xs: '2px 8px', sm: '4px 12px' }, // 패딩 살짝 조정
+            }}
+          >
+            쓰기
+          </Button>
       </Stack>
     </Paper>
   )
