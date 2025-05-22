@@ -2,12 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import { serialize } from 'next-mdx-remote/serialize';
 
 import rehypePrettyCode from 'rehype-pretty-code';
-import { createHighlighterCore } from '@shikijs/core'; // Shiki 버전에 따라 'shiki/core'
-import { createJavaScriptRegexEngine } from '@shikijs/engine-javascript'; // Shiki 버전에 따라 'shiki/engine/javascript'
+// Ensure you are using the newer @shikijs packages
+import { createHighlighterCore } from '@shikijs/core';
+import { createOnigurumaEngine } from '@shikijs/engine-oniguruma';
 
-// 필요한 특정 언어와 테마만 가져오세요.
-import langJavascript from '@shikijs/langs/javascript'; // 예시
-import themeGithubDark from '@shikijs/themes/github-dark'; // 예시
+// Import only the languages and themes you need to optimize bundle size
+import langJavascript from '@shikijs/langs/javascript'; // Example language
+import themeGithubDark from '@shikijs/themes/github-dark'; // Your chosen theme
 
 export const runtime = 'edge';
 
@@ -19,22 +20,21 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Markdown 내용은 문자열이어야 합니다.' }, { status: 400 });
     }
 
+    const onigEngine = await createOnigurumaEngine();
+    const highlighter = await createHighlighterCore({
+      themes: [themeGithubDark],
+      langs: [langJavascript],
+      engine: onigEngine,
+    });
+
     const mdxSource = await serialize(markdown, {
       mdxOptions: {
         rehypePlugins: [
           [
             rehypePrettyCode,
             {
-              highlighter: async (options: any) => {
-                const jsEngine = createJavaScriptRegexEngine();
-                return createHighlighterCore({
-                  themes: [themeGithubDark], // 사용할 테마 지정
-                  langs: [langJavascript], // 사용할 언어 지정
-                  engine: jsEngine,
-                });
-              },
-              keepBackground: true, // 테마 배경 유지 여부
-              // 필요한 다른 rehype-pretty-code 옵션들
+              highlighter,
+              keepBackground: true,
             },
           ],
         ],
