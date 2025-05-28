@@ -7,18 +7,21 @@ function broadcast(data: any, eventName?: string, eventId?: string) {
   if (eventName) messageString += `event: ${eventName || 'message'}\n`; // 기본 이벤트 이름 'message'
   messageString += `data: ${typeof data === 'string' ? data : JSON.stringify(data)}\n\n`;
 
-  const messageBytes = encoder.encode(messageString); // 문자열을 Uint8Array로 인코딩
+  const messageBytes = encoder.encode(messageString);
+  const deadControllers: ReadableStreamDefaultController[] = []; // 제거할 컨트롤러 목록
 
-  const clientsCopy = new Set(clients); // 반복 중 Set 변경 문제를 피하기 위해 복사본 사용 (선택적이지만 안전)
-  clientsCopy.forEach((controller) => {
+  clients.forEach((controller) => {
     try {
-      controller.enqueue(messageBytes); // 인코딩된 바이트 배열을 enqueue
+      // controller.signal.aborted 와 같은 표준 속성으로 미리 확인하는 것은 ReadableStreamDefaultController에 직접 없음
+      // 따라서 enqueue 시도 후 에러로 판단
+      controller.enqueue(messageBytes);
     } catch (e) {
-      console.error("Error enqueuing to client (broadcaster), removing client:", e);
-      clients.delete(controller); // 에러 발생 시 해당 클라이언트 제거
-      // 필요하다면 controller.error(e) 호출도 고려
+      console.error("Error enqueuing to client (broadcaster), marking for removal:", e);
+      deadControllers.push(controller); // 바로 제거하지 않고, 반복 후 제거
     }
   });
+
+  deadControllers.forEach(controller => clients.delete(controller));
 }
 
 export const sseBroadcaster = {
