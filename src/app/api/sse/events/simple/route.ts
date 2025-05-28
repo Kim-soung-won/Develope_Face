@@ -1,3 +1,5 @@
+export const runtime = 'edge'; // Edge Runtime은 전 세계 여러 지역에 분산된 서버에서 코드를 실행하여 사용자에게 더 빠른 응답을 제공하기 위한 환경
+
 import { NextRequest } from 'next/server';
 
 const encoder = new TextEncoder(); // TextEncoder 인스턴스를 파일 스코프에 생성 (여러 요청에 걸쳐 재사용 가능)
