@@ -1,7 +1,10 @@
 export const runtime = 'edge'; // Edge Runtime은 전 세계 여러 지역에 분산된 서버에서 코드를 실행하여 사용자에게 더 빠른 응답을 제공하기 위한 환경
 
 import { NextRequest, NextResponse } from 'next/server';
-import { sseBroadcaster } from '@/shared/libs/event';
+// sseBroadcaster는 이전에 수정한 것처럼 내부적으로 TextEncoder를 사용하여 메시지를 바이트로 변환한다고 가정합니다.
+import { sseBroadcaster } from '@/shared/libs/event'; // 실제 경로로 수정해주세요
+
+const encoder = new TextEncoder(); // TextEncoder 인스턴스를 파일 스코프 또는 GET 함수 내에 생성
 
 export async function GET(request: NextRequest) {
   let currentController: ReadableStreamDefaultController | null = null;
@@ -10,12 +13,19 @@ export async function GET(request: NextRequest) {
     start(controller) {
       currentController = controller;
       console.log('[SSE Route] GET: Client connected.');
-      sseBroadcaster.addClient(controller);
+      sseBroadcaster.addClient(controller); // broadcaster에 controller 등록
+
       try {
-        controller.enqueue(`event: connected\ndata: ${JSON.stringify({ message: "SSE 커넥션 성공!" })}\n\n`);
+        // 초기 연결 메시지를 Uint8Array로 인코딩하여 전송
+        const initialMessage = `event: connected\ndata: ${JSON.stringify({ message: "SSE 커넥션 성공!" })}\n\n`;
+        controller.enqueue(encoder.encode(initialMessage));
+        console.log('[SSE Route] GET: Initial "connected" message enqueued successfully.');
       } catch (e) {
         console.error('[SSE Route] GET: Error enqueuing initial connect message:', e);
-        sseBroadcaster.removeClient(controller);
+        // 에러 발생 시 broadcaster에서 controller 제거 시도
+        if (currentController) { // currentController가 아직 유효하다면
+            sseBroadcaster.removeClient(currentController);
+        }
       }
     },
     cancel(reason) {
@@ -30,9 +40,9 @@ export async function GET(request: NextRequest) {
   return new Response(stream, {
     headers: {
       'Content-Type': 'text/event-stream',
-      'Cache-Control': 'no-cache',
+      'Cache-Control': 'no-cache, no-transform', // 프록시 캐싱 문제 방지를 위해 no-transform 추가 권장
       'Connection': 'keep-alive',
-      'X-Accel-Buffering': 'no',
+      'X-Accel-Buffering': 'no', // Nginx 등 리버스 프록시 사용 시 버퍼링 끄기
     },
   });
 }
@@ -55,6 +65,7 @@ export async function POST(request: NextRequest) {
         progress: 33,
         message: `작업 ID ${taskId} 처리 중 (1/3)...`,
       };
+      // sseBroadcaster.sendEvent 내부에서 TextEncoder를 사용하여 메시지를 바이트로 변환해야 합니다.
       sseBroadcaster.sendEvent(progressData, "taskProgressUpdate", `task-${taskId}-progress-1`);
       console.log(`[SSE Route] Task ${taskId} 진행 이벤트 (1s) 전송됨.`);
     }, 1000);
