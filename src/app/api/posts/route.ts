@@ -1,5 +1,3 @@
-export const runtime = 'edge'; // Edge Runtime은 전 세계 여러 지역에 분산된 서버에서 코드를 실행하여 사용자에게 더 빠른 응답을 제공하기 위한 환경
-
 import { NextResponse } from 'next/server';
 import { PostQuery } from '@/shared/db/post'; // PostQuery 클래스 경로 (네 프로젝트에 맞게)
 import { z } from 'zod';

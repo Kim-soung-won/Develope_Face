@@ -1,5 +1,3 @@
-export const runtime = 'edge'; // Edge Runtime은 전 세계 여러 지역에 분산된 서버에서 코드를 실행하여 사용자에게 더 빠른 응답을 제공하기 위한 환경
-
 import { NextRequest, NextResponse } from 'next/server';
 import { serialize } from 'next-mdx-remote/serialize';
 
@@ -32,7 +30,7 @@ export async function POST(req: NextRequest) {
     
     return NextResponse.json(
       {
-        error: 'MDX 내용을 처리하는 중 오류가 발생했습니다.',
+        error: 'MDX 내용을 처리하는 중 오류가 발생했습니다.\n\nMDX 문법 오류가 있을 수 있습니다. 닫히지 않은 태그나 잘못된 속성 사용을 확인해 주세요.',
         details: process.env.NODE_ENV === 'development' ? error.message : undefined,
       },
       { status: 500 }

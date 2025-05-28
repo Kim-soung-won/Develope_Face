@@ -12,8 +12,6 @@ import type { Pluggable } from 'unified';
 
 // rehype-pretty-code에 전달할 옵션을 명시적으로 정의합니다.
 const prettyCodeOptions: RehypePrettyCodeOptions = {
-  theme: 'github-dark', // 원하는 테마로 변경하세요 (예: 'material-theme-palenight')
-  // keepBackground: false, // 필요한 경우 다른 옵션 추가
 };
 
 // @next/mdx에 전달될 MDX 처리 옵션의 타입을 정의합니다.
