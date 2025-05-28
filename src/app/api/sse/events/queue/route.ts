@@ -1,8 +1,7 @@
 export const runtime = 'edge'; // Edge Runtime은 전 세계 여러 지역에 분산된 서버에서 코드를 실행하여 사용자에게 더 빠른 응답을 제공하기 위한 환경
 
 import { NextRequest, NextResponse } from 'next/server';
-// sseBroadcaster는 이전에 수정한 것처럼 내부적으로 TextEncoder를 사용하여 메시지를 바이트로 변환한다고 가정합니다.
-import { sseBroadcaster } from '@/shared/libs/event'; // 실제 경로로 수정해주세요
+import { sseBroadcaster } from '@/shared/libs/event'; 
 
 const encoder = new TextEncoder(); // TextEncoder 인스턴스를 파일 스코프 또는 GET 함수 내에 생성
 
@@ -28,13 +27,20 @@ export async function GET(request: NextRequest) {
         }
       }
     },
+    // route.ts의 cancel 콜백 내부
     cancel(reason) {
-      console.log('[SSE Route] GET: Client disconnected or stream cancelled.', reason);
+      const initialClientSize = sseBroadcaster.getClientCount ? sseBroadcaster.getClientCount() : 'N/A (before remove)';
+      console.log(`[SSE Route GET - cancel] Stream cancelled. Reason: ${reason}. Controller: ${currentController ? 'exists' : 'null'}. Clients before remove: ${initialClientSize}`);
       if (currentController) {
-        sseBroadcaster.removeClient(currentController);
+        const controllerToRemove = currentController; 
+        sseBroadcaster.removeClient(controllerToRemove);
+        const finalClientSize = sseBroadcaster.getClientCount ? sseBroadcaster.getClientCount() : 'N/A (after remove)';
+        console.log(`[SSE Route GET - cancel] sseBroadcaster.removeClient CALLED. Clients after remove: ${finalClientSize}`);
         currentController = null;
+      } else {
+        console.warn('[SSE Route GET - cancel] currentController was null, no removal from broadcaster.');
       }
-    },
+    }
   });
 
   return new Response(stream, {
