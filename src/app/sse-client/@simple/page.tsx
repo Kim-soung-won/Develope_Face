@@ -131,7 +131,7 @@ export default function SseClientPageAppRouter() { // 또는 SseSimpleIndividual
 
   return (
     <Box sx={{ p: 3, maxWidth: 800, margin: 'auto', fontFamily: 'Arial, sans-serif' }}>
-      <Typography variant="h4" component="h1" gutterBottom align="center">
+      <Typography variant="h5" component="h1" gutterBottom align="center">
         개별 SSE 스트림 동시 요청 테스트 ⏱️
       </Typography>
       <Typography variant="body2" align="center" sx={{mb:2}}>

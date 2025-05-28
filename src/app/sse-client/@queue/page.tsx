@@ -169,7 +169,7 @@ export default function SsePerformanceTestPage() {
   return (
     <Box sx={{ p: 3, maxWidth: 800, margin: 'auto', fontFamily: 'Arial, sans-serif' }}>
       <Typography variant="h4" component="h1" gutterBottom align="center">
-        SSE 동시 요청 성능 테스트 ⏱️
+        SSE 동시 요청 테스트 ⏱️
       </Typography>
       <Typography variant="body2" align="center" sx={{mb:2}}>
         (각 작업 3초 소요, 초당 중간 진행 이벤트 발생)
