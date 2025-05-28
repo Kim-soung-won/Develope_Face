@@ -1,19 +1,22 @@
 const clients = new Set<ReadableStreamDefaultController>();
+const encoder = new TextEncoder(); // TextEncoder 인스턴스 생성
 
 function broadcast(data: any, eventName?: string, eventId?: string) {
-  let message = "";
-  if (eventId) message += `id: ${eventId}\n`;
-  if (eventName) message += `event: ${eventName}\n`;
-  message += `data: ${JSON.stringify(data)}\n\n`; // 데이터를 JSON 문자열로 변환
+  let messageString = "";
+  if (eventId) messageString += `id: ${eventId}\n`;
+  if (eventName) messageString += `event: ${eventName || 'message'}\n`; // 기본 이벤트 이름 'message'
+  messageString += `data: ${typeof data === 'string' ? data : JSON.stringify(data)}\n\n`;
 
-  console.log(`Broadcasting to ${clients.size} clients: ${message.trim()}`);
-  clients.forEach((controller) => {
+  const messageBytes = encoder.encode(messageString); // 문자열을 Uint8Array로 인코딩
+
+  const clientsCopy = new Set(clients); // 반복 중 Set 변경 문제를 피하기 위해 복사본 사용 (선택적이지만 안전)
+  clientsCopy.forEach((controller) => {
     try {
-      controller.enqueue(message);
+      controller.enqueue(messageBytes); // 인코딩된 바이트 배열을 enqueue
     } catch (e) {
-      console.error("Error enqueuing to client, removing client:", e);
+      console.error("Error enqueuing to client (broadcaster), removing client:", e);
       clients.delete(controller); // 에러 발생 시 해당 클라이언트 제거
-      controller.error(e); // 스트림에 에러 전파
+      // 필요하다면 controller.error(e) 호출도 고려
     }
   });
 }
@@ -21,13 +24,18 @@ function broadcast(data: any, eventName?: string, eventId?: string) {
 export const sseBroadcaster = {
   addClient: (controller: ReadableStreamDefaultController) => {
     clients.add(controller);
-    console.log(`Client added. Total clients: ${clients.size}`);
+    console.log(`[Broadcaster] Client added. Total clients: ${clients.size}`);
   },
   removeClient: (controller: ReadableStreamDefaultController) => {
-    clients.delete(controller);
-    console.log(`Client removed. Total clients: ${clients.size}`);
+    const isDeleted = clients.delete(controller);
+    if (isDeleted) {
+      console.log(`[Broadcaster] Client removed. Total clients: ${clients.size}`);
+    } else {
+      // console.log(`[Broadcaster] Attempted to remove client, but not found. Total clients: ${clients.size}`);
+    }
   },
   sendEvent: (data: any, eventName?: string, eventId?: string) => {
     broadcast(data, eventName, eventId);
   },
+  getClientCount: () => clients.size,
 };
