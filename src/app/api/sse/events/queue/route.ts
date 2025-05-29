@@ -7,10 +7,12 @@ const encoder = new TextEncoder(); // TextEncoder 인스턴스를 파일 스코�
 
 export async function GET(request: NextRequest) {
   let currentController: ReadableStreamDefaultController | null = null;
+  let heartbeatIntervalId: NodeJS.Timeout | undefined = undefined; // 타입스크립트를 위해 undefined 추가
 
   const stream = new ReadableStream({
     start(controller) {
       currentController = controller;
+      const clientId = (controller as any)._debugId || `client-${Date.now()}`; 
       console.log('[SSE Route] GET: 클라이언트 연결 시도.');
       try{
         sseBroadcaster.addClient(controller); // broadcaster에 controller 등록
@@ -24,6 +26,24 @@ export async function GET(request: NextRequest) {
         const initialMessage = `event: connected\ndata: ${JSON.stringify({ message: "SSE 커넥션 성공!" })}\n\n`;
         controller.enqueue(encoder.encode(initialMessage));
         console.log('[SSE Route] GET: 연결 확인 메세지 수신 완료.');
+
+        heartbeatIntervalId = setInterval(() => {
+          if (!currentController) { // 혹시 currentController가 null이 되었다면 중단
+            if (heartbeatIntervalId) clearInterval(heartbeatIntervalId);
+            return;
+          }
+          try {
+            console.log(`[SSE Route GET - ${clientId}] Sending heartbeat.`);
+            controller.enqueue(encoder.encode(':heartbeat\n\n')); // SSE 주석을 이용한 핑
+          } catch (e) {
+            console.error(`[SSE Route GET - ${clientId}] Error sending heartbeat, closing stream and removing client:`, e);
+            if (heartbeatIntervalId) clearInterval(heartbeatIntervalId);
+            sseBroadcaster.removeClient(controller); // 에러 발생 시 제거
+            try { if(controller.desiredSize !== null) controller.close(); } catch (closeErr) {} // 컨트롤러 닫기 시도
+            currentController = null;
+          }
+        }, 25000); // 예: 25초마다 heartbeat 전송 (Cloudflare의 일반적인 유휴 시간 초과보다 짧게)
+
       } catch (e) {
         console.warn('[SSE Route] GET: Error 연결확인 메세시 수신 실패')
         console.error('원인:', e);
