@@ -11,16 +11,22 @@ export async function GET(request: NextRequest) {
   const stream = new ReadableStream({
     start(controller) {
       currentController = controller;
-      console.log('[SSE Route] GET: Client connected.');
-      sseBroadcaster.addClient(controller); // broadcaster에 controller 등록
+      console.log('[SSE Route] GET: 클라이언트 연결 시도.');
+      try{
+        sseBroadcaster.addClient(controller); // broadcaster에 controller 등록
+        console.log('[SSE Route] GET: broadcaster에 클라이언트 추가 완료.');
+      } catch (e) {
+        console.error('[SSE Route] GET: broadcaster에 클라이언트 추가 중 에러 발생:', e);
+        currentController = null;
+      }
 
       try {
-        // 초기 연결 메시지를 Uint8Array로 인코딩하여 전송
         const initialMessage = `event: connected\ndata: ${JSON.stringify({ message: "SSE 커넥션 성공!" })}\n\n`;
         controller.enqueue(encoder.encode(initialMessage));
-        console.log('[SSE Route] GET: Initial "connected" message enqueued successfully.');
+        console.log('[SSE Route] GET: 연결 확인 메세지 수신 완료.');
       } catch (e) {
-        console.error('[SSE Route] GET: Error enqueuing initial connect message:', e);
+        console.warn('[SSE Route] GET: Error 연결확인 메세시 수신 실패')
+        console.error('원인:', e);
         // 에러 발생 시 broadcaster에서 controller 제거 시도
         if (currentController) { // currentController가 아직 유효하다면
             sseBroadcaster.removeClient(currentController);
@@ -30,7 +36,7 @@ export async function GET(request: NextRequest) {
     // route.ts의 cancel 콜백 내부
     cancel(reason) {
       const initialClientSize = sseBroadcaster.getClientCount ? sseBroadcaster.getClientCount() : 'N/A (before remove)';
-      console.log(`[SSE Route GET - cancel] Stream cancelled. Reason: ${reason}. Controller: ${currentController ? 'exists' : 'null'}. Clients before remove: ${initialClientSize}`);
+      console.log(`[SSE Route GET - cancel] 연결 취소. 원인: ${reason}. Controller: ${currentController ? 'exists' : 'null'}. Clients before remove: ${initialClientSize}`);
       if (currentController) {
         const controllerToRemove = currentController; 
         sseBroadcaster.removeClient(controllerToRemove);
@@ -46,7 +52,6 @@ export async function GET(request: NextRequest) {
   return new Response(stream, {
     headers: {
       'Content-Type': 'text/event-stream',
-      'Cache-Control': 'no-cache, no-transform', // 프록시 캐싱 문제 방지를 위해 no-transform 추가 권장
       'Connection': 'keep-alive',
       'X-Accel-Buffering': 'no', // Nginx 등 리버스 프록시 사용 시 버퍼링 끄기
     },
