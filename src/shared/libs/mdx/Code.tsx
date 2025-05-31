@@ -1,22 +1,28 @@
 'use client'
 import { Box, useTheme } from '@mui/material'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import {
-  oneDark,
-  oneLight,
-} from 'react-syntax-highlighter/dist/esm/styles/prism'
 import React from 'react'
 
-export function Code({ children }: { children: React.ReactNode }) {
+// Code 컴포넌트 (인라인 코드)
+export function Code({
+  children,
+  sx,
+}: {
+  children: React.ReactNode
+  sx?: object
+}) {
+  const theme = useTheme() // MUI 테마 가져오기
+
   return (
     <Box
       component="code"
       sx={{
         fontFamily: 'Monospace',
         fontSize: '0.875rem',
-        px: 1,
-        py: 0.5,
-        borderRadius: 1,
+        backgroundColor: theme.palette.action.hover, // 기본 배경색
+        color: theme.palette.text.secondary,
+        padding: '0.2em 0.4em',
+        borderRadius: '4px',
+        ...sx, // 추가 스타일 병합
       }}
     >
       {children}
@@ -26,26 +32,30 @@ export function Code({ children }: { children: React.ReactNode }) {
 
 // Pre 컴포넌트 수정
 export function Pre({ children }: { children: React.ReactNode }) {
-  const theme = useTheme() // 테마는 배경색 등에 활용 가능
+  const theme = useTheme() // MUI 테마 가져오기
 
-  // MDX는 <pre><code>...</code></pre> 구조를 생성하고,
-  // 여기서 `children` prop은 <code> 엘리먼트와 그 안의 (이미 스타일링된) 내용이 됨.
-  // rehype-pretty-code가 이미 내부를 <span class="..."> 등으로 처리했을 거야.
   return (
     <Box
-      component="pre" // 시맨틱하게 <pre> 태그 사용
+      component="pre"
       sx={{
         my: 2,
-        borderRadius: 2, // <pre> 태그의 전체적인 스타일
+        borderRadius: theme.shape.borderRadius,
         overflowX: 'auto',
-        backgroundColor: '#282c34',
+        backgroundColor: theme.palette.mode === 'dark' ? '#282c34' : '#fffaf0',
         padding: '16px',
-        fontSize: '0.875rem', // 폰트 크기
-        fontFamily: 'Monospace', // 폰트
-        // rehype-pretty-code에서 생성된 스타일과 충돌하지 않도록 주의
+        fontSize: '0.875rem',
+        fontFamily: 'Monospace',
       }}
     >
-      {children} {/* `children`은 이미 구문 강조된 <code> 엘리먼트와 그 내용 */}
+      {React.Children.map(children, (child) =>
+        React.isValidElement(child) && child.type === Code
+          ? React.cloneElement(child as React.ReactElement<{ sx?: object }>, {
+              sx: {
+                backgroundColor: 'transparent', // Pre 내부에서는 배경색 제거
+              },
+            })
+          : child,
+      )}
     </Box>
   )
 }

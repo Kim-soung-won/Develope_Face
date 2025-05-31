@@ -102,8 +102,9 @@ export const MarkDownPreviewUI = ({
       )}
       {error && (
         <Typography
+          component="h1"
           color="error"
-          sx={{ whiteSpace: 'pre-wrap', fontSize: '0.8rem' }}
+          sx={{ whiteSpace: 'pre-wrap' }}
         >{`오류: ${error}`}</Typography>
       )}
       {!isLoading && !error && serializedMdx && (

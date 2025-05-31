@@ -12,27 +12,28 @@ function broadcast(data: any, eventName?: string, eventId?: string) {
 
   clients.forEach((controller) => {
     try {
-      // controller.signal.aborted 와 같은 표준 속성으로 미리 확인하는 것은 ReadableStreamDefaultController에 직접 없음
-      // 따라서 enqueue 시도 후 에러로 판단
+      // 각 클라이언트에게 메세지를 전송한다.
       controller.enqueue(messageBytes);
     } catch (e) {
       console.error("Error enqueuing to client (broadcaster), marking for removal:", e);
-      deadControllers.push(controller); // 바로 제거하지 않고, 반복 후 제거
+      // 메세지를 수신하지 않는, error가 발생하는 클라이언트를 모은다.
+      deadControllers.push(controller); 
     }
   });
 
+  // 모든 dead 컨트롤러를 clients Set에서 제거한다. 이후 메세지 요청에 포함되지 않는다.
   deadControllers.forEach(controller => clients.delete(controller));
 }
 
 export const sseBroadcaster = {
   addClient: (controller: ReadableStreamDefaultController) => {
     clients.add(controller);
-    console.log(`[Broadcaster] Client added. Total clients: ${clients.size}`);
+    console.log(`[Broadcaster] 클라이언트 추가, 총 클라이언트 Count: ${clients.size}`);
   },
   removeClient: (controller: ReadableStreamDefaultController) => {
     const isDeleted = clients.delete(controller);
     if (isDeleted) {
-      console.log(`[Broadcaster] Client removed. Total clients: ${clients.size}`);
+      console.log(`[Broadcaster] 클라이언트 제거. 총 클라이언트 Count: ${clients.size}`);
     } else {
       // console.log(`[Broadcaster] Attempted to remove client, but not found. Total clients: ${clients.size}`);
     }

@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     
     return NextResponse.json(
       {
-        error: 'MDX 내용을 처리하는 중 오류가 발생했습니다.',
+        error: 'MDX 내용을 처리하는 중 오류가 발생했습니다.\n\nMDX 문법 오류가 있을 수 있습니다. 닫히지 않은 태그나 잘못된 속성 사용을 확인해 주세요.',
         details: process.env.NODE_ENV === 'development' ? error.message : undefined,
       },
       { status: 500 }
