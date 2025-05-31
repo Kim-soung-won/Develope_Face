@@ -22,6 +22,7 @@
     "@prisma/client": "^6.7.0",
     "autoprefixer": "^10.4.21",
     "framer-motion": "^12.9.7",
+    "highlight.js": "^11.11.1",
     "i18next": "^25.0.2",
     "motion": "^12.9.7",
     "next": "15.3.1",

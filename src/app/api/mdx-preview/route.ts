@@ -13,17 +13,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Markdown 내용은 문자열이어야 합니다.' }, { status: 400 });
     }
 
-    // 🚨 중요: 여기에 실제 블로그 게시물 렌더링 시 사용하는 remark/rehype 플러그인과
-    // 동일한 설정을 적용해야 미리보기와 실제 게시글 스타일이 일치합니다.
     const mdxSource = await serialize(markdown, {
       mdxOptions: {
-        // remarkPlugins: [remarkGfm], // GFM 사용 시
         rehypePlugins: [
-          rehypeHighlight, // 옵션이 필요 없다면 이렇게만 추가
+          rehypeHighlight,
         ],
-        format: 'mdx', // 'mdx' 또는 'md'
+        format: 'mdx', 
       },
-      parseFrontmatter: true, // 에디터에서 프론트매터도 다룰 경우 true로 설정
+      parseFrontmatter: true, 
     });
 
     return NextResponse.json({ mdxSource });

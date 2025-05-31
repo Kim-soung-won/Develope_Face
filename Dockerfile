@@ -18,6 +18,8 @@ WORKDIR /app
 
 # 프로덕션 환경 설정
 ENV NODE_ENV=production
+ENV PORT=7100
+
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/public ./public
 

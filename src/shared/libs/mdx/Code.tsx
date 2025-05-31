@@ -50,10 +50,10 @@ export function Pre({ children }: { children: React.ReactNode }) {
       {React.Children.map(children, (child) =>
         React.isValidElement(child) && child.type === Code
           ? React.cloneElement(child as React.ReactElement<{ sx?: object }>, {
-              sx: {
-                backgroundColor: 'transparent', // Pre 내부에서는 배경색 제거
-              },
-            })
+            sx: { 
+              backgroundColor: 'transparent', // Pre 내부에서는 배경색 제거
+            },
+          })
           : child,
       )}
     </Box>

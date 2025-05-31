@@ -15,11 +15,11 @@ interface MarkdownSyntaxProps {
 export const insertMarkdownSyntax = ({
   type,
   selectedText,
-}:MarkdownSyntaxProps): string => {
-  let prefix = '';
-  let suffix = '';
-  let placeholder = '';
-  let textToInsert = '';
+}: MarkdownSyntaxProps): string => {
+  let prefix = ''
+  let suffix = ''
+  let placeholder = ''
+  let textToInsert = ''
 
   switch (type) {
     case 'bold':

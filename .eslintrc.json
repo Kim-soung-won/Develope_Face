@@ -5,8 +5,7 @@
     "react/jsx-key": "off",
     "react/no-array-index-key": "off",
     "react/prop-types": "off",
-    "@next/next/no-img-element": "off",
-    "indent": ["error", 2],
+    "@next/next/no-img-element": "off"
     // "import/order": ["error", {
     //   "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
     //   "newlines-between": "never",

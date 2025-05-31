@@ -4,10 +4,6 @@ import type { NextConfig } from 'next';
 import rehypeHighlight from 'rehype-highlight';
 import type { Options as RehypePrettyCodeOptions } from 'rehype-pretty-code';
 
-// unified의 Pluggable 타입을 가져옵니다. remark/rehype 플러그인 배열의 요소 타입입니다.
-// 만약 'unified'가 직접적인 의존성이 아니라면, @mdx-js/mdx 나 @types/mdx 등에서 유사한 타입을 찾아 사용하거나,
-// 간단히 [Function, object] | Function 형태로 유추할 수도 있습니다.
-// 보통은 @mdx-js/mdx 가 내부적으로 이 타입을 사용합니다.
 import type { Pluggable } from 'unified';
 
 // rehype-pretty-code에 전달할 옵션을 명시적으로 정의합니다.
