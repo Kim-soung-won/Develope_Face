@@ -6,14 +6,17 @@ import {
   MarkDownFormUI,
   MarkDownPreviewUI,
   MarkdownSyntaxToolbar,
+  MarkdownTitle,
 } from './content' // 이 경로는 네 프로젝트 구조에 맞게 확인
 import { PostQuery } from '@/shared/db/post'
+import { markdownHandleWrite } from './Method'
 
 const MIN_PANEL_WIDTH_PX = 150 // 각 패널의 최소 너비 (픽셀)
 const DIVIDER_WIDTH_PX = 8 // 구분선의 너비 (픽셀)
 
 const MarkdownEditor: React.FC = () => {
   const [markdownInput, setMarkdownInput] = useState<string>('')
+  const [markdownTitle, setMarkdownTitle] = useState<string>('') // 제목 상태 추가
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const theme = useTheme() // 테마 객체 가져오기
 
@@ -90,44 +93,12 @@ const MarkdownEditor: React.FC = () => {
     setMarkdownInput(event.target.value)
   }
 
-  const handleWrite = async () => { // async 키워드 추가
-    // 실제 제목은 상태나 입력 필드에서 가져와야 해. 여기서는 임시값 사용.
-    const postPayload = {
-      title: "새로운 게시글 제목", // TODO: 실제 제목으로 교체
-      markdown_content: markdownInput,
-    };
-
-    // 간단한 클라이언트 측 유효성 검사 (선택 사항)
-    if (!postPayload.title.trim() || !postPayload.markdown_content.trim()) {
-      alert("제목과 내용을 모두 입력해주세요.");
-      return;
-    }
-
-    try {
-      const response = await fetch('/api/posts', { // API 엔드포인트 호출
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(postPayload), // API로 보낼 데이터 (CreatePostEntity 형식)
-      });
-
-      if (!response.ok) {
-        // 서버에서 에러 응답을 보냈을 경우
-        const errorData = await response.json();
-        throw new Error(errorData.message || errorData.error || `HTTP error! status: ${response.status}`);
-      }
-
-      const savedPost = await response.json();
-      console.log('✅ 게시글이 API를 통해 성공적으로 저장되었습니다:', savedPost);
-      alert('게시글이 성공적으로 저장되었습니다!');
-      // TODO: 저장 후 작업 (예: 폼 초기화, 페이지 이동 등)
-
-    } catch (error) {
-      console.error('❌ 클라이언트에서 게시글 저장 중 에러 발생:', error);
-      alert(`게시글 저장에 실패했습니다: ${error instanceof Error ? error.message : String(error)}`);
-    }
-  };
+  const handleWrite = async () => {
+    markdownHandleWrite({
+      title: markdownTitle,
+      content: markdownInput,
+    });
+  } 
 
   const currentLeftPanelWidthStyle =
     leftPanelWidth !== undefined ? `${leftPanelWidth}px` : '50%'
@@ -148,6 +119,7 @@ const MarkdownEditor: React.FC = () => {
         setMarkdownInput={setMarkdownInput}
         handleWrite={handleWrite} // 예시: 버튼 클릭 시 동작
       />
+
       {/* 메인 컨텐츠 영역 (왼쪽 폼 + 구분선 + 오른쪽 미리보기) */}
       <Box
         ref={editorContentRef} // 이 Box의 너비를 기준으로 패널 너비 계산
@@ -174,6 +146,12 @@ const MarkdownEditor: React.FC = () => {
             position: 'relative', // 드래그 중에 z-index 등을 위해 필요할 수 있음
           }}
         >
+          
+          {/* 제목 영역 */}
+          <MarkdownTitle 
+            title={markdownTitle}
+            onTitleChange={setMarkdownTitle} // 제목 변경 핸들러
+          />
           <MarkDownFormUI
             textareaRef={textareaRef}
             text={markdownInput}
@@ -217,7 +195,7 @@ const MarkdownEditor: React.FC = () => {
             overflow: 'hidden', // 이 Box 자체가 스크롤되지 않도록
           }}
         >
-          <MarkDownPreviewUI markdownInput={markdownInput} />
+          <MarkDownPreviewUI title={markdownTitle} markdownInput={markdownInput} />
         </Box>
       </Box>
     </Box>

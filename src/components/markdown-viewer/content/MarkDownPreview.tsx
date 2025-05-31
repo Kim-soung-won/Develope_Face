@@ -10,10 +10,12 @@ import { useCallback, useEffect, useState } from 'react'
 import { useMDXComponents } from '../../../../mdx-component'
 
 interface MarkDownPreviewUIProps {
+  title: string
   markdownInput: string
 }
 
 export const MarkDownPreviewUI = ({
+  title,
   markdownInput,
 }: MarkDownPreviewUIProps) => {
   const [serializedMdx, setSerializedMdx] =
@@ -25,21 +27,26 @@ export const MarkDownPreviewUI = ({
   const mdxComponents = useMDXComponents({})
 
   // MDX 파싱 및 렌더링을 위한 API 호출 함수
-  const fetchAndSetMdx = useCallback(async (mdText: string) => {
+  const fetchAndSetMdx = useCallback(async (currentTitle: string, mdText: string) => {
+    const combinedMarkdown = currentTitle.trim()
+      ? `# ${currentTitle.trim()}\n\n${mdText}`
+      : mdText;
+    
+    setIsLoading(true)
+    setError(null)
+
     if (!mdText.trim()) {
       setSerializedMdx(null)
       setError(null)
       setIsLoading(false)
       return
     }
-    setIsLoading(true)
-    setError(null)
     try {
       const response = await fetch('/api/mdx-preview', {
         // 1번에서 만든 API 라우트
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ markdown: mdText }),
+        body: JSON.stringify({ markdown: combinedMarkdown }),
       })
 
       if (!response.ok) {
@@ -65,7 +72,7 @@ export const MarkDownPreviewUI = ({
   // 입력 값 변경 시 디바운싱으로 API 호출
   useEffect(() => {
     const handler = setTimeout(() => {
-      fetchAndSetMdx(markdownInput)
+      fetchAndSetMdx(title,markdownInput)
     }, 500) // 500ms 디바운스
     return () => clearTimeout(handler)
   }, [markdownInput, fetchAndSetMdx])

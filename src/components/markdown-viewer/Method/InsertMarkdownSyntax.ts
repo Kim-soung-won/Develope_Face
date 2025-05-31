@@ -1,7 +1,7 @@
 export type MarkdownInput =
   | 'bold'
   | 'italic'
-  | 'h1'
+  | 'h3'
   | 'link'
   | 'quote'
   | 'codeblock'
@@ -32,10 +32,10 @@ export const insertMarkdownSyntax = ({
       suffix = '*'
       placeholder = '기울인 텍스트'
       break
-    case 'h1':
-      prefix = '\n# '
+    case 'h3':
+      prefix = '\n### '
       suffix = '\n'
-      placeholder = '제목 1'
+      placeholder = '제목 텍스트'
       break
     case 'link':
       prefix = '['

@@ -87,8 +87,8 @@ export const MarkdownSyntaxToolbar = ({
         />
         <IconButton
           size="small"
-          onClick={() => clickToolbarType('h1')}
-          title="제목1"
+          onClick={() => clickToolbarType('h3')}
+          title="제목"
         >
           <LooksOneIcon />
         </IconButton>
