@@ -1,7 +1,6 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
 import type { Metadata } from 'next'
 import './globals.css'
-import 'highlight.js/styles/github-dark.css'
 import { DefaultProviders } from '@/components/providers'
 import { TopMenuBar } from '@/layout/topbar'
 import { TopNotificationBanner } from '@/shared/ui/Bar'

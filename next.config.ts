@@ -38,6 +38,7 @@ const withMDX = nextMDX({
 
 const config: NextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+  output: 'standalone',
   // 여기에 다른 Next.js 설정을 추가할 수 있습니다.
 };
 
