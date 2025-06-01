@@ -75,7 +75,7 @@ export const MarkDownPreviewUI = ({
       fetchAndSetMdx(title,markdownInput)
     }, 500) // 500ms 디바운스
     return () => clearTimeout(handler)
-  }, [markdownInput, fetchAndSetMdx])
+  }, [markdownInput, fetchAndSetMdx, title])
 
   return (
     <Paper

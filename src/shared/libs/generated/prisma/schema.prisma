@@ -19,5 +19,23 @@ model Post {
   markdown_content String
   created_at       DateTime @default(now())
 
+  images PostImages[]
+
   @@map("post") // 실제 DB 테이블명이 post임을 명시
+}
+
+model PostImages {
+  id                BigInt   @id @default(autoincrement())
+  post_id           BigInt
+  image_url         String   @unique // Supabase Storage의 공개 URL 
+  storage_file_path String   @unique // Storage 내 실제 파일 경로 
+  alt_text          String?
+  file_name         String?
+  mime_type         String?
+  size_kb           Int?
+  created_at        DateTime @default(now())
+
+  post Post @relation(fields: [post_id], references: [post_id], onDelete: Cascade)
+
+  @@map("post_images") // 실제 DB 테이블명이 post_images임을 명시
 }

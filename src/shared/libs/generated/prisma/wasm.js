@@ -127,6 +127,18 @@ exports.Prisma.PostScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.PostImagesScalarFieldEnum = {
+  id: 'id',
+  post_id: 'post_id',
+  image_url: 'image_url',
+  storage_file_path: 'storage_file_path',
+  alt_text: 'alt_text',
+  file_name: 'file_name',
+  mime_type: 'mime_type',
+  size_kb: 'size_kb',
+  created_at: 'created_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -137,9 +149,15 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 
 exports.Prisma.ModelName = {
-  Post: 'Post'
+  Post: 'Post',
+  PostImages: 'PostImages'
 };
 
 /**

@@ -19,8 +19,9 @@ export function ScrollAnimation() {
         top: 0,
         left: 0,
         right: 0,
-        height: 10,
+        height: 20,
         originX: 0,
+        marginTop: 60,
         backgroundColor: "#ff0088",
       }}
     />

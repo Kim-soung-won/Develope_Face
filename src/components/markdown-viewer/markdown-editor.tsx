@@ -8,8 +8,8 @@ import {
   MarkdownSyntaxToolbar,
   MarkdownTitle,
 } from './content' // 이 경로는 네 프로젝트 구조에 맞게 확인
-import { PostQuery } from '@/shared/db/post'
-import { markdownHandleWrite } from './Method'
+import { insertImageMarkdown, markdownHandleWrite } from './Method'
+import { handleImageUpload } from '@/shared/utils'
 
 const MIN_PANEL_WIDTH_PX = 150 // 각 패널의 최소 너비 (픽셀)
 const DIVIDER_WIDTH_PX = 8 // 구분선의 너비 (픽셀)
@@ -103,6 +103,94 @@ const MarkdownEditor: React.FC = () => {
   const currentLeftPanelWidthStyle =
     leftPanelWidth !== undefined ? `${leftPanelWidth}px` : '50%'
 
+  const insertImageMarkdownHandler = useCallback((imageUrl: string, altText: string) => {
+    insertImageMarkdown({
+      imageUrl,
+      altText,
+      textareaRef,
+      setMarkdownInput,
+    })
+    
+  }, [textareaRef, setMarkdownInput]);
+
+  const handleImageUploadMarkdown = useCallback(async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+
+    handleImageUpload({
+      event: event,
+      insertImage: insertImageMarkdownHandler,
+    })
+  }, [insertImageMarkdownHandler]);
+  
+  useEffect(() => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    const handlePaste = (event: ClipboardEvent) => {
+      const items = event.clipboardData?.items;
+      if (!items) return;
+
+      let pastedFile: File | null = null;
+
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        if (item.kind === 'file' && item.type.startsWith('image/')) {
+          pastedFile = item.getAsFile(); 
+          if (pastedFile) {
+            event.preventDefault(); 
+            break; 
+          }
+        }
+      }
+
+      if (pastedFile) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const originalBase64Url = reader.result as string;
+          const img = new Image();
+          img.onload = () => {
+            const MAX_WIDTH = 800;
+            let newWidth = img.width;
+            let newHeight = img.height;
+            if (newWidth > MAX_WIDTH) {
+              const ratio = MAX_WIDTH / newWidth;
+              newWidth = MAX_WIDTH;
+              newHeight = newHeight * ratio;
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = newWidth;
+            canvas.height = newHeight;
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+              ctx.drawImage(img, 0, 0, newWidth, newHeight);
+              const quality = pastedFile!.type === 'image/jpeg' || pastedFile!.type === 'image/webp' ? 0.9 : 1.0;
+              const resizedBase64Url = canvas.toDataURL(pastedFile!.type, quality);
+              insertImageMarkdownHandler(resizedBase64Url, pastedFile!.name || 'pasted-image');
+            } else {
+              insertImageMarkdownHandler(originalBase64Url, pastedFile!.name || 'pasted-image');
+            }
+          };
+          img.onerror = () => {
+            insertImageMarkdownHandler(originalBase64Url, pastedFile!.name || 'pasted-image');
+          };
+          img.src = originalBase64Url;
+        };
+        reader.onerror = () => {
+          alert('붙여넣은 이미지를 처리하는 중 오류가 발생했습니다.');
+        };
+        reader.readAsDataURL(pastedFile);
+      }
+    };
+
+    textarea.addEventListener('paste', handlePaste);
+
+    return () => {
+      textarea.removeEventListener('paste', handlePaste); 
+    };
+  }, [textareaRef, insertImageMarkdownHandler]); 
+
+
   return (
     <Box // 전체 에디터 영역을 감싸는 최상위 Box
       sx={{
@@ -118,6 +206,7 @@ const MarkdownEditor: React.FC = () => {
         markdownInput={markdownInput}
         setMarkdownInput={setMarkdownInput}
         handleWrite={handleWrite} // 예시: 버튼 클릭 시 동작
+        onImageUpload={handleImageUploadMarkdown} // 이미지 업로드 핸들러
       />
 
       {/* 메인 컨텐츠 영역 (왼쪽 폼 + 구분선 + 오른쪽 미리보기) */}
@@ -134,11 +223,9 @@ const MarkdownEditor: React.FC = () => {
         {/* 왼쪽: 마크다운 입력창 패널 */}
         <Box
           sx={{
-            // md 이상일 때만 너비 동적 조절, xs일 때는 100% 너비
             width: { xs: '100%', md: currentLeftPanelWidthStyle },
             height: { xs: 'auto', md: '100%' }, // xs일 때 auto로 하거나 50% 등으로 조절 가능
-            // md일 때는 부모 높이 100%
-            flexShrink: 0, // 왼쪽 패널 너비 고정 (줄어들지 않도록)
+            flexShrink: 0, 
             display: 'flex',
             flexDirection: 'column',
             minWidth: { xs: 'none', md: `${MIN_PANEL_WIDTH_PX}px` }, // md 이상에서 최소 너비

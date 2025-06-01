@@ -1,9 +1,10 @@
-import { Button, Typography } from '@mui/material'
-import { TopMenuBar } from '@/layout/topbar'
-import { PostQuery } from '@/shared/db/post'
+import { Typography } from '@mui/material'
+import { ScrollAnimation } from '@/shared/ui'
 
 export default async function Home() {
   return (
+    <>
+      <ScrollAnimation />
       <Typography
         variant="h1"
         sx={{
@@ -12,5 +13,6 @@ export default async function Home() {
       >
         hello
       </Typography>
+    </>
   )
 }

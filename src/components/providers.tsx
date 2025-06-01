@@ -1,6 +1,5 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { ScrollAnimation } from '@/shared/ui'
 import { I18nProvider } from './provider/i18nProviderWrapper'
 import { ThemeProviderWrapper } from './provider/ThemeProviderWrapper'
 
@@ -23,7 +22,6 @@ export function DefaultProviders({
   return (
     <ThemeProviderWrapper>
       <I18nProvider>
-        <ScrollAnimation />
         {children}
       </I18nProvider>
     </ThemeProviderWrapper>

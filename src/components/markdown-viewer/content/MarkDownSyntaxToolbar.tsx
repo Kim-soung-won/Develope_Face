@@ -8,6 +8,8 @@ import CodeIcon from '@mui/icons-material/Code' // 코드블록용 아이콘 예
 import CampaignIcon from '@mui/icons-material/Campaign'
 import CreateIcon from '@mui/icons-material/Create'; // 쓰기 아이콘 예시 (원하는 아이콘으로 변경 가능)
 import { insertMarkdownSyntax, MarkdownInput } from '../Method'
+import ImageIcon from '@mui/icons-material/Image'; 
+import { useRef } from 'react'
 
 
 /**
@@ -21,6 +23,7 @@ interface MarkdownSyntaxProps {
   markdownInput: string
   setMarkdownInput: React.Dispatch<React.SetStateAction<string>>
   handleWrite: () => void
+  onImageUpload: (event: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
 }
 
 export const MarkdownSyntaxToolbar = ({
@@ -28,6 +31,7 @@ export const MarkdownSyntaxToolbar = ({
   markdownInput,
   setMarkdownInput,
   handleWrite,
+  onImageUpload, 
 }: MarkdownSyntaxProps) => {
   const clickToolbarType = (type: MarkdownInput) => {
     if (!textareaRef.current) return
@@ -51,6 +55,14 @@ export const MarkdownSyntaxToolbar = ({
     // 정확한 커서 위치 계산은 textToInsert의 실제 길이에 따라 달라짐
     // setTimeout(() => textarea.setSelectionRange(start + prefix.length, start + prefix.length + (selectedText ? selectedText.length : placeholder.length)), 0);
   }
+
+    // ⭐ 숨겨진 file input을 위한 ref
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // ⭐ 이미지 아이콘 클릭 시 숨겨진 file input 클릭
+  const handleImageButtonClick = () => {
+    fileInputRef.current?.click();
+  };
 
   return (
     <Paper elevation={1} sx={{ p: 1, mb: 1, flexShrink: 0 }}>
@@ -118,6 +130,30 @@ export const MarkdownSyntaxToolbar = ({
         >
           <CodeIcon />
         </IconButton>
+
+ {/* ⭐ 이미지 첨부 버튼 추가 */}
+          <Divider
+            orientation="vertical"
+            flexItem
+            sx={{ mx: { xs: 0.2, sm: 0.5 } }}
+          />
+          <IconButton
+            size="small"
+            onClick={handleImageButtonClick} // ⭐ 이미지 버튼 클릭 핸들러
+            title="이미지 첨부"
+          >
+            <ImageIcon />
+          </IconButton>
+          {/* ⭐ 숨겨진 파일 입력 필드 */}
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={onImageUpload} // ⭐ 파일 선택 시 업로드 함수 호출
+            accept="image/*"
+            style={{ display: 'none' }}
+          />
+          {/* ⭐ 여기까지 이미지 첨부 버튼 */}
+
         <Divider
           orientation="vertical"
           flexItem

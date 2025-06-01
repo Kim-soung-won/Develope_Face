@@ -18,6 +18,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type Post = $Result.DefaultSelection<Prisma.$PostPayload>
+/**
+ * Model PostImages
+ * 
+ */
+export type PostImages = $Result.DefaultSelection<Prisma.$PostImagesPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -153,6 +158,16 @@ export class PrismaClient<
     * ```
     */
   get post(): Prisma.PostDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.postImages`: Exposes CRUD operations for the **PostImages** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PostImages
+    * const postImages = await prisma.postImages.findMany()
+    * ```
+    */
+  get postImages(): Prisma.PostImagesDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -593,7 +608,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    Post: 'Post'
+    Post: 'Post',
+    PostImages: 'PostImages'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -612,7 +628,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "post"
+      modelProps: "post" | "postImages"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -687,6 +703,80 @@ export namespace Prisma {
           count: {
             args: Prisma.PostCountArgs<ExtArgs>
             result: $Utils.Optional<PostCountAggregateOutputType> | number
+          }
+        }
+      }
+      PostImages: {
+        payload: Prisma.$PostImagesPayload<ExtArgs>
+        fields: Prisma.PostImagesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PostImagesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PostImagesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagesPayload>
+          }
+          findFirst: {
+            args: Prisma.PostImagesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PostImagesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagesPayload>
+          }
+          findMany: {
+            args: Prisma.PostImagesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagesPayload>[]
+          }
+          create: {
+            args: Prisma.PostImagesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagesPayload>
+          }
+          createMany: {
+            args: Prisma.PostImagesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PostImagesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagesPayload>[]
+          }
+          delete: {
+            args: Prisma.PostImagesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagesPayload>
+          }
+          update: {
+            args: Prisma.PostImagesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagesPayload>
+          }
+          deleteMany: {
+            args: Prisma.PostImagesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PostImagesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PostImagesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagesPayload>[]
+          }
+          upsert: {
+            args: Prisma.PostImagesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagesPayload>
+          }
+          aggregate: {
+            args: Prisma.PostImagesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePostImages>
+          }
+          groupBy: {
+            args: Prisma.PostImagesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PostImagesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PostImagesCountArgs<ExtArgs>
+            result: $Utils.Optional<PostImagesCountAggregateOutputType> | number
           }
         }
       }
@@ -775,6 +865,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     post?: PostOmit
+    postImages?: PostImagesOmit
   }
 
   /* Types for Logging */
@@ -863,6 +954,36 @@ export namespace Prisma {
    * Count Types
    */
 
+
+  /**
+   * Count Type PostCountOutputType
+   */
+
+  export type PostCountOutputType = {
+    images: number
+  }
+
+  export type PostCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    images?: boolean | PostCountOutputTypeCountImagesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostCountOutputType
+     */
+    select?: PostCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeCountImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostImagesWhereInput
+  }
 
 
   /**
@@ -1059,6 +1180,8 @@ export namespace Prisma {
     title?: boolean
     markdown_content?: boolean
     created_at?: boolean
+    images?: boolean | Post$imagesArgs<ExtArgs>
+    _count?: boolean | PostCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["post"]>
 
   export type PostSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1083,10 +1206,18 @@ export namespace Prisma {
   }
 
   export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"post_id" | "title" | "markdown_content" | "created_at", ExtArgs["result"]["post"]>
+  export type PostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    images?: boolean | Post$imagesArgs<ExtArgs>
+    _count?: boolean | PostCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PostIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type PostIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $PostPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Post"
-    objects: {}
+    objects: {
+      images: Prisma.$PostImagesPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       post_id: bigint
       title: string
@@ -1486,6 +1617,7 @@ export namespace Prisma {
    */
   export interface Prisma__PostClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    images<T extends Post$imagesArgs<ExtArgs> = {}>(args?: Subset<T, Post$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostImagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1536,6 +1668,10 @@ export namespace Prisma {
      */
     omit?: PostOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
      * Filter, which Post to fetch.
      */
     where: PostWhereUniqueInput
@@ -1554,6 +1690,10 @@ export namespace Prisma {
      */
     omit?: PostOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
      * Filter, which Post to fetch.
      */
     where: PostWhereUniqueInput
@@ -1571,6 +1711,10 @@ export namespace Prisma {
      * Omit specific fields from the Post
      */
     omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
     /**
      * Filter, which Post to fetch.
      */
@@ -1620,6 +1764,10 @@ export namespace Prisma {
      */
     omit?: PostOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
      * Filter, which Post to fetch.
      */
     where?: PostWhereInput
@@ -1668,6 +1816,10 @@ export namespace Prisma {
      */
     omit?: PostOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
      * Filter, which Posts to fetch.
      */
     where?: PostWhereInput
@@ -1710,6 +1862,10 @@ export namespace Prisma {
      * Omit specific fields from the Post
      */
     omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
     /**
      * The data needed to create a Post.
      */
@@ -1758,6 +1914,10 @@ export namespace Prisma {
      * Omit specific fields from the Post
      */
     omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
     /**
      * The data needed to update a Post.
      */
@@ -1825,6 +1985,10 @@ export namespace Prisma {
      */
     omit?: PostOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
      * The filter to search for the Post to update in case it exists.
      */
     where: PostWhereUniqueInput
@@ -1851,6 +2015,10 @@ export namespace Prisma {
      */
     omit?: PostOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
      * Filter which Post to delete.
      */
     where: PostWhereUniqueInput
@@ -1871,6 +2039,30 @@ export namespace Prisma {
   }
 
   /**
+   * Post.images
+   */
+  export type Post$imagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImages
+     */
+    select?: PostImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImages
+     */
+    omit?: PostImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImagesInclude<ExtArgs> | null
+    where?: PostImagesWhereInput
+    orderBy?: PostImagesOrderByWithRelationInput | PostImagesOrderByWithRelationInput[]
+    cursor?: PostImagesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostImagesScalarFieldEnum | PostImagesScalarFieldEnum[]
+  }
+
+  /**
    * Post without action
    */
   export type PostDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1882,6 +2074,1162 @@ export namespace Prisma {
      * Omit specific fields from the Post
      */
     omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PostImages
+   */
+
+  export type AggregatePostImages = {
+    _count: PostImagesCountAggregateOutputType | null
+    _avg: PostImagesAvgAggregateOutputType | null
+    _sum: PostImagesSumAggregateOutputType | null
+    _min: PostImagesMinAggregateOutputType | null
+    _max: PostImagesMaxAggregateOutputType | null
+  }
+
+  export type PostImagesAvgAggregateOutputType = {
+    id: number | null
+    post_id: number | null
+    size_kb: number | null
+  }
+
+  export type PostImagesSumAggregateOutputType = {
+    id: bigint | null
+    post_id: bigint | null
+    size_kb: number | null
+  }
+
+  export type PostImagesMinAggregateOutputType = {
+    id: bigint | null
+    post_id: bigint | null
+    image_url: string | null
+    storage_file_path: string | null
+    alt_text: string | null
+    file_name: string | null
+    mime_type: string | null
+    size_kb: number | null
+    created_at: Date | null
+  }
+
+  export type PostImagesMaxAggregateOutputType = {
+    id: bigint | null
+    post_id: bigint | null
+    image_url: string | null
+    storage_file_path: string | null
+    alt_text: string | null
+    file_name: string | null
+    mime_type: string | null
+    size_kb: number | null
+    created_at: Date | null
+  }
+
+  export type PostImagesCountAggregateOutputType = {
+    id: number
+    post_id: number
+    image_url: number
+    storage_file_path: number
+    alt_text: number
+    file_name: number
+    mime_type: number
+    size_kb: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type PostImagesAvgAggregateInputType = {
+    id?: true
+    post_id?: true
+    size_kb?: true
+  }
+
+  export type PostImagesSumAggregateInputType = {
+    id?: true
+    post_id?: true
+    size_kb?: true
+  }
+
+  export type PostImagesMinAggregateInputType = {
+    id?: true
+    post_id?: true
+    image_url?: true
+    storage_file_path?: true
+    alt_text?: true
+    file_name?: true
+    mime_type?: true
+    size_kb?: true
+    created_at?: true
+  }
+
+  export type PostImagesMaxAggregateInputType = {
+    id?: true
+    post_id?: true
+    image_url?: true
+    storage_file_path?: true
+    alt_text?: true
+    file_name?: true
+    mime_type?: true
+    size_kb?: true
+    created_at?: true
+  }
+
+  export type PostImagesCountAggregateInputType = {
+    id?: true
+    post_id?: true
+    image_url?: true
+    storage_file_path?: true
+    alt_text?: true
+    file_name?: true
+    mime_type?: true
+    size_kb?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type PostImagesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PostImages to aggregate.
+     */
+    where?: PostImagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostImages to fetch.
+     */
+    orderBy?: PostImagesOrderByWithRelationInput | PostImagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PostImagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostImages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostImages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PostImages
+    **/
+    _count?: true | PostImagesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PostImagesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PostImagesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PostImagesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PostImagesMaxAggregateInputType
+  }
+
+  export type GetPostImagesAggregateType<T extends PostImagesAggregateArgs> = {
+        [P in keyof T & keyof AggregatePostImages]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePostImages[P]>
+      : GetScalarType<T[P], AggregatePostImages[P]>
+  }
+
+
+
+
+  export type PostImagesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostImagesWhereInput
+    orderBy?: PostImagesOrderByWithAggregationInput | PostImagesOrderByWithAggregationInput[]
+    by: PostImagesScalarFieldEnum[] | PostImagesScalarFieldEnum
+    having?: PostImagesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PostImagesCountAggregateInputType | true
+    _avg?: PostImagesAvgAggregateInputType
+    _sum?: PostImagesSumAggregateInputType
+    _min?: PostImagesMinAggregateInputType
+    _max?: PostImagesMaxAggregateInputType
+  }
+
+  export type PostImagesGroupByOutputType = {
+    id: bigint
+    post_id: bigint
+    image_url: string
+    storage_file_path: string
+    alt_text: string | null
+    file_name: string | null
+    mime_type: string | null
+    size_kb: number | null
+    created_at: Date
+    _count: PostImagesCountAggregateOutputType | null
+    _avg: PostImagesAvgAggregateOutputType | null
+    _sum: PostImagesSumAggregateOutputType | null
+    _min: PostImagesMinAggregateOutputType | null
+    _max: PostImagesMaxAggregateOutputType | null
+  }
+
+  type GetPostImagesGroupByPayload<T extends PostImagesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PostImagesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PostImagesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PostImagesGroupByOutputType[P]>
+            : GetScalarType<T[P], PostImagesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PostImagesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    post_id?: boolean
+    image_url?: boolean
+    storage_file_path?: boolean
+    alt_text?: boolean
+    file_name?: boolean
+    mime_type?: boolean
+    size_kb?: boolean
+    created_at?: boolean
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["postImages"]>
+
+  export type PostImagesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    post_id?: boolean
+    image_url?: boolean
+    storage_file_path?: boolean
+    alt_text?: boolean
+    file_name?: boolean
+    mime_type?: boolean
+    size_kb?: boolean
+    created_at?: boolean
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["postImages"]>
+
+  export type PostImagesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    post_id?: boolean
+    image_url?: boolean
+    storage_file_path?: boolean
+    alt_text?: boolean
+    file_name?: boolean
+    mime_type?: boolean
+    size_kb?: boolean
+    created_at?: boolean
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["postImages"]>
+
+  export type PostImagesSelectScalar = {
+    id?: boolean
+    post_id?: boolean
+    image_url?: boolean
+    storage_file_path?: boolean
+    alt_text?: boolean
+    file_name?: boolean
+    mime_type?: boolean
+    size_kb?: boolean
+    created_at?: boolean
+  }
+
+  export type PostImagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "post_id" | "image_url" | "storage_file_path" | "alt_text" | "file_name" | "mime_type" | "size_kb" | "created_at", ExtArgs["result"]["postImages"]>
+  export type PostImagesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }
+  export type PostImagesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }
+  export type PostImagesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }
+
+  export type $PostImagesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PostImages"
+    objects: {
+      post: Prisma.$PostPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      post_id: bigint
+      image_url: string
+      storage_file_path: string
+      alt_text: string | null
+      file_name: string | null
+      mime_type: string | null
+      size_kb: number | null
+      created_at: Date
+    }, ExtArgs["result"]["postImages"]>
+    composites: {}
+  }
+
+  type PostImagesGetPayload<S extends boolean | null | undefined | PostImagesDefaultArgs> = $Result.GetResult<Prisma.$PostImagesPayload, S>
+
+  type PostImagesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PostImagesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PostImagesCountAggregateInputType | true
+    }
+
+  export interface PostImagesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PostImages'], meta: { name: 'PostImages' } }
+    /**
+     * Find zero or one PostImages that matches the filter.
+     * @param {PostImagesFindUniqueArgs} args - Arguments to find a PostImages
+     * @example
+     * // Get one PostImages
+     * const postImages = await prisma.postImages.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PostImagesFindUniqueArgs>(args: SelectSubset<T, PostImagesFindUniqueArgs<ExtArgs>>): Prisma__PostImagesClient<$Result.GetResult<Prisma.$PostImagesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PostImages that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PostImagesFindUniqueOrThrowArgs} args - Arguments to find a PostImages
+     * @example
+     * // Get one PostImages
+     * const postImages = await prisma.postImages.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PostImagesFindUniqueOrThrowArgs>(args: SelectSubset<T, PostImagesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PostImagesClient<$Result.GetResult<Prisma.$PostImagesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PostImages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostImagesFindFirstArgs} args - Arguments to find a PostImages
+     * @example
+     * // Get one PostImages
+     * const postImages = await prisma.postImages.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PostImagesFindFirstArgs>(args?: SelectSubset<T, PostImagesFindFirstArgs<ExtArgs>>): Prisma__PostImagesClient<$Result.GetResult<Prisma.$PostImagesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PostImages that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostImagesFindFirstOrThrowArgs} args - Arguments to find a PostImages
+     * @example
+     * // Get one PostImages
+     * const postImages = await prisma.postImages.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PostImagesFindFirstOrThrowArgs>(args?: SelectSubset<T, PostImagesFindFirstOrThrowArgs<ExtArgs>>): Prisma__PostImagesClient<$Result.GetResult<Prisma.$PostImagesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PostImages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostImagesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PostImages
+     * const postImages = await prisma.postImages.findMany()
+     * 
+     * // Get first 10 PostImages
+     * const postImages = await prisma.postImages.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const postImagesWithIdOnly = await prisma.postImages.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PostImagesFindManyArgs>(args?: SelectSubset<T, PostImagesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostImagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PostImages.
+     * @param {PostImagesCreateArgs} args - Arguments to create a PostImages.
+     * @example
+     * // Create one PostImages
+     * const PostImages = await prisma.postImages.create({
+     *   data: {
+     *     // ... data to create a PostImages
+     *   }
+     * })
+     * 
+     */
+    create<T extends PostImagesCreateArgs>(args: SelectSubset<T, PostImagesCreateArgs<ExtArgs>>): Prisma__PostImagesClient<$Result.GetResult<Prisma.$PostImagesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PostImages.
+     * @param {PostImagesCreateManyArgs} args - Arguments to create many PostImages.
+     * @example
+     * // Create many PostImages
+     * const postImages = await prisma.postImages.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PostImagesCreateManyArgs>(args?: SelectSubset<T, PostImagesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PostImages and returns the data saved in the database.
+     * @param {PostImagesCreateManyAndReturnArgs} args - Arguments to create many PostImages.
+     * @example
+     * // Create many PostImages
+     * const postImages = await prisma.postImages.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PostImages and only return the `id`
+     * const postImagesWithIdOnly = await prisma.postImages.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PostImagesCreateManyAndReturnArgs>(args?: SelectSubset<T, PostImagesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostImagesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PostImages.
+     * @param {PostImagesDeleteArgs} args - Arguments to delete one PostImages.
+     * @example
+     * // Delete one PostImages
+     * const PostImages = await prisma.postImages.delete({
+     *   where: {
+     *     // ... filter to delete one PostImages
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PostImagesDeleteArgs>(args: SelectSubset<T, PostImagesDeleteArgs<ExtArgs>>): Prisma__PostImagesClient<$Result.GetResult<Prisma.$PostImagesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PostImages.
+     * @param {PostImagesUpdateArgs} args - Arguments to update one PostImages.
+     * @example
+     * // Update one PostImages
+     * const postImages = await prisma.postImages.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PostImagesUpdateArgs>(args: SelectSubset<T, PostImagesUpdateArgs<ExtArgs>>): Prisma__PostImagesClient<$Result.GetResult<Prisma.$PostImagesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PostImages.
+     * @param {PostImagesDeleteManyArgs} args - Arguments to filter PostImages to delete.
+     * @example
+     * // Delete a few PostImages
+     * const { count } = await prisma.postImages.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PostImagesDeleteManyArgs>(args?: SelectSubset<T, PostImagesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PostImages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostImagesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PostImages
+     * const postImages = await prisma.postImages.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PostImagesUpdateManyArgs>(args: SelectSubset<T, PostImagesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PostImages and returns the data updated in the database.
+     * @param {PostImagesUpdateManyAndReturnArgs} args - Arguments to update many PostImages.
+     * @example
+     * // Update many PostImages
+     * const postImages = await prisma.postImages.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PostImages and only return the `id`
+     * const postImagesWithIdOnly = await prisma.postImages.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PostImagesUpdateManyAndReturnArgs>(args: SelectSubset<T, PostImagesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostImagesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PostImages.
+     * @param {PostImagesUpsertArgs} args - Arguments to update or create a PostImages.
+     * @example
+     * // Update or create a PostImages
+     * const postImages = await prisma.postImages.upsert({
+     *   create: {
+     *     // ... data to create a PostImages
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PostImages we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PostImagesUpsertArgs>(args: SelectSubset<T, PostImagesUpsertArgs<ExtArgs>>): Prisma__PostImagesClient<$Result.GetResult<Prisma.$PostImagesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PostImages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostImagesCountArgs} args - Arguments to filter PostImages to count.
+     * @example
+     * // Count the number of PostImages
+     * const count = await prisma.postImages.count({
+     *   where: {
+     *     // ... the filter for the PostImages we want to count
+     *   }
+     * })
+    **/
+    count<T extends PostImagesCountArgs>(
+      args?: Subset<T, PostImagesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PostImagesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PostImages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostImagesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PostImagesAggregateArgs>(args: Subset<T, PostImagesAggregateArgs>): Prisma.PrismaPromise<GetPostImagesAggregateType<T>>
+
+    /**
+     * Group by PostImages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostImagesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PostImagesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PostImagesGroupByArgs['orderBy'] }
+        : { orderBy?: PostImagesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PostImagesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPostImagesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PostImages model
+   */
+  readonly fields: PostImagesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PostImages.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PostImagesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    post<T extends PostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PostDefaultArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PostImages model
+   */
+  interface PostImagesFieldRefs {
+    readonly id: FieldRef<"PostImages", 'BigInt'>
+    readonly post_id: FieldRef<"PostImages", 'BigInt'>
+    readonly image_url: FieldRef<"PostImages", 'String'>
+    readonly storage_file_path: FieldRef<"PostImages", 'String'>
+    readonly alt_text: FieldRef<"PostImages", 'String'>
+    readonly file_name: FieldRef<"PostImages", 'String'>
+    readonly mime_type: FieldRef<"PostImages", 'String'>
+    readonly size_kb: FieldRef<"PostImages", 'Int'>
+    readonly created_at: FieldRef<"PostImages", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PostImages findUnique
+   */
+  export type PostImagesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImages
+     */
+    select?: PostImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImages
+     */
+    omit?: PostImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImagesInclude<ExtArgs> | null
+    /**
+     * Filter, which PostImages to fetch.
+     */
+    where: PostImagesWhereUniqueInput
+  }
+
+  /**
+   * PostImages findUniqueOrThrow
+   */
+  export type PostImagesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImages
+     */
+    select?: PostImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImages
+     */
+    omit?: PostImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImagesInclude<ExtArgs> | null
+    /**
+     * Filter, which PostImages to fetch.
+     */
+    where: PostImagesWhereUniqueInput
+  }
+
+  /**
+   * PostImages findFirst
+   */
+  export type PostImagesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImages
+     */
+    select?: PostImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImages
+     */
+    omit?: PostImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImagesInclude<ExtArgs> | null
+    /**
+     * Filter, which PostImages to fetch.
+     */
+    where?: PostImagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostImages to fetch.
+     */
+    orderBy?: PostImagesOrderByWithRelationInput | PostImagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PostImages.
+     */
+    cursor?: PostImagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostImages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostImages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PostImages.
+     */
+    distinct?: PostImagesScalarFieldEnum | PostImagesScalarFieldEnum[]
+  }
+
+  /**
+   * PostImages findFirstOrThrow
+   */
+  export type PostImagesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImages
+     */
+    select?: PostImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImages
+     */
+    omit?: PostImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImagesInclude<ExtArgs> | null
+    /**
+     * Filter, which PostImages to fetch.
+     */
+    where?: PostImagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostImages to fetch.
+     */
+    orderBy?: PostImagesOrderByWithRelationInput | PostImagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PostImages.
+     */
+    cursor?: PostImagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostImages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostImages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PostImages.
+     */
+    distinct?: PostImagesScalarFieldEnum | PostImagesScalarFieldEnum[]
+  }
+
+  /**
+   * PostImages findMany
+   */
+  export type PostImagesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImages
+     */
+    select?: PostImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImages
+     */
+    omit?: PostImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImagesInclude<ExtArgs> | null
+    /**
+     * Filter, which PostImages to fetch.
+     */
+    where?: PostImagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostImages to fetch.
+     */
+    orderBy?: PostImagesOrderByWithRelationInput | PostImagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PostImages.
+     */
+    cursor?: PostImagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostImages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostImages.
+     */
+    skip?: number
+    distinct?: PostImagesScalarFieldEnum | PostImagesScalarFieldEnum[]
+  }
+
+  /**
+   * PostImages create
+   */
+  export type PostImagesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImages
+     */
+    select?: PostImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImages
+     */
+    omit?: PostImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImagesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PostImages.
+     */
+    data: XOR<PostImagesCreateInput, PostImagesUncheckedCreateInput>
+  }
+
+  /**
+   * PostImages createMany
+   */
+  export type PostImagesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PostImages.
+     */
+    data: PostImagesCreateManyInput | PostImagesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PostImages createManyAndReturn
+   */
+  export type PostImagesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImages
+     */
+    select?: PostImagesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImages
+     */
+    omit?: PostImagesOmit<ExtArgs> | null
+    /**
+     * The data used to create many PostImages.
+     */
+    data: PostImagesCreateManyInput | PostImagesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImagesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PostImages update
+   */
+  export type PostImagesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImages
+     */
+    select?: PostImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImages
+     */
+    omit?: PostImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImagesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PostImages.
+     */
+    data: XOR<PostImagesUpdateInput, PostImagesUncheckedUpdateInput>
+    /**
+     * Choose, which PostImages to update.
+     */
+    where: PostImagesWhereUniqueInput
+  }
+
+  /**
+   * PostImages updateMany
+   */
+  export type PostImagesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PostImages.
+     */
+    data: XOR<PostImagesUpdateManyMutationInput, PostImagesUncheckedUpdateManyInput>
+    /**
+     * Filter which PostImages to update
+     */
+    where?: PostImagesWhereInput
+    /**
+     * Limit how many PostImages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PostImages updateManyAndReturn
+   */
+  export type PostImagesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImages
+     */
+    select?: PostImagesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImages
+     */
+    omit?: PostImagesOmit<ExtArgs> | null
+    /**
+     * The data used to update PostImages.
+     */
+    data: XOR<PostImagesUpdateManyMutationInput, PostImagesUncheckedUpdateManyInput>
+    /**
+     * Filter which PostImages to update
+     */
+    where?: PostImagesWhereInput
+    /**
+     * Limit how many PostImages to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImagesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PostImages upsert
+   */
+  export type PostImagesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImages
+     */
+    select?: PostImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImages
+     */
+    omit?: PostImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImagesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PostImages to update in case it exists.
+     */
+    where: PostImagesWhereUniqueInput
+    /**
+     * In case the PostImages found by the `where` argument doesn't exist, create a new PostImages with this data.
+     */
+    create: XOR<PostImagesCreateInput, PostImagesUncheckedCreateInput>
+    /**
+     * In case the PostImages was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PostImagesUpdateInput, PostImagesUncheckedUpdateInput>
+  }
+
+  /**
+   * PostImages delete
+   */
+  export type PostImagesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImages
+     */
+    select?: PostImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImages
+     */
+    omit?: PostImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImagesInclude<ExtArgs> | null
+    /**
+     * Filter which PostImages to delete.
+     */
+    where: PostImagesWhereUniqueInput
+  }
+
+  /**
+   * PostImages deleteMany
+   */
+  export type PostImagesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PostImages to delete
+     */
+    where?: PostImagesWhereInput
+    /**
+     * Limit how many PostImages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PostImages without action
+   */
+  export type PostImagesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImages
+     */
+    select?: PostImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImages
+     */
+    omit?: PostImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImagesInclude<ExtArgs> | null
   }
 
 
@@ -1909,6 +3257,21 @@ export namespace Prisma {
   export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
 
 
+  export const PostImagesScalarFieldEnum: {
+    id: 'id',
+    post_id: 'post_id',
+    image_url: 'image_url',
+    storage_file_path: 'storage_file_path',
+    alt_text: 'alt_text',
+    file_name: 'file_name',
+    mime_type: 'mime_type',
+    size_kb: 'size_kb',
+    created_at: 'created_at'
+  };
+
+  export type PostImagesScalarFieldEnum = (typeof PostImagesScalarFieldEnum)[keyof typeof PostImagesScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -1923,6 +3286,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -2011,6 +3382,7 @@ export namespace Prisma {
     title?: StringFilter<"Post"> | string
     markdown_content?: StringFilter<"Post"> | string
     created_at?: DateTimeFilter<"Post"> | Date | string
+    images?: PostImagesListRelationFilter
   }
 
   export type PostOrderByWithRelationInput = {
@@ -2018,6 +3390,7 @@ export namespace Prisma {
     title?: SortOrder
     markdown_content?: SortOrder
     created_at?: SortOrder
+    images?: PostImagesOrderByRelationAggregateInput
   }
 
   export type PostWhereUniqueInput = Prisma.AtLeast<{
@@ -2028,6 +3401,7 @@ export namespace Prisma {
     title?: StringFilter<"Post"> | string
     markdown_content?: StringFilter<"Post"> | string
     created_at?: DateTimeFilter<"Post"> | Date | string
+    images?: PostImagesListRelationFilter
   }, "post_id">
 
   export type PostOrderByWithAggregationInput = {
@@ -2052,11 +3426,89 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"Post"> | Date | string
   }
 
+  export type PostImagesWhereInput = {
+    AND?: PostImagesWhereInput | PostImagesWhereInput[]
+    OR?: PostImagesWhereInput[]
+    NOT?: PostImagesWhereInput | PostImagesWhereInput[]
+    id?: BigIntFilter<"PostImages"> | bigint | number
+    post_id?: BigIntFilter<"PostImages"> | bigint | number
+    image_url?: StringFilter<"PostImages"> | string
+    storage_file_path?: StringFilter<"PostImages"> | string
+    alt_text?: StringNullableFilter<"PostImages"> | string | null
+    file_name?: StringNullableFilter<"PostImages"> | string | null
+    mime_type?: StringNullableFilter<"PostImages"> | string | null
+    size_kb?: IntNullableFilter<"PostImages"> | number | null
+    created_at?: DateTimeFilter<"PostImages"> | Date | string
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>
+  }
+
+  export type PostImagesOrderByWithRelationInput = {
+    id?: SortOrder
+    post_id?: SortOrder
+    image_url?: SortOrder
+    storage_file_path?: SortOrder
+    alt_text?: SortOrderInput | SortOrder
+    file_name?: SortOrderInput | SortOrder
+    mime_type?: SortOrderInput | SortOrder
+    size_kb?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    post?: PostOrderByWithRelationInput
+  }
+
+  export type PostImagesWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    image_url?: string
+    storage_file_path?: string
+    AND?: PostImagesWhereInput | PostImagesWhereInput[]
+    OR?: PostImagesWhereInput[]
+    NOT?: PostImagesWhereInput | PostImagesWhereInput[]
+    post_id?: BigIntFilter<"PostImages"> | bigint | number
+    alt_text?: StringNullableFilter<"PostImages"> | string | null
+    file_name?: StringNullableFilter<"PostImages"> | string | null
+    mime_type?: StringNullableFilter<"PostImages"> | string | null
+    size_kb?: IntNullableFilter<"PostImages"> | number | null
+    created_at?: DateTimeFilter<"PostImages"> | Date | string
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>
+  }, "id" | "image_url" | "storage_file_path">
+
+  export type PostImagesOrderByWithAggregationInput = {
+    id?: SortOrder
+    post_id?: SortOrder
+    image_url?: SortOrder
+    storage_file_path?: SortOrder
+    alt_text?: SortOrderInput | SortOrder
+    file_name?: SortOrderInput | SortOrder
+    mime_type?: SortOrderInput | SortOrder
+    size_kb?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    _count?: PostImagesCountOrderByAggregateInput
+    _avg?: PostImagesAvgOrderByAggregateInput
+    _max?: PostImagesMaxOrderByAggregateInput
+    _min?: PostImagesMinOrderByAggregateInput
+    _sum?: PostImagesSumOrderByAggregateInput
+  }
+
+  export type PostImagesScalarWhereWithAggregatesInput = {
+    AND?: PostImagesScalarWhereWithAggregatesInput | PostImagesScalarWhereWithAggregatesInput[]
+    OR?: PostImagesScalarWhereWithAggregatesInput[]
+    NOT?: PostImagesScalarWhereWithAggregatesInput | PostImagesScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"PostImages"> | bigint | number
+    post_id?: BigIntWithAggregatesFilter<"PostImages"> | bigint | number
+    image_url?: StringWithAggregatesFilter<"PostImages"> | string
+    storage_file_path?: StringWithAggregatesFilter<"PostImages"> | string
+    alt_text?: StringNullableWithAggregatesFilter<"PostImages"> | string | null
+    file_name?: StringNullableWithAggregatesFilter<"PostImages"> | string | null
+    mime_type?: StringNullableWithAggregatesFilter<"PostImages"> | string | null
+    size_kb?: IntNullableWithAggregatesFilter<"PostImages"> | number | null
+    created_at?: DateTimeWithAggregatesFilter<"PostImages"> | Date | string
+  }
+
   export type PostCreateInput = {
     post_id?: bigint | number
     title: string
     markdown_content: string
     created_at?: Date | string
+    images?: PostImagesCreateNestedManyWithoutPostInput
   }
 
   export type PostUncheckedCreateInput = {
@@ -2064,6 +3516,7 @@ export namespace Prisma {
     title: string
     markdown_content: string
     created_at?: Date | string
+    images?: PostImagesUncheckedCreateNestedManyWithoutPostInput
   }
 
   export type PostUpdateInput = {
@@ -2071,6 +3524,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     markdown_content?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: PostImagesUpdateManyWithoutPostNestedInput
   }
 
   export type PostUncheckedUpdateInput = {
@@ -2078,6 +3532,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     markdown_content?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: PostImagesUncheckedUpdateManyWithoutPostNestedInput
   }
 
   export type PostCreateManyInput = {
@@ -2098,6 +3553,89 @@ export namespace Prisma {
     post_id?: BigIntFieldUpdateOperationsInput | bigint | number
     title?: StringFieldUpdateOperationsInput | string
     markdown_content?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostImagesCreateInput = {
+    id?: bigint | number
+    image_url: string
+    storage_file_path: string
+    alt_text?: string | null
+    file_name?: string | null
+    mime_type?: string | null
+    size_kb?: number | null
+    created_at?: Date | string
+    post: PostCreateNestedOneWithoutImagesInput
+  }
+
+  export type PostImagesUncheckedCreateInput = {
+    id?: bigint | number
+    post_id: bigint | number
+    image_url: string
+    storage_file_path: string
+    alt_text?: string | null
+    file_name?: string | null
+    mime_type?: string | null
+    size_kb?: number | null
+    created_at?: Date | string
+  }
+
+  export type PostImagesUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    image_url?: StringFieldUpdateOperationsInput | string
+    storage_file_path?: StringFieldUpdateOperationsInput | string
+    alt_text?: NullableStringFieldUpdateOperationsInput | string | null
+    file_name?: NullableStringFieldUpdateOperationsInput | string | null
+    mime_type?: NullableStringFieldUpdateOperationsInput | string | null
+    size_kb?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: PostUpdateOneRequiredWithoutImagesNestedInput
+  }
+
+  export type PostImagesUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    post_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    image_url?: StringFieldUpdateOperationsInput | string
+    storage_file_path?: StringFieldUpdateOperationsInput | string
+    alt_text?: NullableStringFieldUpdateOperationsInput | string | null
+    file_name?: NullableStringFieldUpdateOperationsInput | string | null
+    mime_type?: NullableStringFieldUpdateOperationsInput | string | null
+    size_kb?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostImagesCreateManyInput = {
+    id?: bigint | number
+    post_id: bigint | number
+    image_url: string
+    storage_file_path: string
+    alt_text?: string | null
+    file_name?: string | null
+    mime_type?: string | null
+    size_kb?: number | null
+    created_at?: Date | string
+  }
+
+  export type PostImagesUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    image_url?: StringFieldUpdateOperationsInput | string
+    storage_file_path?: StringFieldUpdateOperationsInput | string
+    alt_text?: NullableStringFieldUpdateOperationsInput | string | null
+    file_name?: NullableStringFieldUpdateOperationsInput | string | null
+    mime_type?: NullableStringFieldUpdateOperationsInput | string | null
+    size_kb?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostImagesUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    post_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    image_url?: StringFieldUpdateOperationsInput | string
+    storage_file_path?: StringFieldUpdateOperationsInput | string
+    alt_text?: NullableStringFieldUpdateOperationsInput | string | null
+    file_name?: NullableStringFieldUpdateOperationsInput | string | null
+    mime_type?: NullableStringFieldUpdateOperationsInput | string | null
+    size_kb?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -2136,6 +3674,16 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type PostImagesListRelationFilter = {
+    every?: PostImagesWhereInput
+    some?: PostImagesWhereInput
+    none?: PostImagesWhereInput
+  }
+
+  export type PostImagesOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type PostCountOrderByAggregateInput = {
@@ -2215,6 +3763,138 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type PostScalarRelationFilter = {
+    is?: PostWhereInput
+    isNot?: PostWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type PostImagesCountOrderByAggregateInput = {
+    id?: SortOrder
+    post_id?: SortOrder
+    image_url?: SortOrder
+    storage_file_path?: SortOrder
+    alt_text?: SortOrder
+    file_name?: SortOrder
+    mime_type?: SortOrder
+    size_kb?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type PostImagesAvgOrderByAggregateInput = {
+    id?: SortOrder
+    post_id?: SortOrder
+    size_kb?: SortOrder
+  }
+
+  export type PostImagesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    post_id?: SortOrder
+    image_url?: SortOrder
+    storage_file_path?: SortOrder
+    alt_text?: SortOrder
+    file_name?: SortOrder
+    mime_type?: SortOrder
+    size_kb?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type PostImagesMinOrderByAggregateInput = {
+    id?: SortOrder
+    post_id?: SortOrder
+    image_url?: SortOrder
+    storage_file_path?: SortOrder
+    alt_text?: SortOrder
+    file_name?: SortOrder
+    mime_type?: SortOrder
+    size_kb?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type PostImagesSumOrderByAggregateInput = {
+    id?: SortOrder
+    post_id?: SortOrder
+    size_kb?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type PostImagesCreateNestedManyWithoutPostInput = {
+    create?: XOR<PostImagesCreateWithoutPostInput, PostImagesUncheckedCreateWithoutPostInput> | PostImagesCreateWithoutPostInput[] | PostImagesUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostImagesCreateOrConnectWithoutPostInput | PostImagesCreateOrConnectWithoutPostInput[]
+    createMany?: PostImagesCreateManyPostInputEnvelope
+    connect?: PostImagesWhereUniqueInput | PostImagesWhereUniqueInput[]
+  }
+
+  export type PostImagesUncheckedCreateNestedManyWithoutPostInput = {
+    create?: XOR<PostImagesCreateWithoutPostInput, PostImagesUncheckedCreateWithoutPostInput> | PostImagesCreateWithoutPostInput[] | PostImagesUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostImagesCreateOrConnectWithoutPostInput | PostImagesCreateOrConnectWithoutPostInput[]
+    createMany?: PostImagesCreateManyPostInputEnvelope
+    connect?: PostImagesWhereUniqueInput | PostImagesWhereUniqueInput[]
+  }
+
   export type BigIntFieldUpdateOperationsInput = {
     set?: bigint | number
     increment?: bigint | number
@@ -2229,6 +3909,60 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type PostImagesUpdateManyWithoutPostNestedInput = {
+    create?: XOR<PostImagesCreateWithoutPostInput, PostImagesUncheckedCreateWithoutPostInput> | PostImagesCreateWithoutPostInput[] | PostImagesUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostImagesCreateOrConnectWithoutPostInput | PostImagesCreateOrConnectWithoutPostInput[]
+    upsert?: PostImagesUpsertWithWhereUniqueWithoutPostInput | PostImagesUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: PostImagesCreateManyPostInputEnvelope
+    set?: PostImagesWhereUniqueInput | PostImagesWhereUniqueInput[]
+    disconnect?: PostImagesWhereUniqueInput | PostImagesWhereUniqueInput[]
+    delete?: PostImagesWhereUniqueInput | PostImagesWhereUniqueInput[]
+    connect?: PostImagesWhereUniqueInput | PostImagesWhereUniqueInput[]
+    update?: PostImagesUpdateWithWhereUniqueWithoutPostInput | PostImagesUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: PostImagesUpdateManyWithWhereWithoutPostInput | PostImagesUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: PostImagesScalarWhereInput | PostImagesScalarWhereInput[]
+  }
+
+  export type PostImagesUncheckedUpdateManyWithoutPostNestedInput = {
+    create?: XOR<PostImagesCreateWithoutPostInput, PostImagesUncheckedCreateWithoutPostInput> | PostImagesCreateWithoutPostInput[] | PostImagesUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostImagesCreateOrConnectWithoutPostInput | PostImagesCreateOrConnectWithoutPostInput[]
+    upsert?: PostImagesUpsertWithWhereUniqueWithoutPostInput | PostImagesUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: PostImagesCreateManyPostInputEnvelope
+    set?: PostImagesWhereUniqueInput | PostImagesWhereUniqueInput[]
+    disconnect?: PostImagesWhereUniqueInput | PostImagesWhereUniqueInput[]
+    delete?: PostImagesWhereUniqueInput | PostImagesWhereUniqueInput[]
+    connect?: PostImagesWhereUniqueInput | PostImagesWhereUniqueInput[]
+    update?: PostImagesUpdateWithWhereUniqueWithoutPostInput | PostImagesUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: PostImagesUpdateManyWithWhereWithoutPostInput | PostImagesUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: PostImagesScalarWhereInput | PostImagesScalarWhereInput[]
+  }
+
+  export type PostCreateNestedOneWithoutImagesInput = {
+    create?: XOR<PostCreateWithoutImagesInput, PostUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: PostCreateOrConnectWithoutImagesInput
+    connect?: PostWhereUniqueInput
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type PostUpdateOneRequiredWithoutImagesNestedInput = {
+    create?: XOR<PostCreateWithoutImagesInput, PostUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: PostCreateOrConnectWithoutImagesInput
+    upsert?: PostUpsertWithoutImagesInput
+    connect?: PostWhereUniqueInput
+    update?: XOR<XOR<PostUpdateToOneWithWhereWithoutImagesInput, PostUpdateWithoutImagesInput>, PostUncheckedUpdateWithoutImagesInput>
   }
 
   export type NestedBigIntFilter<$PrismaModel = never> = {
@@ -2334,6 +4068,226 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type PostImagesCreateWithoutPostInput = {
+    id?: bigint | number
+    image_url: string
+    storage_file_path: string
+    alt_text?: string | null
+    file_name?: string | null
+    mime_type?: string | null
+    size_kb?: number | null
+    created_at?: Date | string
+  }
+
+  export type PostImagesUncheckedCreateWithoutPostInput = {
+    id?: bigint | number
+    image_url: string
+    storage_file_path: string
+    alt_text?: string | null
+    file_name?: string | null
+    mime_type?: string | null
+    size_kb?: number | null
+    created_at?: Date | string
+  }
+
+  export type PostImagesCreateOrConnectWithoutPostInput = {
+    where: PostImagesWhereUniqueInput
+    create: XOR<PostImagesCreateWithoutPostInput, PostImagesUncheckedCreateWithoutPostInput>
+  }
+
+  export type PostImagesCreateManyPostInputEnvelope = {
+    data: PostImagesCreateManyPostInput | PostImagesCreateManyPostInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PostImagesUpsertWithWhereUniqueWithoutPostInput = {
+    where: PostImagesWhereUniqueInput
+    update: XOR<PostImagesUpdateWithoutPostInput, PostImagesUncheckedUpdateWithoutPostInput>
+    create: XOR<PostImagesCreateWithoutPostInput, PostImagesUncheckedCreateWithoutPostInput>
+  }
+
+  export type PostImagesUpdateWithWhereUniqueWithoutPostInput = {
+    where: PostImagesWhereUniqueInput
+    data: XOR<PostImagesUpdateWithoutPostInput, PostImagesUncheckedUpdateWithoutPostInput>
+  }
+
+  export type PostImagesUpdateManyWithWhereWithoutPostInput = {
+    where: PostImagesScalarWhereInput
+    data: XOR<PostImagesUpdateManyMutationInput, PostImagesUncheckedUpdateManyWithoutPostInput>
+  }
+
+  export type PostImagesScalarWhereInput = {
+    AND?: PostImagesScalarWhereInput | PostImagesScalarWhereInput[]
+    OR?: PostImagesScalarWhereInput[]
+    NOT?: PostImagesScalarWhereInput | PostImagesScalarWhereInput[]
+    id?: BigIntFilter<"PostImages"> | bigint | number
+    post_id?: BigIntFilter<"PostImages"> | bigint | number
+    image_url?: StringFilter<"PostImages"> | string
+    storage_file_path?: StringFilter<"PostImages"> | string
+    alt_text?: StringNullableFilter<"PostImages"> | string | null
+    file_name?: StringNullableFilter<"PostImages"> | string | null
+    mime_type?: StringNullableFilter<"PostImages"> | string | null
+    size_kb?: IntNullableFilter<"PostImages"> | number | null
+    created_at?: DateTimeFilter<"PostImages"> | Date | string
+  }
+
+  export type PostCreateWithoutImagesInput = {
+    post_id?: bigint | number
+    title: string
+    markdown_content: string
+    created_at?: Date | string
+  }
+
+  export type PostUncheckedCreateWithoutImagesInput = {
+    post_id?: bigint | number
+    title: string
+    markdown_content: string
+    created_at?: Date | string
+  }
+
+  export type PostCreateOrConnectWithoutImagesInput = {
+    where: PostWhereUniqueInput
+    create: XOR<PostCreateWithoutImagesInput, PostUncheckedCreateWithoutImagesInput>
+  }
+
+  export type PostUpsertWithoutImagesInput = {
+    update: XOR<PostUpdateWithoutImagesInput, PostUncheckedUpdateWithoutImagesInput>
+    create: XOR<PostCreateWithoutImagesInput, PostUncheckedCreateWithoutImagesInput>
+    where?: PostWhereInput
+  }
+
+  export type PostUpdateToOneWithWhereWithoutImagesInput = {
+    where?: PostWhereInput
+    data: XOR<PostUpdateWithoutImagesInput, PostUncheckedUpdateWithoutImagesInput>
+  }
+
+  export type PostUpdateWithoutImagesInput = {
+    post_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    title?: StringFieldUpdateOperationsInput | string
+    markdown_content?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostUncheckedUpdateWithoutImagesInput = {
+    post_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    title?: StringFieldUpdateOperationsInput | string
+    markdown_content?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostImagesCreateManyPostInput = {
+    id?: bigint | number
+    image_url: string
+    storage_file_path: string
+    alt_text?: string | null
+    file_name?: string | null
+    mime_type?: string | null
+    size_kb?: number | null
+    created_at?: Date | string
+  }
+
+  export type PostImagesUpdateWithoutPostInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    image_url?: StringFieldUpdateOperationsInput | string
+    storage_file_path?: StringFieldUpdateOperationsInput | string
+    alt_text?: NullableStringFieldUpdateOperationsInput | string | null
+    file_name?: NullableStringFieldUpdateOperationsInput | string | null
+    mime_type?: NullableStringFieldUpdateOperationsInput | string | null
+    size_kb?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostImagesUncheckedUpdateWithoutPostInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    image_url?: StringFieldUpdateOperationsInput | string
+    storage_file_path?: StringFieldUpdateOperationsInput | string
+    alt_text?: NullableStringFieldUpdateOperationsInput | string | null
+    file_name?: NullableStringFieldUpdateOperationsInput | string | null
+    mime_type?: NullableStringFieldUpdateOperationsInput | string | null
+    size_kb?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostImagesUncheckedUpdateManyWithoutPostInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    image_url?: StringFieldUpdateOperationsInput | string
+    storage_file_path?: StringFieldUpdateOperationsInput | string
+    alt_text?: NullableStringFieldUpdateOperationsInput | string | null
+    file_name?: NullableStringFieldUpdateOperationsInput | string | null
+    mime_type?: NullableStringFieldUpdateOperationsInput | string | null
+    size_kb?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
