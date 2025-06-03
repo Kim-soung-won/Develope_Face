@@ -22,23 +22,29 @@ export const MarkDownFormUI = ({
       value={text}
       onChange={onChange}
       placeholder="여기에 마크다운을 입력하세요..."
-      // 👇 맞춤법 검사 비활성화
       inputProps={{ spellCheck: 'false' }}
+      maxRows={30}
       sx={{
-        flexGrow: 1,
+        flexGrow: 1, 
+        minHeight: 0,
         '& .MuiInputBase-root': {
           height: '100%',
-          alignItems: 'flex-start',
-          p: '12px',
+          display: 'flex',    
+          flexDirection: 'column',
+          alignItems: 'stretch',   
+          p: '12px', 
         },
-        '& .MuiInputBase-input': {
+        '& .MuiInputBase-input': { 
           fontFamily: 'monospace',
           fontSize: '0.9rem',
-          overflow: 'auto',
+          overflow: 'auto',  
           whiteSpace: 'pre',
           lineHeight: 1.5,
+          height: '100%',     
+          padding: '0px',     
+          boxSizing: 'border-box', 
         },
       }}
     />
-  )
-}
+  );
+};

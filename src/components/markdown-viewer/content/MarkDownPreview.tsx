@@ -51,7 +51,6 @@ export const MarkDownPreviewUI = ({
 
       if (!response.ok) {
         const errorData = await response.json()
-        console.error('미리보기 API 오류 응답:', errorData)
         throw new Error(
           errorData.error ||
             `미리보기를 가져오지 못했습니다 (상태: ${response.status})`,
@@ -61,7 +60,6 @@ export const MarkDownPreviewUI = ({
       const { mdxSource } = await response.json()
       setSerializedMdx(mdxSource as MDXRemoteSerializeResult)
     } catch (e: any) {
-      console.error('MDX 미리보기 처리 중 예외:', e)
       setError(e.message || '미리보기를 렌더링하는 데 실패했습니다.')
       setSerializedMdx(null)
     } finally {
@@ -84,6 +82,8 @@ export const MarkDownPreviewUI = ({
         p: 2,
         flexGrow: 1,
         fontSize: '0.9rem',
+        overflowY: 'auto',
+        height: '100%',
       }}
     >
       <Typography

@@ -1,4 +1,5 @@
-import MarkdownEditor from '@/components/markdown-viewer/markdown-editor'
+import { MarkdownEditor } from "@/components/markdown-viewer";
+
 
 export default function Posting() {
   return <MarkdownEditor />

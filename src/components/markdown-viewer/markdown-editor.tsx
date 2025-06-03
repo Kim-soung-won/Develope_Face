@@ -14,7 +14,7 @@ import { handleImageUpload } from '@/shared/utils'
 const MIN_PANEL_WIDTH_PX = 150 // 각 패널의 최소 너비 (픽셀)
 const DIVIDER_WIDTH_PX = 8 // 구분선의 너비 (픽셀)
 
-const MarkdownEditor: React.FC = () => {
+export const MarkdownEditor: React.FC = () => {
   const [markdownInput, setMarkdownInput] = useState<string>('')
   const [markdownTitle, setMarkdownTitle] = useState<string>('') // 제목 상태 추가
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -224,13 +224,13 @@ const MarkdownEditor: React.FC = () => {
         <Box
           sx={{
             width: { xs: '100%', md: currentLeftPanelWidthStyle },
-            height: { xs: 'auto', md: '100%' }, // xs일 때 auto로 하거나 50% 등으로 조절 가능
+            height: { xs: 'auto', md: '100%' },
             flexShrink: 0, 
             display: 'flex',
             flexDirection: 'column',
-            minWidth: { xs: 'none', md: `${MIN_PANEL_WIDTH_PX}px` }, // md 이상에서 최소 너비
+            minWidth: { xs: 'none', md: `${MIN_PANEL_WIDTH_PX}px` },
             minHeight: 0,
-            position: 'relative', // 드래그 중에 z-index 등을 위해 필요할 수 있음
+            position: 'relative', 
           }}
         >
           
@@ -246,7 +246,6 @@ const MarkdownEditor: React.FC = () => {
           />
         </Box>
 
-        {/* 구분선 (md 화면 이상에서만 보임) */}
         <Box
           onMouseDown={handleDividerMouseDown}
           sx={{
@@ -288,5 +287,3 @@ const MarkdownEditor: React.FC = () => {
     </Box>
   )
 }
-
-export default MarkdownEditor
