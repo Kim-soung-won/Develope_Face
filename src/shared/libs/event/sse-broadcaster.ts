@@ -12,7 +12,7 @@ function broadcast(data: any, eventName?: string, eventId?: string) {
 
   clients.forEach((controller) => {
     try {
-      // 각 클라이언트에게 메세지를 전송한다.
+      // 각 클라이언트에게 메세지를 전송한다  .
       controller.enqueue(messageBytes);
     } catch (e) {
       console.error("Error enqueuing to client (broadcaster), marking for removal:", e);

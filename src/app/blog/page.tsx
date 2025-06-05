@@ -1,29 +1,44 @@
-import fs from 'fs';
-import path from 'path';
-import Link from 'next/link';
+import { Suspense } from 'react'
+import { Typography, Box, CircularProgress } from '@mui/material'
+import { BlogListContent } from '@/components/blog'
 
 export default function BlogPage() {
-  // content/posts 디렉토리에서 모든 MDX 파일 가져오기
-  const postsDirectory = path.join(process.cwd(), 'md-content', 'posts');
-  const filenames = fs.readdirSync(postsDirectory);
-  
-  const posts = filenames.map((filename) => {
-    const slug = filename.replace(/\.mdx$/, '');
-    return { slug };
-  });
-
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-4xl font-bold mb-8">블로그</h1>
-      <ul className="space-y-4">
-        {posts.map((post) => (
-          <li key={post.slug} className="border p-4 rounded-lg">
-            <Link href={`/blog/${post.slug}`} className="text-xl font-semibold hover:text-blue-600">
-              {post.slug.replace(/-/g, ' ')}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+    <Box
+      sx={{
+        maxWidth: '960px',
+        margin: 'auto',
+        padding: { xs: 2, sm: 3, md: 4 },
+      }}
+    >
+      <Typography
+        variant="h2"
+        component="h1"
+        gutterBottom
+        sx={{ fontWeight: 'bold', textAlign: 'center', mb: 6 }}
+      >
+        My Blog Posts 📝
+      </Typography>
+      <Suspense
+        fallback={
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              minHeight: '40vh',
+            }}
+          >
+            <CircularProgress size={60} />
+            <Typography variant="h6" sx={{ ml: 2 }}>
+              블로그 글을 열심히 불러오는 중... ✨
+            </Typography>
+          </Box>
+        }
+      >
+        <BlogListContent />
+      </Suspense>
+      {/* 페이지네이션 UI가 필요하다면 여기에 추가 */}
+    </Box>
+  )
 }
