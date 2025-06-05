@@ -48,9 +48,8 @@ export function BlogListContent() {
     }
 
     loadPosts()
-  }, []) // 컴포넌트 마운트 시 1회 실행
+  }, [])
 
-  // 로딩 상태 UI (Suspense fallback과 유사하지만, 클라이언트 컴포넌트 내부에서 상태에 따라 직접 제어)
   if (isLoading) {
     return (
       <Box
@@ -88,7 +87,6 @@ export function BlogListContent() {
     )
   }
 
-  // 데이터가 없거나 list가 비어있는 경우
   if (!postsData || !postsData.list || postsData.list.length === 0) {
     return (
       <Typography
@@ -101,23 +99,20 @@ export function BlogListContent() {
     )
   }
 
-  // Framer Motion Variants
   const listItemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i: number) => ({
-      // 각 아이템에 순차적인 딜레이를 주기 위한 커스텀 prop 'i'
       opacity: 1,
       y: 0,
       transition: {
-        delay: i * 0.05, // 0.05초씩 딜레이
+        delay: i * 0.05,
         duration: 0.4,
         ease: 'easeOut',
       },
     }),
     hover: {
       scale: 1.015,
-      boxShadow: theme.shadows[4], // MUI 테마 그림자 사용
-      // backgroundColor: alpha(theme.palette.primary.light, 0.1), // 호버 시 미세한 배경색 변경
+      boxShadow: theme.shadows[4],
       transition: { duration: 0.2, ease: 'easeInOut' },
     },
     tap: {
@@ -133,73 +128,62 @@ export function BlogListContent() {
       initial="hidden"
       animate="visible"
     >
-      {' '}
-      {/* motion.ul로 변경 */}
-      {postsData.list.map(
-        (
-          post,
-          index, // post 타입은 PostApiEntitySchema를 따름
-        ) => (
-          // PostApiEntitySchema에 postId, title, created_at 필드가 있다고 가정
-          <Fragment key={post.postId}>
-            <motion.div // 각 리스트 아이템을 motion.div로 감싸서 개별 애니메이션 적용
-              custom={index} // custom prop으로 index 전달
-              variants={listItemVariants}
-              // initial="hidden" // 부모 motion.ul에서 initial, animate를 한번에 제어 가능
-              // animate="visible"
-              whileHover="hover"
-              whileTap="tap"
+      {postsData.list.map((post, index) => (
+        <Fragment key={post.postId}>
+          <motion.div
+            custom={index}
+            variants={listItemVariants}
+            whileHover="hover"
+            whileTap="tap"
+          >
+            <ListItem
+              component={Link}
+              href={`/blog/${post.postId}`}
+              sx={{
+                display: 'block',
+                textDecoration: 'none',
+                color: 'inherit',
+                padding: 0,
+              }}
             >
-              <ListItem
-                component={Link}
-                href={`/blog/${post.postId}`}
+              <Box
                 sx={{
-                  display: 'block', // Link가 전체 영역을 차지하도록
-                  textDecoration: 'none',
-                  color: 'inherit',
-                  padding: 0, // motion.div에서 패딩을 관리하거나, 내부 Box에서 패딩 적용
+                  p: { xs: 2, md: 3 },
+                  borderRadius: 2,
+                  border: `1px solid ${theme.palette.divider}`,
+                  backgroundColor: theme.palette.background.paper,
+                  transition: 'background-color 0.3s, box-shadow 0.3s',
+                  '&:hover': {
+                    backgroundColor: alpha(theme.palette.action.hover, 0.04),
+                    boxShadow: theme.shadows[2],
+                  },
                 }}
               >
-                <Box
-                  sx={{
-                    p: { xs: 2, md: 3 },
-                    borderRadius: 2,
-                    border: `1px solid ${theme.palette.divider}`,
-                    backgroundColor: theme.palette.background.paper,
-                    transition: 'background-color 0.3s, box-shadow 0.3s',
-                    '&:hover': {
-                      backgroundColor: alpha(theme.palette.action.hover, 0.04),
-                      boxShadow: theme.shadows[2],
-                    },
-                  }}
+                <Typography
+                  variant="h5"
+                  component="h2"
+                  gutterBottom
+                  sx={{ fontWeight: 600, color: theme.palette.primary.main }}
                 >
+                  {post.title}
+                </Typography>
+                {post.createdAt && (
                   <Typography
-                    variant="h5"
-                    component="h2"
-                    gutterBottom
-                    sx={{ fontWeight: 600, color: theme.palette.primary.main }}
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mb: 1 }}
                   >
-                    {post.title}
+                    {formatDateTime(post.createdAt)}
                   </Typography>
-                  {post.createdAt && ( // PostApiEntitySchema에 created_at이 있다고 가정
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{ mb: 1 }}
-                    >
-                      {formatDateTime(post.createdAt)}
-                    </Typography>
-                  )}
-                </Box>
-              </ListItem>
-            </motion.div>
-            {index < postsData.list.length - 1 && (
-              <Box sx={{ height: theme.spacing(2) }} />
-            )}{' '}
-            {/* 아이템 간 간격 */}
-          </Fragment>
-        ),
-      )}
+                )}
+              </Box>
+            </ListItem>
+          </motion.div>
+          {index < postsData.list.length - 1 && (
+            <Box sx={{ height: theme.spacing(2) }} />
+          )}
+        </Fragment>
+      ))}
     </List>
   )
 }

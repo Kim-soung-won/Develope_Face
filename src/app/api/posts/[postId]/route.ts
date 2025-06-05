@@ -6,7 +6,7 @@ export async function GET(
   request: NextRequest,
   context: { params: { postId: string } },
 ) {
-  const { postId } = context.params
+  const { postId } = await context.params
 
   const idAsNumber = parseInt(postId, 10)
 

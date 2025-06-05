@@ -28,14 +28,14 @@ export class PostQuery {
 
     const [posts, totalCount] = await prisma.$transaction([
       prisma.post.findMany({
-        skip: params.pageNo, // pageNo
-        take: params.size, // pageSize
+        skip: pageNo,
+        take: size,
         orderBy: prismaOrderBy,
-        where: params.keyword ? { title: { contains: keyword } } : undefined,
+        where: keyword ? { title: { contains: keyword } } : undefined,
         select: selectFields, // 필요한 필드만 선택
       }),
       prisma.post.count({
-        where: params.keyword ? { title: { contains: keyword } } : undefined,
+        where: keyword ? { title: { contains: keyword } } : undefined,
       }), // 전체 게시물 수 카운트
     ])
 
