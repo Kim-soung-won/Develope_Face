@@ -10,6 +10,7 @@ import {
 } from './content' // 이 경로는 네 프로젝트 구조에 맞게 확인
 import { insertImageMarkdown, markdownHandleWrite } from './Method'
 import { handleImageUpload } from '@/shared/utils'
+import { useRouter } from 'next/navigation'
 
 const MIN_PANEL_WIDTH_PX = 150 // 각 패널의 최소 너비 (픽셀)
 const DIVIDER_WIDTH_PX = 8 // 구분선의 너비 (픽셀)
@@ -19,6 +20,7 @@ export const MarkdownEditor: React.FC = () => {
   const [markdownTitle, setMarkdownTitle] = useState<string>('') // 제목 상태 추가
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const theme = useTheme() // 테마 객체 가져오기
+  const router = useRouter()
 
   // 왼쪽 패널의 너비를 상태로 관리 (픽셀 단위)
   const [leftPanelWidth, setLeftPanelWidth] = useState<number | undefined>(
@@ -97,99 +99,119 @@ export const MarkdownEditor: React.FC = () => {
     markdownHandleWrite({
       title: markdownTitle,
       content: markdownInput,
-    });
-  } 
+      navigateTo: (route: string) => {
+        router.push(route)
+      },
+    })
+  }
 
   const currentLeftPanelWidthStyle =
     leftPanelWidth !== undefined ? `${leftPanelWidth}px` : '50%'
 
-  const insertImageMarkdownHandler = useCallback((imageUrl: string, altText: string) => {
-    insertImageMarkdown({
-      imageUrl,
-      altText,
-      textareaRef,
-      setMarkdownInput,
-    })
-    
-  }, [textareaRef, setMarkdownInput]);
+  const insertImageMarkdownHandler = useCallback(
+    (imageUrl: string, altText: string) => {
+      insertImageMarkdown({
+        imageUrl,
+        altText,
+        textareaRef,
+        setMarkdownInput,
+      })
+    },
+    [textareaRef, setMarkdownInput],
+  )
 
-  const handleImageUploadMarkdown = useCallback(async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleImageUploadMarkdown = useCallback(
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
+      handleImageUpload({
+        event: event,
+        insertImage: insertImageMarkdownHandler,
+      })
+    },
+    [insertImageMarkdownHandler],
+  )
 
-    handleImageUpload({
-      event: event,
-      insertImage: insertImageMarkdownHandler,
-    })
-  }, [insertImageMarkdownHandler]);
-  
   useEffect(() => {
-    const textarea = textareaRef.current;
-    if (!textarea) return;
+    const textarea = textareaRef.current
+    if (!textarea) return
 
     const handlePaste = (event: ClipboardEvent) => {
-      const items = event.clipboardData?.items;
-      if (!items) return;
+      const items = event.clipboardData?.items
+      if (!items) return
 
-      let pastedFile: File | null = null;
+      let pastedFile: File | null = null
 
       for (let i = 0; i < items.length; i++) {
-        const item = items[i];
+        const item = items[i]
         if (item.kind === 'file' && item.type.startsWith('image/')) {
-          pastedFile = item.getAsFile(); 
+          pastedFile = item.getAsFile()
           if (pastedFile) {
-            event.preventDefault(); 
-            break; 
+            event.preventDefault()
+            break
           }
         }
       }
 
       if (pastedFile) {
-        const reader = new FileReader();
+        const reader = new FileReader()
         reader.onloadend = () => {
-          const originalBase64Url = reader.result as string;
-          const img = new Image();
+          const originalBase64Url = reader.result as string
+          const img = new Image()
           img.onload = () => {
-            const MAX_WIDTH = 800;
-            let newWidth = img.width;
-            let newHeight = img.height;
+            const MAX_WIDTH = 800
+            let newWidth = img.width
+            let newHeight = img.height
             if (newWidth > MAX_WIDTH) {
-              const ratio = MAX_WIDTH / newWidth;
-              newWidth = MAX_WIDTH;
-              newHeight = newHeight * ratio;
+              const ratio = MAX_WIDTH / newWidth
+              newWidth = MAX_WIDTH
+              newHeight = newHeight * ratio
             }
-            const canvas = document.createElement('canvas');
-            canvas.width = newWidth;
-            canvas.height = newHeight;
-            const ctx = canvas.getContext('2d');
+            const canvas = document.createElement('canvas')
+            canvas.width = newWidth
+            canvas.height = newHeight
+            const ctx = canvas.getContext('2d')
             if (ctx) {
-              ctx.drawImage(img, 0, 0, newWidth, newHeight);
-              const quality = pastedFile!.type === 'image/jpeg' || pastedFile!.type === 'image/webp' ? 0.9 : 1.0;
-              const resizedBase64Url = canvas.toDataURL(pastedFile!.type, quality);
-              insertImageMarkdownHandler(resizedBase64Url, pastedFile!.name || 'pasted-image');
+              ctx.drawImage(img, 0, 0, newWidth, newHeight)
+              const quality =
+                pastedFile!.type === 'image/jpeg' ||
+                pastedFile!.type === 'image/webp'
+                  ? 0.9
+                  : 1.0
+              const resizedBase64Url = canvas.toDataURL(
+                pastedFile!.type,
+                quality,
+              )
+              insertImageMarkdownHandler(
+                resizedBase64Url,
+                pastedFile!.name || 'pasted-image',
+              )
             } else {
-              insertImageMarkdownHandler(originalBase64Url, pastedFile!.name || 'pasted-image');
+              insertImageMarkdownHandler(
+                originalBase64Url,
+                pastedFile!.name || 'pasted-image',
+              )
             }
-          };
+          }
           img.onerror = () => {
-            insertImageMarkdownHandler(originalBase64Url, pastedFile!.name || 'pasted-image');
-          };
-          img.src = originalBase64Url;
-        };
+            insertImageMarkdownHandler(
+              originalBase64Url,
+              pastedFile!.name || 'pasted-image',
+            )
+          }
+          img.src = originalBase64Url
+        }
         reader.onerror = () => {
-          alert('붙여넣은 이미지를 처리하는 중 오류가 발생했습니다.');
-        };
-        reader.readAsDataURL(pastedFile);
+          alert('붙여넣은 이미지를 처리하는 중 오류가 발생했습니다.')
+        }
+        reader.readAsDataURL(pastedFile)
       }
-    };
+    }
 
-    textarea.addEventListener('paste', handlePaste);
+    textarea.addEventListener('paste', handlePaste)
 
     return () => {
-      textarea.removeEventListener('paste', handlePaste); 
-    };
-  }, [textareaRef, insertImageMarkdownHandler]); 
-
+      textarea.removeEventListener('paste', handlePaste)
+    }
+  }, [textareaRef, insertImageMarkdownHandler])
 
   return (
     <Box // 전체 에디터 영역을 감싸는 최상위 Box
@@ -225,17 +247,16 @@ export const MarkdownEditor: React.FC = () => {
           sx={{
             width: { xs: '100%', md: currentLeftPanelWidthStyle },
             height: { xs: 'auto', md: '100%' },
-            flexShrink: 0, 
+            flexShrink: 0,
             display: 'flex',
             flexDirection: 'column',
             minWidth: { xs: 'none', md: `${MIN_PANEL_WIDTH_PX}px` },
             minHeight: 0,
-            position: 'relative', 
+            position: 'relative',
           }}
         >
-          
           {/* 제목 영역 */}
-          <MarkdownTitle 
+          <MarkdownTitle
             title={markdownTitle}
             onTitleChange={setMarkdownTitle} // 제목 변경 핸들러
           />
@@ -281,7 +302,10 @@ export const MarkdownEditor: React.FC = () => {
             overflow: 'hidden', // 이 Box 자체가 스크롤되지 않도록
           }}
         >
-          <MarkDownPreviewUI title={markdownTitle} markdownInput={markdownInput} />
+          <MarkDownPreviewUI
+            title={markdownTitle}
+            markdownInput={markdownInput}
+          />
         </Box>
       </Box>
     </Box>

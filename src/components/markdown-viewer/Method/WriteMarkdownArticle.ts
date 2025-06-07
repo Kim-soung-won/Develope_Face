@@ -1,11 +1,19 @@
 interface CreatePostEntity {
   title: string
   content: string
+  navigateTo: (route: string) => void
 }
 
+/**
+ * 게시글 작성 후 API로 저장하는 함수
+ * @parma title - 게시글 제목
+ * @param content - 게시글 내용 (마크다운)
+ * @param navigateTo - 페이지 이동 함수
+ */
 export const markdownHandleWrite = async ({
   title,
   content,
+  navigateTo,
 }: CreatePostEntity) => {
   // async 키워드 추가
   // 실제 제목은 상태나 입력 필드에서 가져와야 해. 여기서는 임시값 사용.
@@ -43,7 +51,7 @@ export const markdownHandleWrite = async ({
     const savedPost = await response.json()
     console.log('✅ 게시글이 API를 통해 성공적으로 저장되었습니다:', savedPost)
     alert('게시글이 성공적으로 저장되었습니다!')
-    // TODO: 저장 후 작업 (예: 폼 초기화, 페이지 이동 등)
+    navigateTo('/')
   } catch (error) {
     console.error('❌ 클라이언트에서 게시글 저장 중 에러 발생:', error)
     alert(

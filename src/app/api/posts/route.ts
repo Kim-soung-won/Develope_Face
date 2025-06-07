@@ -7,8 +7,64 @@ import { dataURLtoFile, getExtensionFromMimeType } from '@/shared/utils'
 import { supabase, uploadFile } from '@/shared/file-storage'
 import { PostImageQuery } from '@/shared/db/post-image'
 import { CreatePostImagesEntity } from '@/shared/db/post-image/post-image.types'
+import { getImagesToProcess } from '@/shared/utils/mdx'
+import { Markdown } from '@/shared/constants'
+import { GetPostsRequestQuerySchema } from './posts.contracts'
+import { parseApiQueryParameters } from '@/shared/api/common'
+import {
+  transformPaginatedQueryPostToResponsePostData,
+  transformRequestParamToQueryPost,
+} from './posts.lib'
 
-// POST 요청을 처리할 함수 (게시글 생성)
+export async function GET(request: NextRequest): Promise<NextResponse> {
+  try {
+    const searchParams = request.nextUrl.searchParams
+    const paramsObject: Record<string, string | string[] | undefined> = {}
+    searchParams.forEach((value, key) => {
+      if (!paramsObject[key]) {
+        paramsObject[key] = value
+      }
+    })
+
+    const queryValues = parseApiQueryParameters(
+      searchParams,
+      GetPostsRequestQuerySchema,
+    )
+
+    if (!queryValues.success) {
+      console.error('DB, API Schema 매핑 에러:', queryValues.error.format())
+      return NextResponse.json(
+        {
+          message: 'DB, API Schema 매핑 에러',
+          errors: queryValues.error.format(),
+        },
+        { status: 400 },
+      )
+    }
+
+    const queryResponse = await PostQuery.getAll(
+      transformRequestParamToQueryPost(queryValues.data),
+    )
+
+    return NextResponse.json(
+      transformPaginatedQueryPostToResponsePostData(queryResponse),
+      {
+        status: 200,
+      },
+    )
+  } catch (error) {
+    console.error('[API_ROUTE_GET_ERROR]', error)
+    const errorMessage =
+      error instanceof Error ? error.message : '알 수 없는 에러가 발생했습니다.'
+    return NextResponse.json(
+      { message: '게시글 조회에 실패했습니다.', error: errorMessage },
+      { status: 500 },
+    )
+  }
+}
+
+// 마크다운 게시글 생성 API 엔드포인트
+// POST /api/posts
 export async function POST(request: NextRequest) {
   try {
     const requestBody = await request.json()
@@ -16,39 +72,9 @@ export async function POST(request: NextRequest) {
     const { title, markdown_content: originalMarkdownContent } =
       CreatePostEntitySchema.parse(requestBody)
 
-    // g 플레그를 사용하여 마크다운에서 이미지 태그를 찾습니다.
-    const imageRegex =
-      /!\[(.*?)\]\((data:image\/(?:png|jpeg|jpg|gif|webp);base64,([A-Za-z0-9+/=]+))\)/g
-    const imagesToProcess: Array<{
-      altText: string
-      dataUrl: string // 전체 데이터 URL (data:image/png;base64,...)
-      base64Data: string // 순수 Base64 데이터
-      mimeType: string // 예: image/png
-      originalMarkdownTag: string // 원본 마크다운 태그 (예: ![alt](data:...))
-    }> = []
-
-    let match
-    /**
-     * exec 메서드를 사용하여 모든 이미지 태그를 찾습니다.
-     * exec 메서드는 정규 표현식에서 g 플래그가 설정된 경우 반복적으로 호출할 수 있습니다.
-     * 각 이미지 태그를 순회하면서 필요한 정보를 추출합니다.
-     */
-    while ((match = imageRegex.exec(originalMarkdownContent)) !== null) {
-      // match[0]: 전체 매치 (예: ![alt](data:image/png;base64,...))
-      // match[1]: alt 텍스트 (예: alt)
-      // match[2]: 전체 데이터 URL (예: data:image/png;base64,...)
-      // match[3]: 순수 Base64 데이터 (예: ...)
-      imagesToProcess.push({
-        altText: match[1] || '', // alt 텍스트가 없을 수도 있음
-        dataUrl: match[2],
-        base64Data: match[3],
-        mimeType: match[2].substring(
-          match[2].indexOf(':') + 1,
-          match[2].indexOf(';'),
-        ),
-        originalMarkdownTag: match[0],
-      })
-    }
+    // 마크다운에서 Image 객체 추출
+    const imagesToProcess: Array<Markdown.ImageFileMetaData> =
+      getImagesToProcess(originalMarkdownContent)
 
     let finalMarkdownContent = originalMarkdownContent
     const uploadedImageDetailsForDB: Array<CreatePostImagesEntity> = []
@@ -87,7 +113,8 @@ export async function POST(request: NextRequest) {
         }
       })
 
-      // 모든 이미지 업로드 시도 (성공/실패 결과 받기)
+      // 모든 이미지 업로드 시도 (성공/실패 결과 받기), 하나라도 실패하면 전체 실패로 간주
+      // Promise.allSettled를 사용하여 모든 업로드 결과를 기다림
       const settledUploads = await Promise.allSettled(uploadPromises)
 
       const successfulUploads = []

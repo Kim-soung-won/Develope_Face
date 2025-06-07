@@ -1,2 +1,2 @@
-export { useRightClickOutside } from "./useRightClickOutSide";
-export { useRightClickInside } from "./useRightClickInSide";
+export { useRightClickOutside } from './useRightClickOutSide'
+export { useRightClickInside } from './useRightClickInSide'
