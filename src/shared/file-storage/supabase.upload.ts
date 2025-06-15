@@ -34,3 +34,24 @@ export async function uploadFile(file: File, filePath: string) {
     return data
   }
 }
+
+export async function deleteFile(filePath: string) {
+  const bucketName = process.env.SUPABASE_BUCKET
+  if (!bucketName) {
+    throw new Error(
+      'Supabase 버킷 이름이 환경 변수에 설정되지 않았습니다. .env.local 파일을 확인해주세요.',
+    )
+  }
+  const { data, error } = await supabase.storage
+    .from(bucketName)
+    .remove([filePath])
+
+  if (error) {
+    console.error('Supabase 파일 삭제 에러:', error)
+    throw new Error('Supabase 스토리지에서 파일 삭제를 실패했습니다.')
+  }
+
+  console.log('Supabase 스토리지 파일 삭제 성공:', data)
+
+  return data
+}

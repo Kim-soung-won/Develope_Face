@@ -25,4 +25,12 @@ export class PostImageQuery {
       },
     })
   }
+
+  static deleteByPostId = async (postId: number): Promise<void> => {
+    await prisma.postImages.deleteMany({
+      where: {
+        post_id: postId,
+      },
+    })
+  }
 }

@@ -4,8 +4,11 @@ import { BasePaginationQueryParamSchema } from '@/shared/db/base'
 export const PostApiEntitySchema = z.object({
   postId: z.string(),
   title: z.string(),
-  markdownContent: z.string(),
   createdAt: z.string(),
+})
+
+export const PostApiEntityDetailSchema = PostApiEntitySchema.extend({
+  markdownContent: z.string(),
 })
 
 /**
@@ -21,13 +24,7 @@ export const GetPostsRequestQuerySchema = z.object({
 })
 
 export const GetPostsPaginatedResponseBodySchema = z.object({
-  list: z.array(
-    z.object({
-      postId: z.string(),
-      title: z.string(),
-      createdAt: z.string(),
-    }),
-  ),
+  list: z.array(PostApiEntitySchema),
   pagination: BasePaginationQueryParamSchema,
 })
 

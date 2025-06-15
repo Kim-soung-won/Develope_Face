@@ -1,5 +1,5 @@
-import { Suspense } from 'react'
 import { Typography, Box, CircularProgress } from '@mui/material'
+import { Suspense } from 'react'
 import { BlogListContent } from '@/components/blog'
 
 export default function BlogPage() {

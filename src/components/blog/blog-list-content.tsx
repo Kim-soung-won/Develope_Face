@@ -1,20 +1,16 @@
 'use client'
 
-import { GetPostPaginatedsResponseBody } from '@/app/api/posts'
-import { getPosts } from '@/shared/api/post'
-import { formatDateTime } from '@/shared/utils'
 import {
-  alpha,
   Box,
-  CircularProgress,
   List,
-  ListItem,
   Typography,
   useTheme,
 } from '@mui/material'
 import { motion } from 'framer-motion'
-import Link from 'next/link'
 import { Fragment, useEffect, useState } from 'react'
+import { GetPostPaginatedsResponseBody } from '@/app/api/posts'
+import { getPosts } from '@/shared/api/post'
+import { BlogContentItem, BlogErrorSuspense, BlogLoadingSuspense } from './item'
 
 export function BlogListContent() {
   const [postsData, setPostsData] =
@@ -28,7 +24,7 @@ export function BlogListContent() {
       setIsLoading(true) // 데이터 요청 시작 시 로딩 상태 true
       try {
         const data = await getPosts({
-          pageNo: 1, // API 스키마에 따라 0 또는 1로 시작 (Zod default가 1이었으므로 1로 가정)
+          pageNo: 0 * 20, // API 스키마에 따라 0 또는 1로 시작 (Zod default가 1이었으므로 1로 가정)
           size: 20,
           orderBy: 'created_at', // 이 필드가 PostApiEntitySchema에 존재하고 정렬 가능해야 함
           order: 'desc',
@@ -52,38 +48,14 @@ export function BlogListContent() {
 
   if (isLoading) {
     return (
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          minHeight: '40vh',
-        }}
-      >
-        <CircularProgress size={50} />
-        <Typography variant="h6" sx={{ ml: 2 }}>
-          게시글을 불러오고 있습니다...
-        </Typography>
-      </Box>
+      <BlogLoadingSuspense />
     )
   }
 
   // 에러 상태 UI
   if (fetchError) {
     return (
-      <Box
-        sx={{
-          p: 2,
-          backgroundColor: 'error.lighter',
-          border: `1px solid ${theme.palette.error.main}`,
-          borderRadius: 1,
-        }}
-      >
-        <Typography variant="h6" color="error.dark" gutterBottom>
-          앗! 문제가 생겼어요 😢
-        </Typography>
-        <Typography color="error.main">에러: {fetchError}</Typography>
-      </Box>
+      <BlogErrorSuspense />
     )
   }
 
@@ -136,48 +108,9 @@ export function BlogListContent() {
             whileHover="hover"
             whileTap="tap"
           >
-            <ListItem
-              component={Link}
-              href={`/blog/${post.postId}`}
-              sx={{
-                display: 'block',
-                textDecoration: 'none',
-                color: 'inherit',
-                padding: 0,
-              }}
-            >
-              <Box
-                sx={{
-                  p: { xs: 2, md: 3 },
-                  borderRadius: 2,
-                  border: `1px solid ${theme.palette.divider}`,
-                  backgroundColor: theme.palette.background.paper,
-                  transition: 'background-color 0.3s, box-shadow 0.3s',
-                  '&:hover': {
-                    backgroundColor: alpha(theme.palette.action.hover, 0.04),
-                    boxShadow: theme.shadows[2],
-                  },
-                }}
-              >
-                <Typography
-                  variant="h5"
-                  component="h2"
-                  gutterBottom
-                  sx={{ fontWeight: 600, color: theme.palette.primary.main }}
-                >
-                  {post.title}
-                </Typography>
-                {post.createdAt && (
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ mb: 1 }}
-                  >
-                    {formatDateTime(post.createdAt)}
-                  </Typography>
-                )}
-              </Box>
-            </ListItem>
+            <BlogContentItem 
+              post={post}
+            />
           </motion.div>
           {index < postsData.list.length - 1 && (
             <Box sx={{ height: theme.spacing(2) }} />

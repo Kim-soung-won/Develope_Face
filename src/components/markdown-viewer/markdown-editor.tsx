@@ -1,7 +1,9 @@
 'use client'
 
-import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { Box, useTheme } from '@mui/material' // Grid 대신 Box를 주로 사용
+import { useRouter } from 'next/navigation'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
+import { handleImageUpload } from '@/shared/utils'
 import {
   MarkDownFormUI,
   MarkDownPreviewUI,
@@ -9,8 +11,6 @@ import {
   MarkdownTitle,
 } from './content' // 이 경로는 네 프로젝트 구조에 맞게 확인
 import { insertImageMarkdown, markdownHandleWrite } from './Method'
-import { handleImageUpload } from '@/shared/utils'
-import { useRouter } from 'next/navigation'
 
 const MIN_PANEL_WIDTH_PX = 150 // 각 패널의 최소 너비 (픽셀)
 const DIVIDER_WIDTH_PX = 8 // 구분선의 너비 (픽셀)

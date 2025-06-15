@@ -6,7 +6,7 @@ import {
 import {
   GetPostsRequestQuery,
   GetPostPaginatedsResponseBody,
-  PostApiEntity,
+  PostApiEntityDetail,
 } from './posts.types'
 
 export const transformRequestParamToQueryPost = (
@@ -37,7 +37,7 @@ export const transformPaginatedQueryPostToResponsePostData = (
 
 export const transformFindQueryPostToResponsePostData = (
   responseDto: PostEntity,
-): PostApiEntity => {
+): PostApiEntityDetail => {
   return {
     postId: responseDto.post_id.toString(),
     title: responseDto.title,

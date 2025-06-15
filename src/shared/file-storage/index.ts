@@ -1,1 +1,1 @@
-export { supabase, uploadFile } from './supabase.upload'
+export { supabase, uploadFile, deleteFile } from './supabase.upload'

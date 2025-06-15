@@ -79,4 +79,12 @@ export class PostQuery {
       },
     })
   }
+
+  static delete = async (postId: number): Promise<void> => {
+    await prisma.post.delete({
+      where: {
+        post_id: postId,
+      },
+    })
+  }
 }

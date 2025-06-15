@@ -5,10 +5,12 @@ import {
   GetPostsPaginatedResponseBodySchema,
   CreatePostRequestBodySchema,
   CreatePostResponseBodySchema,
+  PostApiEntityDetailSchema,
 } from './posts.contracts'
 
 // Type for a single post entity in API responses
 export type PostApiEntity = z.infer<typeof PostApiEntitySchema>
+export type PostApiEntityDetail = z.infer<typeof PostApiEntityDetailSchema>
 
 // Types for GET /api/posts
 export type GetPostsRequestQuery = z.infer<typeof GetPostsRequestQuerySchema>
