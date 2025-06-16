@@ -23,6 +23,16 @@ export type Post = $Result.DefaultSelection<Prisma.$PostPayload>
  * 
  */
 export type PostImages = $Result.DefaultSelection<Prisma.$PostImagesPayload>
+/**
+ * Model ComponentCategory
+ * 
+ */
+export type ComponentCategory = $Result.DefaultSelection<Prisma.$ComponentCategoryPayload>
+/**
+ * Model Component
+ * 
+ */
+export type Component = $Result.DefaultSelection<Prisma.$ComponentPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -168,6 +178,26 @@ export class PrismaClient<
     * ```
     */
   get postImages(): Prisma.PostImagesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.componentCategory`: Exposes CRUD operations for the **ComponentCategory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ComponentCategories
+    * const componentCategories = await prisma.componentCategory.findMany()
+    * ```
+    */
+  get componentCategory(): Prisma.ComponentCategoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.component`: Exposes CRUD operations for the **Component** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Components
+    * const components = await prisma.component.findMany()
+    * ```
+    */
+  get component(): Prisma.ComponentDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -609,7 +639,9 @@ export namespace Prisma {
 
   export const ModelName: {
     Post: 'Post',
-    PostImages: 'PostImages'
+    PostImages: 'PostImages',
+    ComponentCategory: 'ComponentCategory',
+    Component: 'Component'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -628,7 +660,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "post" | "postImages"
+      modelProps: "post" | "postImages" | "componentCategory" | "component"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -780,6 +812,154 @@ export namespace Prisma {
           }
         }
       }
+      ComponentCategory: {
+        payload: Prisma.$ComponentCategoryPayload<ExtArgs>
+        fields: Prisma.ComponentCategoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ComponentCategoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentCategoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ComponentCategoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentCategoryPayload>
+          }
+          findFirst: {
+            args: Prisma.ComponentCategoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentCategoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ComponentCategoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentCategoryPayload>
+          }
+          findMany: {
+            args: Prisma.ComponentCategoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentCategoryPayload>[]
+          }
+          create: {
+            args: Prisma.ComponentCategoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentCategoryPayload>
+          }
+          createMany: {
+            args: Prisma.ComponentCategoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ComponentCategoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentCategoryPayload>[]
+          }
+          delete: {
+            args: Prisma.ComponentCategoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentCategoryPayload>
+          }
+          update: {
+            args: Prisma.ComponentCategoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentCategoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.ComponentCategoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ComponentCategoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ComponentCategoryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentCategoryPayload>[]
+          }
+          upsert: {
+            args: Prisma.ComponentCategoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentCategoryPayload>
+          }
+          aggregate: {
+            args: Prisma.ComponentCategoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateComponentCategory>
+          }
+          groupBy: {
+            args: Prisma.ComponentCategoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ComponentCategoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ComponentCategoryCountArgs<ExtArgs>
+            result: $Utils.Optional<ComponentCategoryCountAggregateOutputType> | number
+          }
+        }
+      }
+      Component: {
+        payload: Prisma.$ComponentPayload<ExtArgs>
+        fields: Prisma.ComponentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ComponentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ComponentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentPayload>
+          }
+          findFirst: {
+            args: Prisma.ComponentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ComponentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentPayload>
+          }
+          findMany: {
+            args: Prisma.ComponentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentPayload>[]
+          }
+          create: {
+            args: Prisma.ComponentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentPayload>
+          }
+          createMany: {
+            args: Prisma.ComponentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ComponentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentPayload>[]
+          }
+          delete: {
+            args: Prisma.ComponentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentPayload>
+          }
+          update: {
+            args: Prisma.ComponentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentPayload>
+          }
+          deleteMany: {
+            args: Prisma.ComponentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ComponentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ComponentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentPayload>[]
+          }
+          upsert: {
+            args: Prisma.ComponentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComponentPayload>
+          }
+          aggregate: {
+            args: Prisma.ComponentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateComponent>
+          }
+          groupBy: {
+            args: Prisma.ComponentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ComponentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ComponentCountArgs<ExtArgs>
+            result: $Utils.Optional<ComponentCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -866,6 +1046,8 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     post?: PostOmit
     postImages?: PostImagesOmit
+    componentCategory?: ComponentCategoryOmit
+    component?: ComponentOmit
   }
 
   /* Types for Logging */
@@ -983,6 +1165,37 @@ export namespace Prisma {
    */
   export type PostCountOutputTypeCountImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PostImagesWhereInput
+  }
+
+
+  /**
+   * Count Type ComponentCategoryCountOutputType
+   */
+
+  export type ComponentCategoryCountOutputType = {
+    components: number
+  }
+
+  export type ComponentCategoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    components?: boolean | ComponentCategoryCountOutputTypeCountComponentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ComponentCategoryCountOutputType without action
+   */
+  export type ComponentCategoryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentCategoryCountOutputType
+     */
+    select?: ComponentCategoryCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ComponentCategoryCountOutputType without action
+   */
+  export type ComponentCategoryCountOutputTypeCountComponentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ComponentWhereInput
   }
 
 
@@ -3234,6 +3447,2229 @@ export namespace Prisma {
 
 
   /**
+   * Model ComponentCategory
+   */
+
+  export type AggregateComponentCategory = {
+    _count: ComponentCategoryCountAggregateOutputType | null
+    _avg: ComponentCategoryAvgAggregateOutputType | null
+    _sum: ComponentCategorySumAggregateOutputType | null
+    _min: ComponentCategoryMinAggregateOutputType | null
+    _max: ComponentCategoryMaxAggregateOutputType | null
+  }
+
+  export type ComponentCategoryAvgAggregateOutputType = {
+    category_id: number | null
+    category_pid: number | null
+  }
+
+  export type ComponentCategorySumAggregateOutputType = {
+    category_id: number | null
+    category_pid: number | null
+  }
+
+  export type ComponentCategoryMinAggregateOutputType = {
+    category_id: number | null
+    category_name: string | null
+    category_pid: number | null
+    created_at: Date | null
+  }
+
+  export type ComponentCategoryMaxAggregateOutputType = {
+    category_id: number | null
+    category_name: string | null
+    category_pid: number | null
+    created_at: Date | null
+  }
+
+  export type ComponentCategoryCountAggregateOutputType = {
+    category_id: number
+    category_name: number
+    category_pid: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type ComponentCategoryAvgAggregateInputType = {
+    category_id?: true
+    category_pid?: true
+  }
+
+  export type ComponentCategorySumAggregateInputType = {
+    category_id?: true
+    category_pid?: true
+  }
+
+  export type ComponentCategoryMinAggregateInputType = {
+    category_id?: true
+    category_name?: true
+    category_pid?: true
+    created_at?: true
+  }
+
+  export type ComponentCategoryMaxAggregateInputType = {
+    category_id?: true
+    category_name?: true
+    category_pid?: true
+    created_at?: true
+  }
+
+  export type ComponentCategoryCountAggregateInputType = {
+    category_id?: true
+    category_name?: true
+    category_pid?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type ComponentCategoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ComponentCategory to aggregate.
+     */
+    where?: ComponentCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ComponentCategories to fetch.
+     */
+    orderBy?: ComponentCategoryOrderByWithRelationInput | ComponentCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ComponentCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ComponentCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ComponentCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ComponentCategories
+    **/
+    _count?: true | ComponentCategoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ComponentCategoryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ComponentCategorySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ComponentCategoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ComponentCategoryMaxAggregateInputType
+  }
+
+  export type GetComponentCategoryAggregateType<T extends ComponentCategoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateComponentCategory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateComponentCategory[P]>
+      : GetScalarType<T[P], AggregateComponentCategory[P]>
+  }
+
+
+
+
+  export type ComponentCategoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ComponentCategoryWhereInput
+    orderBy?: ComponentCategoryOrderByWithAggregationInput | ComponentCategoryOrderByWithAggregationInput[]
+    by: ComponentCategoryScalarFieldEnum[] | ComponentCategoryScalarFieldEnum
+    having?: ComponentCategoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ComponentCategoryCountAggregateInputType | true
+    _avg?: ComponentCategoryAvgAggregateInputType
+    _sum?: ComponentCategorySumAggregateInputType
+    _min?: ComponentCategoryMinAggregateInputType
+    _max?: ComponentCategoryMaxAggregateInputType
+  }
+
+  export type ComponentCategoryGroupByOutputType = {
+    category_id: number
+    category_name: string
+    category_pid: number
+    created_at: Date
+    _count: ComponentCategoryCountAggregateOutputType | null
+    _avg: ComponentCategoryAvgAggregateOutputType | null
+    _sum: ComponentCategorySumAggregateOutputType | null
+    _min: ComponentCategoryMinAggregateOutputType | null
+    _max: ComponentCategoryMaxAggregateOutputType | null
+  }
+
+  type GetComponentCategoryGroupByPayload<T extends ComponentCategoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ComponentCategoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ComponentCategoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ComponentCategoryGroupByOutputType[P]>
+            : GetScalarType<T[P], ComponentCategoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ComponentCategorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    category_id?: boolean
+    category_name?: boolean
+    category_pid?: boolean
+    created_at?: boolean
+    components?: boolean | ComponentCategory$componentsArgs<ExtArgs>
+    _count?: boolean | ComponentCategoryCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["componentCategory"]>
+
+  export type ComponentCategorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    category_id?: boolean
+    category_name?: boolean
+    category_pid?: boolean
+    created_at?: boolean
+  }, ExtArgs["result"]["componentCategory"]>
+
+  export type ComponentCategorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    category_id?: boolean
+    category_name?: boolean
+    category_pid?: boolean
+    created_at?: boolean
+  }, ExtArgs["result"]["componentCategory"]>
+
+  export type ComponentCategorySelectScalar = {
+    category_id?: boolean
+    category_name?: boolean
+    category_pid?: boolean
+    created_at?: boolean
+  }
+
+  export type ComponentCategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"category_id" | "category_name" | "category_pid" | "created_at", ExtArgs["result"]["componentCategory"]>
+  export type ComponentCategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    components?: boolean | ComponentCategory$componentsArgs<ExtArgs>
+    _count?: boolean | ComponentCategoryCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ComponentCategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ComponentCategoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $ComponentCategoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ComponentCategory"
+    objects: {
+      components: Prisma.$ComponentPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      category_id: number
+      category_name: string
+      category_pid: number
+      created_at: Date
+    }, ExtArgs["result"]["componentCategory"]>
+    composites: {}
+  }
+
+  type ComponentCategoryGetPayload<S extends boolean | null | undefined | ComponentCategoryDefaultArgs> = $Result.GetResult<Prisma.$ComponentCategoryPayload, S>
+
+  type ComponentCategoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ComponentCategoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ComponentCategoryCountAggregateInputType | true
+    }
+
+  export interface ComponentCategoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ComponentCategory'], meta: { name: 'ComponentCategory' } }
+    /**
+     * Find zero or one ComponentCategory that matches the filter.
+     * @param {ComponentCategoryFindUniqueArgs} args - Arguments to find a ComponentCategory
+     * @example
+     * // Get one ComponentCategory
+     * const componentCategory = await prisma.componentCategory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ComponentCategoryFindUniqueArgs>(args: SelectSubset<T, ComponentCategoryFindUniqueArgs<ExtArgs>>): Prisma__ComponentCategoryClient<$Result.GetResult<Prisma.$ComponentCategoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ComponentCategory that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ComponentCategoryFindUniqueOrThrowArgs} args - Arguments to find a ComponentCategory
+     * @example
+     * // Get one ComponentCategory
+     * const componentCategory = await prisma.componentCategory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ComponentCategoryFindUniqueOrThrowArgs>(args: SelectSubset<T, ComponentCategoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ComponentCategoryClient<$Result.GetResult<Prisma.$ComponentCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ComponentCategory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComponentCategoryFindFirstArgs} args - Arguments to find a ComponentCategory
+     * @example
+     * // Get one ComponentCategory
+     * const componentCategory = await prisma.componentCategory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ComponentCategoryFindFirstArgs>(args?: SelectSubset<T, ComponentCategoryFindFirstArgs<ExtArgs>>): Prisma__ComponentCategoryClient<$Result.GetResult<Prisma.$ComponentCategoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ComponentCategory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComponentCategoryFindFirstOrThrowArgs} args - Arguments to find a ComponentCategory
+     * @example
+     * // Get one ComponentCategory
+     * const componentCategory = await prisma.componentCategory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ComponentCategoryFindFirstOrThrowArgs>(args?: SelectSubset<T, ComponentCategoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__ComponentCategoryClient<$Result.GetResult<Prisma.$ComponentCategoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ComponentCategories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComponentCategoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ComponentCategories
+     * const componentCategories = await prisma.componentCategory.findMany()
+     * 
+     * // Get first 10 ComponentCategories
+     * const componentCategories = await prisma.componentCategory.findMany({ take: 10 })
+     * 
+     * // Only select the `category_id`
+     * const componentCategoryWithCategory_idOnly = await prisma.componentCategory.findMany({ select: { category_id: true } })
+     * 
+     */
+    findMany<T extends ComponentCategoryFindManyArgs>(args?: SelectSubset<T, ComponentCategoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComponentCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ComponentCategory.
+     * @param {ComponentCategoryCreateArgs} args - Arguments to create a ComponentCategory.
+     * @example
+     * // Create one ComponentCategory
+     * const ComponentCategory = await prisma.componentCategory.create({
+     *   data: {
+     *     // ... data to create a ComponentCategory
+     *   }
+     * })
+     * 
+     */
+    create<T extends ComponentCategoryCreateArgs>(args: SelectSubset<T, ComponentCategoryCreateArgs<ExtArgs>>): Prisma__ComponentCategoryClient<$Result.GetResult<Prisma.$ComponentCategoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ComponentCategories.
+     * @param {ComponentCategoryCreateManyArgs} args - Arguments to create many ComponentCategories.
+     * @example
+     * // Create many ComponentCategories
+     * const componentCategory = await prisma.componentCategory.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ComponentCategoryCreateManyArgs>(args?: SelectSubset<T, ComponentCategoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ComponentCategories and returns the data saved in the database.
+     * @param {ComponentCategoryCreateManyAndReturnArgs} args - Arguments to create many ComponentCategories.
+     * @example
+     * // Create many ComponentCategories
+     * const componentCategory = await prisma.componentCategory.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ComponentCategories and only return the `category_id`
+     * const componentCategoryWithCategory_idOnly = await prisma.componentCategory.createManyAndReturn({
+     *   select: { category_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ComponentCategoryCreateManyAndReturnArgs>(args?: SelectSubset<T, ComponentCategoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComponentCategoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ComponentCategory.
+     * @param {ComponentCategoryDeleteArgs} args - Arguments to delete one ComponentCategory.
+     * @example
+     * // Delete one ComponentCategory
+     * const ComponentCategory = await prisma.componentCategory.delete({
+     *   where: {
+     *     // ... filter to delete one ComponentCategory
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ComponentCategoryDeleteArgs>(args: SelectSubset<T, ComponentCategoryDeleteArgs<ExtArgs>>): Prisma__ComponentCategoryClient<$Result.GetResult<Prisma.$ComponentCategoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ComponentCategory.
+     * @param {ComponentCategoryUpdateArgs} args - Arguments to update one ComponentCategory.
+     * @example
+     * // Update one ComponentCategory
+     * const componentCategory = await prisma.componentCategory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ComponentCategoryUpdateArgs>(args: SelectSubset<T, ComponentCategoryUpdateArgs<ExtArgs>>): Prisma__ComponentCategoryClient<$Result.GetResult<Prisma.$ComponentCategoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ComponentCategories.
+     * @param {ComponentCategoryDeleteManyArgs} args - Arguments to filter ComponentCategories to delete.
+     * @example
+     * // Delete a few ComponentCategories
+     * const { count } = await prisma.componentCategory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ComponentCategoryDeleteManyArgs>(args?: SelectSubset<T, ComponentCategoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ComponentCategories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComponentCategoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ComponentCategories
+     * const componentCategory = await prisma.componentCategory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ComponentCategoryUpdateManyArgs>(args: SelectSubset<T, ComponentCategoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ComponentCategories and returns the data updated in the database.
+     * @param {ComponentCategoryUpdateManyAndReturnArgs} args - Arguments to update many ComponentCategories.
+     * @example
+     * // Update many ComponentCategories
+     * const componentCategory = await prisma.componentCategory.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ComponentCategories and only return the `category_id`
+     * const componentCategoryWithCategory_idOnly = await prisma.componentCategory.updateManyAndReturn({
+     *   select: { category_id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ComponentCategoryUpdateManyAndReturnArgs>(args: SelectSubset<T, ComponentCategoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComponentCategoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ComponentCategory.
+     * @param {ComponentCategoryUpsertArgs} args - Arguments to update or create a ComponentCategory.
+     * @example
+     * // Update or create a ComponentCategory
+     * const componentCategory = await prisma.componentCategory.upsert({
+     *   create: {
+     *     // ... data to create a ComponentCategory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ComponentCategory we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ComponentCategoryUpsertArgs>(args: SelectSubset<T, ComponentCategoryUpsertArgs<ExtArgs>>): Prisma__ComponentCategoryClient<$Result.GetResult<Prisma.$ComponentCategoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ComponentCategories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComponentCategoryCountArgs} args - Arguments to filter ComponentCategories to count.
+     * @example
+     * // Count the number of ComponentCategories
+     * const count = await prisma.componentCategory.count({
+     *   where: {
+     *     // ... the filter for the ComponentCategories we want to count
+     *   }
+     * })
+    **/
+    count<T extends ComponentCategoryCountArgs>(
+      args?: Subset<T, ComponentCategoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ComponentCategoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ComponentCategory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComponentCategoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ComponentCategoryAggregateArgs>(args: Subset<T, ComponentCategoryAggregateArgs>): Prisma.PrismaPromise<GetComponentCategoryAggregateType<T>>
+
+    /**
+     * Group by ComponentCategory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComponentCategoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ComponentCategoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ComponentCategoryGroupByArgs['orderBy'] }
+        : { orderBy?: ComponentCategoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ComponentCategoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetComponentCategoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ComponentCategory model
+   */
+  readonly fields: ComponentCategoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ComponentCategory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ComponentCategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    components<T extends ComponentCategory$componentsArgs<ExtArgs> = {}>(args?: Subset<T, ComponentCategory$componentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComponentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ComponentCategory model
+   */
+  interface ComponentCategoryFieldRefs {
+    readonly category_id: FieldRef<"ComponentCategory", 'Int'>
+    readonly category_name: FieldRef<"ComponentCategory", 'String'>
+    readonly category_pid: FieldRef<"ComponentCategory", 'Int'>
+    readonly created_at: FieldRef<"ComponentCategory", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ComponentCategory findUnique
+   */
+  export type ComponentCategoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentCategory
+     */
+    select?: ComponentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ComponentCategory
+     */
+    omit?: ComponentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which ComponentCategory to fetch.
+     */
+    where: ComponentCategoryWhereUniqueInput
+  }
+
+  /**
+   * ComponentCategory findUniqueOrThrow
+   */
+  export type ComponentCategoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentCategory
+     */
+    select?: ComponentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ComponentCategory
+     */
+    omit?: ComponentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which ComponentCategory to fetch.
+     */
+    where: ComponentCategoryWhereUniqueInput
+  }
+
+  /**
+   * ComponentCategory findFirst
+   */
+  export type ComponentCategoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentCategory
+     */
+    select?: ComponentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ComponentCategory
+     */
+    omit?: ComponentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which ComponentCategory to fetch.
+     */
+    where?: ComponentCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ComponentCategories to fetch.
+     */
+    orderBy?: ComponentCategoryOrderByWithRelationInput | ComponentCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ComponentCategories.
+     */
+    cursor?: ComponentCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ComponentCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ComponentCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ComponentCategories.
+     */
+    distinct?: ComponentCategoryScalarFieldEnum | ComponentCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * ComponentCategory findFirstOrThrow
+   */
+  export type ComponentCategoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentCategory
+     */
+    select?: ComponentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ComponentCategory
+     */
+    omit?: ComponentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which ComponentCategory to fetch.
+     */
+    where?: ComponentCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ComponentCategories to fetch.
+     */
+    orderBy?: ComponentCategoryOrderByWithRelationInput | ComponentCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ComponentCategories.
+     */
+    cursor?: ComponentCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ComponentCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ComponentCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ComponentCategories.
+     */
+    distinct?: ComponentCategoryScalarFieldEnum | ComponentCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * ComponentCategory findMany
+   */
+  export type ComponentCategoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentCategory
+     */
+    select?: ComponentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ComponentCategory
+     */
+    omit?: ComponentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which ComponentCategories to fetch.
+     */
+    where?: ComponentCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ComponentCategories to fetch.
+     */
+    orderBy?: ComponentCategoryOrderByWithRelationInput | ComponentCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ComponentCategories.
+     */
+    cursor?: ComponentCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ComponentCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ComponentCategories.
+     */
+    skip?: number
+    distinct?: ComponentCategoryScalarFieldEnum | ComponentCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * ComponentCategory create
+   */
+  export type ComponentCategoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentCategory
+     */
+    select?: ComponentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ComponentCategory
+     */
+    omit?: ComponentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentCategoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ComponentCategory.
+     */
+    data: XOR<ComponentCategoryCreateInput, ComponentCategoryUncheckedCreateInput>
+  }
+
+  /**
+   * ComponentCategory createMany
+   */
+  export type ComponentCategoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ComponentCategories.
+     */
+    data: ComponentCategoryCreateManyInput | ComponentCategoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ComponentCategory createManyAndReturn
+   */
+  export type ComponentCategoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentCategory
+     */
+    select?: ComponentCategorySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ComponentCategory
+     */
+    omit?: ComponentCategoryOmit<ExtArgs> | null
+    /**
+     * The data used to create many ComponentCategories.
+     */
+    data: ComponentCategoryCreateManyInput | ComponentCategoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ComponentCategory update
+   */
+  export type ComponentCategoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentCategory
+     */
+    select?: ComponentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ComponentCategory
+     */
+    omit?: ComponentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentCategoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ComponentCategory.
+     */
+    data: XOR<ComponentCategoryUpdateInput, ComponentCategoryUncheckedUpdateInput>
+    /**
+     * Choose, which ComponentCategory to update.
+     */
+    where: ComponentCategoryWhereUniqueInput
+  }
+
+  /**
+   * ComponentCategory updateMany
+   */
+  export type ComponentCategoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ComponentCategories.
+     */
+    data: XOR<ComponentCategoryUpdateManyMutationInput, ComponentCategoryUncheckedUpdateManyInput>
+    /**
+     * Filter which ComponentCategories to update
+     */
+    where?: ComponentCategoryWhereInput
+    /**
+     * Limit how many ComponentCategories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ComponentCategory updateManyAndReturn
+   */
+  export type ComponentCategoryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentCategory
+     */
+    select?: ComponentCategorySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ComponentCategory
+     */
+    omit?: ComponentCategoryOmit<ExtArgs> | null
+    /**
+     * The data used to update ComponentCategories.
+     */
+    data: XOR<ComponentCategoryUpdateManyMutationInput, ComponentCategoryUncheckedUpdateManyInput>
+    /**
+     * Filter which ComponentCategories to update
+     */
+    where?: ComponentCategoryWhereInput
+    /**
+     * Limit how many ComponentCategories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ComponentCategory upsert
+   */
+  export type ComponentCategoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentCategory
+     */
+    select?: ComponentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ComponentCategory
+     */
+    omit?: ComponentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentCategoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ComponentCategory to update in case it exists.
+     */
+    where: ComponentCategoryWhereUniqueInput
+    /**
+     * In case the ComponentCategory found by the `where` argument doesn't exist, create a new ComponentCategory with this data.
+     */
+    create: XOR<ComponentCategoryCreateInput, ComponentCategoryUncheckedCreateInput>
+    /**
+     * In case the ComponentCategory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ComponentCategoryUpdateInput, ComponentCategoryUncheckedUpdateInput>
+  }
+
+  /**
+   * ComponentCategory delete
+   */
+  export type ComponentCategoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentCategory
+     */
+    select?: ComponentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ComponentCategory
+     */
+    omit?: ComponentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentCategoryInclude<ExtArgs> | null
+    /**
+     * Filter which ComponentCategory to delete.
+     */
+    where: ComponentCategoryWhereUniqueInput
+  }
+
+  /**
+   * ComponentCategory deleteMany
+   */
+  export type ComponentCategoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ComponentCategories to delete
+     */
+    where?: ComponentCategoryWhereInput
+    /**
+     * Limit how many ComponentCategories to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ComponentCategory.components
+   */
+  export type ComponentCategory$componentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Component
+     */
+    select?: ComponentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Component
+     */
+    omit?: ComponentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentInclude<ExtArgs> | null
+    where?: ComponentWhereInput
+    orderBy?: ComponentOrderByWithRelationInput | ComponentOrderByWithRelationInput[]
+    cursor?: ComponentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ComponentScalarFieldEnum | ComponentScalarFieldEnum[]
+  }
+
+  /**
+   * ComponentCategory without action
+   */
+  export type ComponentCategoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentCategory
+     */
+    select?: ComponentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ComponentCategory
+     */
+    omit?: ComponentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentCategoryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Component
+   */
+
+  export type AggregateComponent = {
+    _count: ComponentCountAggregateOutputType | null
+    _avg: ComponentAvgAggregateOutputType | null
+    _sum: ComponentSumAggregateOutputType | null
+    _min: ComponentMinAggregateOutputType | null
+    _max: ComponentMaxAggregateOutputType | null
+  }
+
+  export type ComponentAvgAggregateOutputType = {
+    comp_id: number | null
+    comp_category: number | null
+  }
+
+  export type ComponentSumAggregateOutputType = {
+    comp_id: number | null
+    comp_category: number | null
+  }
+
+  export type ComponentMinAggregateOutputType = {
+    comp_id: number | null
+    comp_name: string | null
+    comp_category: number | null
+    created_at: Date | null
+    app_code: string | null
+    style_code: string | null
+  }
+
+  export type ComponentMaxAggregateOutputType = {
+    comp_id: number | null
+    comp_name: string | null
+    comp_category: number | null
+    created_at: Date | null
+    app_code: string | null
+    style_code: string | null
+  }
+
+  export type ComponentCountAggregateOutputType = {
+    comp_id: number
+    comp_name: number
+    comp_category: number
+    created_at: number
+    app_code: number
+    style_code: number
+    _all: number
+  }
+
+
+  export type ComponentAvgAggregateInputType = {
+    comp_id?: true
+    comp_category?: true
+  }
+
+  export type ComponentSumAggregateInputType = {
+    comp_id?: true
+    comp_category?: true
+  }
+
+  export type ComponentMinAggregateInputType = {
+    comp_id?: true
+    comp_name?: true
+    comp_category?: true
+    created_at?: true
+    app_code?: true
+    style_code?: true
+  }
+
+  export type ComponentMaxAggregateInputType = {
+    comp_id?: true
+    comp_name?: true
+    comp_category?: true
+    created_at?: true
+    app_code?: true
+    style_code?: true
+  }
+
+  export type ComponentCountAggregateInputType = {
+    comp_id?: true
+    comp_name?: true
+    comp_category?: true
+    created_at?: true
+    app_code?: true
+    style_code?: true
+    _all?: true
+  }
+
+  export type ComponentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Component to aggregate.
+     */
+    where?: ComponentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Components to fetch.
+     */
+    orderBy?: ComponentOrderByWithRelationInput | ComponentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ComponentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Components from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Components.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Components
+    **/
+    _count?: true | ComponentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ComponentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ComponentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ComponentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ComponentMaxAggregateInputType
+  }
+
+  export type GetComponentAggregateType<T extends ComponentAggregateArgs> = {
+        [P in keyof T & keyof AggregateComponent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateComponent[P]>
+      : GetScalarType<T[P], AggregateComponent[P]>
+  }
+
+
+
+
+  export type ComponentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ComponentWhereInput
+    orderBy?: ComponentOrderByWithAggregationInput | ComponentOrderByWithAggregationInput[]
+    by: ComponentScalarFieldEnum[] | ComponentScalarFieldEnum
+    having?: ComponentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ComponentCountAggregateInputType | true
+    _avg?: ComponentAvgAggregateInputType
+    _sum?: ComponentSumAggregateInputType
+    _min?: ComponentMinAggregateInputType
+    _max?: ComponentMaxAggregateInputType
+  }
+
+  export type ComponentGroupByOutputType = {
+    comp_id: number
+    comp_name: string
+    comp_category: number | null
+    created_at: Date
+    app_code: string
+    style_code: string
+    _count: ComponentCountAggregateOutputType | null
+    _avg: ComponentAvgAggregateOutputType | null
+    _sum: ComponentSumAggregateOutputType | null
+    _min: ComponentMinAggregateOutputType | null
+    _max: ComponentMaxAggregateOutputType | null
+  }
+
+  type GetComponentGroupByPayload<T extends ComponentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ComponentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ComponentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ComponentGroupByOutputType[P]>
+            : GetScalarType<T[P], ComponentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ComponentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    comp_id?: boolean
+    comp_name?: boolean
+    comp_category?: boolean
+    created_at?: boolean
+    app_code?: boolean
+    style_code?: boolean
+    component_category?: boolean | Component$component_categoryArgs<ExtArgs>
+  }, ExtArgs["result"]["component"]>
+
+  export type ComponentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    comp_id?: boolean
+    comp_name?: boolean
+    comp_category?: boolean
+    created_at?: boolean
+    app_code?: boolean
+    style_code?: boolean
+    component_category?: boolean | Component$component_categoryArgs<ExtArgs>
+  }, ExtArgs["result"]["component"]>
+
+  export type ComponentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    comp_id?: boolean
+    comp_name?: boolean
+    comp_category?: boolean
+    created_at?: boolean
+    app_code?: boolean
+    style_code?: boolean
+    component_category?: boolean | Component$component_categoryArgs<ExtArgs>
+  }, ExtArgs["result"]["component"]>
+
+  export type ComponentSelectScalar = {
+    comp_id?: boolean
+    comp_name?: boolean
+    comp_category?: boolean
+    created_at?: boolean
+    app_code?: boolean
+    style_code?: boolean
+  }
+
+  export type ComponentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"comp_id" | "comp_name" | "comp_category" | "created_at" | "app_code" | "style_code", ExtArgs["result"]["component"]>
+  export type ComponentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    component_category?: boolean | Component$component_categoryArgs<ExtArgs>
+  }
+  export type ComponentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    component_category?: boolean | Component$component_categoryArgs<ExtArgs>
+  }
+  export type ComponentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    component_category?: boolean | Component$component_categoryArgs<ExtArgs>
+  }
+
+  export type $ComponentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Component"
+    objects: {
+      component_category: Prisma.$ComponentCategoryPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      comp_id: number
+      comp_name: string
+      comp_category: number | null
+      created_at: Date
+      app_code: string
+      style_code: string
+    }, ExtArgs["result"]["component"]>
+    composites: {}
+  }
+
+  type ComponentGetPayload<S extends boolean | null | undefined | ComponentDefaultArgs> = $Result.GetResult<Prisma.$ComponentPayload, S>
+
+  type ComponentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ComponentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ComponentCountAggregateInputType | true
+    }
+
+  export interface ComponentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Component'], meta: { name: 'Component' } }
+    /**
+     * Find zero or one Component that matches the filter.
+     * @param {ComponentFindUniqueArgs} args - Arguments to find a Component
+     * @example
+     * // Get one Component
+     * const component = await prisma.component.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ComponentFindUniqueArgs>(args: SelectSubset<T, ComponentFindUniqueArgs<ExtArgs>>): Prisma__ComponentClient<$Result.GetResult<Prisma.$ComponentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Component that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ComponentFindUniqueOrThrowArgs} args - Arguments to find a Component
+     * @example
+     * // Get one Component
+     * const component = await prisma.component.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ComponentFindUniqueOrThrowArgs>(args: SelectSubset<T, ComponentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ComponentClient<$Result.GetResult<Prisma.$ComponentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Component that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComponentFindFirstArgs} args - Arguments to find a Component
+     * @example
+     * // Get one Component
+     * const component = await prisma.component.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ComponentFindFirstArgs>(args?: SelectSubset<T, ComponentFindFirstArgs<ExtArgs>>): Prisma__ComponentClient<$Result.GetResult<Prisma.$ComponentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Component that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComponentFindFirstOrThrowArgs} args - Arguments to find a Component
+     * @example
+     * // Get one Component
+     * const component = await prisma.component.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ComponentFindFirstOrThrowArgs>(args?: SelectSubset<T, ComponentFindFirstOrThrowArgs<ExtArgs>>): Prisma__ComponentClient<$Result.GetResult<Prisma.$ComponentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Components that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComponentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Components
+     * const components = await prisma.component.findMany()
+     * 
+     * // Get first 10 Components
+     * const components = await prisma.component.findMany({ take: 10 })
+     * 
+     * // Only select the `comp_id`
+     * const componentWithComp_idOnly = await prisma.component.findMany({ select: { comp_id: true } })
+     * 
+     */
+    findMany<T extends ComponentFindManyArgs>(args?: SelectSubset<T, ComponentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComponentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Component.
+     * @param {ComponentCreateArgs} args - Arguments to create a Component.
+     * @example
+     * // Create one Component
+     * const Component = await prisma.component.create({
+     *   data: {
+     *     // ... data to create a Component
+     *   }
+     * })
+     * 
+     */
+    create<T extends ComponentCreateArgs>(args: SelectSubset<T, ComponentCreateArgs<ExtArgs>>): Prisma__ComponentClient<$Result.GetResult<Prisma.$ComponentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Components.
+     * @param {ComponentCreateManyArgs} args - Arguments to create many Components.
+     * @example
+     * // Create many Components
+     * const component = await prisma.component.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ComponentCreateManyArgs>(args?: SelectSubset<T, ComponentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Components and returns the data saved in the database.
+     * @param {ComponentCreateManyAndReturnArgs} args - Arguments to create many Components.
+     * @example
+     * // Create many Components
+     * const component = await prisma.component.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Components and only return the `comp_id`
+     * const componentWithComp_idOnly = await prisma.component.createManyAndReturn({
+     *   select: { comp_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ComponentCreateManyAndReturnArgs>(args?: SelectSubset<T, ComponentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComponentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Component.
+     * @param {ComponentDeleteArgs} args - Arguments to delete one Component.
+     * @example
+     * // Delete one Component
+     * const Component = await prisma.component.delete({
+     *   where: {
+     *     // ... filter to delete one Component
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ComponentDeleteArgs>(args: SelectSubset<T, ComponentDeleteArgs<ExtArgs>>): Prisma__ComponentClient<$Result.GetResult<Prisma.$ComponentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Component.
+     * @param {ComponentUpdateArgs} args - Arguments to update one Component.
+     * @example
+     * // Update one Component
+     * const component = await prisma.component.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ComponentUpdateArgs>(args: SelectSubset<T, ComponentUpdateArgs<ExtArgs>>): Prisma__ComponentClient<$Result.GetResult<Prisma.$ComponentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Components.
+     * @param {ComponentDeleteManyArgs} args - Arguments to filter Components to delete.
+     * @example
+     * // Delete a few Components
+     * const { count } = await prisma.component.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ComponentDeleteManyArgs>(args?: SelectSubset<T, ComponentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Components.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComponentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Components
+     * const component = await prisma.component.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ComponentUpdateManyArgs>(args: SelectSubset<T, ComponentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Components and returns the data updated in the database.
+     * @param {ComponentUpdateManyAndReturnArgs} args - Arguments to update many Components.
+     * @example
+     * // Update many Components
+     * const component = await prisma.component.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Components and only return the `comp_id`
+     * const componentWithComp_idOnly = await prisma.component.updateManyAndReturn({
+     *   select: { comp_id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ComponentUpdateManyAndReturnArgs>(args: SelectSubset<T, ComponentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComponentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Component.
+     * @param {ComponentUpsertArgs} args - Arguments to update or create a Component.
+     * @example
+     * // Update or create a Component
+     * const component = await prisma.component.upsert({
+     *   create: {
+     *     // ... data to create a Component
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Component we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ComponentUpsertArgs>(args: SelectSubset<T, ComponentUpsertArgs<ExtArgs>>): Prisma__ComponentClient<$Result.GetResult<Prisma.$ComponentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Components.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComponentCountArgs} args - Arguments to filter Components to count.
+     * @example
+     * // Count the number of Components
+     * const count = await prisma.component.count({
+     *   where: {
+     *     // ... the filter for the Components we want to count
+     *   }
+     * })
+    **/
+    count<T extends ComponentCountArgs>(
+      args?: Subset<T, ComponentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ComponentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Component.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComponentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ComponentAggregateArgs>(args: Subset<T, ComponentAggregateArgs>): Prisma.PrismaPromise<GetComponentAggregateType<T>>
+
+    /**
+     * Group by Component.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComponentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ComponentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ComponentGroupByArgs['orderBy'] }
+        : { orderBy?: ComponentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ComponentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetComponentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Component model
+   */
+  readonly fields: ComponentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Component.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ComponentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    component_category<T extends Component$component_categoryArgs<ExtArgs> = {}>(args?: Subset<T, Component$component_categoryArgs<ExtArgs>>): Prisma__ComponentCategoryClient<$Result.GetResult<Prisma.$ComponentCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Component model
+   */
+  interface ComponentFieldRefs {
+    readonly comp_id: FieldRef<"Component", 'Int'>
+    readonly comp_name: FieldRef<"Component", 'String'>
+    readonly comp_category: FieldRef<"Component", 'Int'>
+    readonly created_at: FieldRef<"Component", 'DateTime'>
+    readonly app_code: FieldRef<"Component", 'String'>
+    readonly style_code: FieldRef<"Component", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Component findUnique
+   */
+  export type ComponentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Component
+     */
+    select?: ComponentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Component
+     */
+    omit?: ComponentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentInclude<ExtArgs> | null
+    /**
+     * Filter, which Component to fetch.
+     */
+    where: ComponentWhereUniqueInput
+  }
+
+  /**
+   * Component findUniqueOrThrow
+   */
+  export type ComponentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Component
+     */
+    select?: ComponentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Component
+     */
+    omit?: ComponentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentInclude<ExtArgs> | null
+    /**
+     * Filter, which Component to fetch.
+     */
+    where: ComponentWhereUniqueInput
+  }
+
+  /**
+   * Component findFirst
+   */
+  export type ComponentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Component
+     */
+    select?: ComponentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Component
+     */
+    omit?: ComponentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentInclude<ExtArgs> | null
+    /**
+     * Filter, which Component to fetch.
+     */
+    where?: ComponentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Components to fetch.
+     */
+    orderBy?: ComponentOrderByWithRelationInput | ComponentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Components.
+     */
+    cursor?: ComponentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Components from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Components.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Components.
+     */
+    distinct?: ComponentScalarFieldEnum | ComponentScalarFieldEnum[]
+  }
+
+  /**
+   * Component findFirstOrThrow
+   */
+  export type ComponentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Component
+     */
+    select?: ComponentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Component
+     */
+    omit?: ComponentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentInclude<ExtArgs> | null
+    /**
+     * Filter, which Component to fetch.
+     */
+    where?: ComponentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Components to fetch.
+     */
+    orderBy?: ComponentOrderByWithRelationInput | ComponentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Components.
+     */
+    cursor?: ComponentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Components from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Components.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Components.
+     */
+    distinct?: ComponentScalarFieldEnum | ComponentScalarFieldEnum[]
+  }
+
+  /**
+   * Component findMany
+   */
+  export type ComponentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Component
+     */
+    select?: ComponentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Component
+     */
+    omit?: ComponentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentInclude<ExtArgs> | null
+    /**
+     * Filter, which Components to fetch.
+     */
+    where?: ComponentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Components to fetch.
+     */
+    orderBy?: ComponentOrderByWithRelationInput | ComponentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Components.
+     */
+    cursor?: ComponentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Components from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Components.
+     */
+    skip?: number
+    distinct?: ComponentScalarFieldEnum | ComponentScalarFieldEnum[]
+  }
+
+  /**
+   * Component create
+   */
+  export type ComponentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Component
+     */
+    select?: ComponentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Component
+     */
+    omit?: ComponentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Component.
+     */
+    data: XOR<ComponentCreateInput, ComponentUncheckedCreateInput>
+  }
+
+  /**
+   * Component createMany
+   */
+  export type ComponentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Components.
+     */
+    data: ComponentCreateManyInput | ComponentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Component createManyAndReturn
+   */
+  export type ComponentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Component
+     */
+    select?: ComponentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Component
+     */
+    omit?: ComponentOmit<ExtArgs> | null
+    /**
+     * The data used to create many Components.
+     */
+    data: ComponentCreateManyInput | ComponentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Component update
+   */
+  export type ComponentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Component
+     */
+    select?: ComponentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Component
+     */
+    omit?: ComponentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Component.
+     */
+    data: XOR<ComponentUpdateInput, ComponentUncheckedUpdateInput>
+    /**
+     * Choose, which Component to update.
+     */
+    where: ComponentWhereUniqueInput
+  }
+
+  /**
+   * Component updateMany
+   */
+  export type ComponentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Components.
+     */
+    data: XOR<ComponentUpdateManyMutationInput, ComponentUncheckedUpdateManyInput>
+    /**
+     * Filter which Components to update
+     */
+    where?: ComponentWhereInput
+    /**
+     * Limit how many Components to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Component updateManyAndReturn
+   */
+  export type ComponentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Component
+     */
+    select?: ComponentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Component
+     */
+    omit?: ComponentOmit<ExtArgs> | null
+    /**
+     * The data used to update Components.
+     */
+    data: XOR<ComponentUpdateManyMutationInput, ComponentUncheckedUpdateManyInput>
+    /**
+     * Filter which Components to update
+     */
+    where?: ComponentWhereInput
+    /**
+     * Limit how many Components to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Component upsert
+   */
+  export type ComponentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Component
+     */
+    select?: ComponentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Component
+     */
+    omit?: ComponentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Component to update in case it exists.
+     */
+    where: ComponentWhereUniqueInput
+    /**
+     * In case the Component found by the `where` argument doesn't exist, create a new Component with this data.
+     */
+    create: XOR<ComponentCreateInput, ComponentUncheckedCreateInput>
+    /**
+     * In case the Component was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ComponentUpdateInput, ComponentUncheckedUpdateInput>
+  }
+
+  /**
+   * Component delete
+   */
+  export type ComponentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Component
+     */
+    select?: ComponentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Component
+     */
+    omit?: ComponentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentInclude<ExtArgs> | null
+    /**
+     * Filter which Component to delete.
+     */
+    where: ComponentWhereUniqueInput
+  }
+
+  /**
+   * Component deleteMany
+   */
+  export type ComponentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Components to delete
+     */
+    where?: ComponentWhereInput
+    /**
+     * Limit how many Components to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Component.component_category
+   */
+  export type Component$component_categoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComponentCategory
+     */
+    select?: ComponentCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ComponentCategory
+     */
+    omit?: ComponentCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentCategoryInclude<ExtArgs> | null
+    where?: ComponentCategoryWhereInput
+  }
+
+  /**
+   * Component without action
+   */
+  export type ComponentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Component
+     */
+    select?: ComponentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Component
+     */
+    omit?: ComponentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComponentInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -3270,6 +5706,28 @@ export namespace Prisma {
   };
 
   export type PostImagesScalarFieldEnum = (typeof PostImagesScalarFieldEnum)[keyof typeof PostImagesScalarFieldEnum]
+
+
+  export const ComponentCategoryScalarFieldEnum: {
+    category_id: 'category_id',
+    category_name: 'category_name',
+    category_pid: 'category_pid',
+    created_at: 'created_at'
+  };
+
+  export type ComponentCategoryScalarFieldEnum = (typeof ComponentCategoryScalarFieldEnum)[keyof typeof ComponentCategoryScalarFieldEnum]
+
+
+  export const ComponentScalarFieldEnum: {
+    comp_id: 'comp_id',
+    comp_name: 'comp_name',
+    comp_category: 'comp_category',
+    created_at: 'created_at',
+    app_code: 'app_code',
+    style_code: 'style_code'
+  };
+
+  export type ComponentScalarFieldEnum = (typeof ComponentScalarFieldEnum)[keyof typeof ComponentScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3503,6 +5961,120 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"PostImages"> | Date | string
   }
 
+  export type ComponentCategoryWhereInput = {
+    AND?: ComponentCategoryWhereInput | ComponentCategoryWhereInput[]
+    OR?: ComponentCategoryWhereInput[]
+    NOT?: ComponentCategoryWhereInput | ComponentCategoryWhereInput[]
+    category_id?: IntFilter<"ComponentCategory"> | number
+    category_name?: StringFilter<"ComponentCategory"> | string
+    category_pid?: IntFilter<"ComponentCategory"> | number
+    created_at?: DateTimeFilter<"ComponentCategory"> | Date | string
+    components?: ComponentListRelationFilter
+  }
+
+  export type ComponentCategoryOrderByWithRelationInput = {
+    category_id?: SortOrder
+    category_name?: SortOrder
+    category_pid?: SortOrder
+    created_at?: SortOrder
+    components?: ComponentOrderByRelationAggregateInput
+  }
+
+  export type ComponentCategoryWhereUniqueInput = Prisma.AtLeast<{
+    category_id?: number
+    category_name?: string
+    AND?: ComponentCategoryWhereInput | ComponentCategoryWhereInput[]
+    OR?: ComponentCategoryWhereInput[]
+    NOT?: ComponentCategoryWhereInput | ComponentCategoryWhereInput[]
+    category_pid?: IntFilter<"ComponentCategory"> | number
+    created_at?: DateTimeFilter<"ComponentCategory"> | Date | string
+    components?: ComponentListRelationFilter
+  }, "category_id" | "category_name">
+
+  export type ComponentCategoryOrderByWithAggregationInput = {
+    category_id?: SortOrder
+    category_name?: SortOrder
+    category_pid?: SortOrder
+    created_at?: SortOrder
+    _count?: ComponentCategoryCountOrderByAggregateInput
+    _avg?: ComponentCategoryAvgOrderByAggregateInput
+    _max?: ComponentCategoryMaxOrderByAggregateInput
+    _min?: ComponentCategoryMinOrderByAggregateInput
+    _sum?: ComponentCategorySumOrderByAggregateInput
+  }
+
+  export type ComponentCategoryScalarWhereWithAggregatesInput = {
+    AND?: ComponentCategoryScalarWhereWithAggregatesInput | ComponentCategoryScalarWhereWithAggregatesInput[]
+    OR?: ComponentCategoryScalarWhereWithAggregatesInput[]
+    NOT?: ComponentCategoryScalarWhereWithAggregatesInput | ComponentCategoryScalarWhereWithAggregatesInput[]
+    category_id?: IntWithAggregatesFilter<"ComponentCategory"> | number
+    category_name?: StringWithAggregatesFilter<"ComponentCategory"> | string
+    category_pid?: IntWithAggregatesFilter<"ComponentCategory"> | number
+    created_at?: DateTimeWithAggregatesFilter<"ComponentCategory"> | Date | string
+  }
+
+  export type ComponentWhereInput = {
+    AND?: ComponentWhereInput | ComponentWhereInput[]
+    OR?: ComponentWhereInput[]
+    NOT?: ComponentWhereInput | ComponentWhereInput[]
+    comp_id?: IntFilter<"Component"> | number
+    comp_name?: StringFilter<"Component"> | string
+    comp_category?: IntNullableFilter<"Component"> | number | null
+    created_at?: DateTimeFilter<"Component"> | Date | string
+    app_code?: StringFilter<"Component"> | string
+    style_code?: StringFilter<"Component"> | string
+    component_category?: XOR<ComponentCategoryNullableScalarRelationFilter, ComponentCategoryWhereInput> | null
+  }
+
+  export type ComponentOrderByWithRelationInput = {
+    comp_id?: SortOrder
+    comp_name?: SortOrder
+    comp_category?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    app_code?: SortOrder
+    style_code?: SortOrder
+    component_category?: ComponentCategoryOrderByWithRelationInput
+  }
+
+  export type ComponentWhereUniqueInput = Prisma.AtLeast<{
+    comp_id?: number
+    AND?: ComponentWhereInput | ComponentWhereInput[]
+    OR?: ComponentWhereInput[]
+    NOT?: ComponentWhereInput | ComponentWhereInput[]
+    comp_name?: StringFilter<"Component"> | string
+    comp_category?: IntNullableFilter<"Component"> | number | null
+    created_at?: DateTimeFilter<"Component"> | Date | string
+    app_code?: StringFilter<"Component"> | string
+    style_code?: StringFilter<"Component"> | string
+    component_category?: XOR<ComponentCategoryNullableScalarRelationFilter, ComponentCategoryWhereInput> | null
+  }, "comp_id">
+
+  export type ComponentOrderByWithAggregationInput = {
+    comp_id?: SortOrder
+    comp_name?: SortOrder
+    comp_category?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    app_code?: SortOrder
+    style_code?: SortOrder
+    _count?: ComponentCountOrderByAggregateInput
+    _avg?: ComponentAvgOrderByAggregateInput
+    _max?: ComponentMaxOrderByAggregateInput
+    _min?: ComponentMinOrderByAggregateInput
+    _sum?: ComponentSumOrderByAggregateInput
+  }
+
+  export type ComponentScalarWhereWithAggregatesInput = {
+    AND?: ComponentScalarWhereWithAggregatesInput | ComponentScalarWhereWithAggregatesInput[]
+    OR?: ComponentScalarWhereWithAggregatesInput[]
+    NOT?: ComponentScalarWhereWithAggregatesInput | ComponentScalarWhereWithAggregatesInput[]
+    comp_id?: IntWithAggregatesFilter<"Component"> | number
+    comp_name?: StringWithAggregatesFilter<"Component"> | string
+    comp_category?: IntNullableWithAggregatesFilter<"Component"> | number | null
+    created_at?: DateTimeWithAggregatesFilter<"Component"> | Date | string
+    app_code?: StringWithAggregatesFilter<"Component"> | string
+    style_code?: StringWithAggregatesFilter<"Component"> | string
+  }
+
   export type PostCreateInput = {
     post_id?: bigint | number
     title: string
@@ -3637,6 +6209,115 @@ export namespace Prisma {
     mime_type?: NullableStringFieldUpdateOperationsInput | string | null
     size_kb?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComponentCategoryCreateInput = {
+    category_name: string
+    category_pid?: number
+    created_at?: Date | string
+    components?: ComponentCreateNestedManyWithoutComponent_categoryInput
+  }
+
+  export type ComponentCategoryUncheckedCreateInput = {
+    category_id?: number
+    category_name: string
+    category_pid?: number
+    created_at?: Date | string
+    components?: ComponentUncheckedCreateNestedManyWithoutComponent_categoryInput
+  }
+
+  export type ComponentCategoryUpdateInput = {
+    category_name?: StringFieldUpdateOperationsInput | string
+    category_pid?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    components?: ComponentUpdateManyWithoutComponent_categoryNestedInput
+  }
+
+  export type ComponentCategoryUncheckedUpdateInput = {
+    category_id?: IntFieldUpdateOperationsInput | number
+    category_name?: StringFieldUpdateOperationsInput | string
+    category_pid?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    components?: ComponentUncheckedUpdateManyWithoutComponent_categoryNestedInput
+  }
+
+  export type ComponentCategoryCreateManyInput = {
+    category_id?: number
+    category_name: string
+    category_pid?: number
+    created_at?: Date | string
+  }
+
+  export type ComponentCategoryUpdateManyMutationInput = {
+    category_name?: StringFieldUpdateOperationsInput | string
+    category_pid?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComponentCategoryUncheckedUpdateManyInput = {
+    category_id?: IntFieldUpdateOperationsInput | number
+    category_name?: StringFieldUpdateOperationsInput | string
+    category_pid?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComponentCreateInput = {
+    comp_name: string
+    created_at?: Date | string
+    app_code: string
+    style_code: string
+    component_category?: ComponentCategoryCreateNestedOneWithoutComponentsInput
+  }
+
+  export type ComponentUncheckedCreateInput = {
+    comp_id?: number
+    comp_name: string
+    comp_category?: number | null
+    created_at?: Date | string
+    app_code: string
+    style_code: string
+  }
+
+  export type ComponentUpdateInput = {
+    comp_name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    app_code?: StringFieldUpdateOperationsInput | string
+    style_code?: StringFieldUpdateOperationsInput | string
+    component_category?: ComponentCategoryUpdateOneWithoutComponentsNestedInput
+  }
+
+  export type ComponentUncheckedUpdateInput = {
+    comp_id?: IntFieldUpdateOperationsInput | number
+    comp_name?: StringFieldUpdateOperationsInput | string
+    comp_category?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    app_code?: StringFieldUpdateOperationsInput | string
+    style_code?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ComponentCreateManyInput = {
+    comp_id?: number
+    comp_name: string
+    comp_category?: number | null
+    created_at?: Date | string
+    app_code: string
+    style_code: string
+  }
+
+  export type ComponentUpdateManyMutationInput = {
+    comp_name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    app_code?: StringFieldUpdateOperationsInput | string
+    style_code?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ComponentUncheckedUpdateManyInput = {
+    comp_id?: IntFieldUpdateOperationsInput | number
+    comp_name?: StringFieldUpdateOperationsInput | string
+    comp_category?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    app_code?: StringFieldUpdateOperationsInput | string
+    style_code?: StringFieldUpdateOperationsInput | string
   }
 
   export type BigIntFilter<$PrismaModel = never> = {
@@ -3881,6 +6562,116 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type ComponentListRelationFilter = {
+    every?: ComponentWhereInput
+    some?: ComponentWhereInput
+    none?: ComponentWhereInput
+  }
+
+  export type ComponentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ComponentCategoryCountOrderByAggregateInput = {
+    category_id?: SortOrder
+    category_name?: SortOrder
+    category_pid?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type ComponentCategoryAvgOrderByAggregateInput = {
+    category_id?: SortOrder
+    category_pid?: SortOrder
+  }
+
+  export type ComponentCategoryMaxOrderByAggregateInput = {
+    category_id?: SortOrder
+    category_name?: SortOrder
+    category_pid?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type ComponentCategoryMinOrderByAggregateInput = {
+    category_id?: SortOrder
+    category_name?: SortOrder
+    category_pid?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type ComponentCategorySumOrderByAggregateInput = {
+    category_id?: SortOrder
+    category_pid?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type ComponentCategoryNullableScalarRelationFilter = {
+    is?: ComponentCategoryWhereInput | null
+    isNot?: ComponentCategoryWhereInput | null
+  }
+
+  export type ComponentCountOrderByAggregateInput = {
+    comp_id?: SortOrder
+    comp_name?: SortOrder
+    comp_category?: SortOrder
+    created_at?: SortOrder
+    app_code?: SortOrder
+    style_code?: SortOrder
+  }
+
+  export type ComponentAvgOrderByAggregateInput = {
+    comp_id?: SortOrder
+    comp_category?: SortOrder
+  }
+
+  export type ComponentMaxOrderByAggregateInput = {
+    comp_id?: SortOrder
+    comp_name?: SortOrder
+    comp_category?: SortOrder
+    created_at?: SortOrder
+    app_code?: SortOrder
+    style_code?: SortOrder
+  }
+
+  export type ComponentMinOrderByAggregateInput = {
+    comp_id?: SortOrder
+    comp_name?: SortOrder
+    comp_category?: SortOrder
+    created_at?: SortOrder
+    app_code?: SortOrder
+    style_code?: SortOrder
+  }
+
+  export type ComponentSumOrderByAggregateInput = {
+    comp_id?: SortOrder
+    comp_category?: SortOrder
+  }
+
   export type PostImagesCreateNestedManyWithoutPostInput = {
     create?: XOR<PostImagesCreateWithoutPostInput, PostImagesUncheckedCreateWithoutPostInput> | PostImagesCreateWithoutPostInput[] | PostImagesUncheckedCreateWithoutPostInput[]
     connectOrCreate?: PostImagesCreateOrConnectWithoutPostInput | PostImagesCreateOrConnectWithoutPostInput[]
@@ -3963,6 +6754,72 @@ export namespace Prisma {
     upsert?: PostUpsertWithoutImagesInput
     connect?: PostWhereUniqueInput
     update?: XOR<XOR<PostUpdateToOneWithWhereWithoutImagesInput, PostUpdateWithoutImagesInput>, PostUncheckedUpdateWithoutImagesInput>
+  }
+
+  export type ComponentCreateNestedManyWithoutComponent_categoryInput = {
+    create?: XOR<ComponentCreateWithoutComponent_categoryInput, ComponentUncheckedCreateWithoutComponent_categoryInput> | ComponentCreateWithoutComponent_categoryInput[] | ComponentUncheckedCreateWithoutComponent_categoryInput[]
+    connectOrCreate?: ComponentCreateOrConnectWithoutComponent_categoryInput | ComponentCreateOrConnectWithoutComponent_categoryInput[]
+    createMany?: ComponentCreateManyComponent_categoryInputEnvelope
+    connect?: ComponentWhereUniqueInput | ComponentWhereUniqueInput[]
+  }
+
+  export type ComponentUncheckedCreateNestedManyWithoutComponent_categoryInput = {
+    create?: XOR<ComponentCreateWithoutComponent_categoryInput, ComponentUncheckedCreateWithoutComponent_categoryInput> | ComponentCreateWithoutComponent_categoryInput[] | ComponentUncheckedCreateWithoutComponent_categoryInput[]
+    connectOrCreate?: ComponentCreateOrConnectWithoutComponent_categoryInput | ComponentCreateOrConnectWithoutComponent_categoryInput[]
+    createMany?: ComponentCreateManyComponent_categoryInputEnvelope
+    connect?: ComponentWhereUniqueInput | ComponentWhereUniqueInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type ComponentUpdateManyWithoutComponent_categoryNestedInput = {
+    create?: XOR<ComponentCreateWithoutComponent_categoryInput, ComponentUncheckedCreateWithoutComponent_categoryInput> | ComponentCreateWithoutComponent_categoryInput[] | ComponentUncheckedCreateWithoutComponent_categoryInput[]
+    connectOrCreate?: ComponentCreateOrConnectWithoutComponent_categoryInput | ComponentCreateOrConnectWithoutComponent_categoryInput[]
+    upsert?: ComponentUpsertWithWhereUniqueWithoutComponent_categoryInput | ComponentUpsertWithWhereUniqueWithoutComponent_categoryInput[]
+    createMany?: ComponentCreateManyComponent_categoryInputEnvelope
+    set?: ComponentWhereUniqueInput | ComponentWhereUniqueInput[]
+    disconnect?: ComponentWhereUniqueInput | ComponentWhereUniqueInput[]
+    delete?: ComponentWhereUniqueInput | ComponentWhereUniqueInput[]
+    connect?: ComponentWhereUniqueInput | ComponentWhereUniqueInput[]
+    update?: ComponentUpdateWithWhereUniqueWithoutComponent_categoryInput | ComponentUpdateWithWhereUniqueWithoutComponent_categoryInput[]
+    updateMany?: ComponentUpdateManyWithWhereWithoutComponent_categoryInput | ComponentUpdateManyWithWhereWithoutComponent_categoryInput[]
+    deleteMany?: ComponentScalarWhereInput | ComponentScalarWhereInput[]
+  }
+
+  export type ComponentUncheckedUpdateManyWithoutComponent_categoryNestedInput = {
+    create?: XOR<ComponentCreateWithoutComponent_categoryInput, ComponentUncheckedCreateWithoutComponent_categoryInput> | ComponentCreateWithoutComponent_categoryInput[] | ComponentUncheckedCreateWithoutComponent_categoryInput[]
+    connectOrCreate?: ComponentCreateOrConnectWithoutComponent_categoryInput | ComponentCreateOrConnectWithoutComponent_categoryInput[]
+    upsert?: ComponentUpsertWithWhereUniqueWithoutComponent_categoryInput | ComponentUpsertWithWhereUniqueWithoutComponent_categoryInput[]
+    createMany?: ComponentCreateManyComponent_categoryInputEnvelope
+    set?: ComponentWhereUniqueInput | ComponentWhereUniqueInput[]
+    disconnect?: ComponentWhereUniqueInput | ComponentWhereUniqueInput[]
+    delete?: ComponentWhereUniqueInput | ComponentWhereUniqueInput[]
+    connect?: ComponentWhereUniqueInput | ComponentWhereUniqueInput[]
+    update?: ComponentUpdateWithWhereUniqueWithoutComponent_categoryInput | ComponentUpdateWithWhereUniqueWithoutComponent_categoryInput[]
+    updateMany?: ComponentUpdateManyWithWhereWithoutComponent_categoryInput | ComponentUpdateManyWithWhereWithoutComponent_categoryInput[]
+    deleteMany?: ComponentScalarWhereInput | ComponentScalarWhereInput[]
+  }
+
+  export type ComponentCategoryCreateNestedOneWithoutComponentsInput = {
+    create?: XOR<ComponentCategoryCreateWithoutComponentsInput, ComponentCategoryUncheckedCreateWithoutComponentsInput>
+    connectOrCreate?: ComponentCategoryCreateOrConnectWithoutComponentsInput
+    connect?: ComponentCategoryWhereUniqueInput
+  }
+
+  export type ComponentCategoryUpdateOneWithoutComponentsNestedInput = {
+    create?: XOR<ComponentCategoryCreateWithoutComponentsInput, ComponentCategoryUncheckedCreateWithoutComponentsInput>
+    connectOrCreate?: ComponentCategoryCreateOrConnectWithoutComponentsInput
+    upsert?: ComponentCategoryUpsertWithoutComponentsInput
+    disconnect?: ComponentCategoryWhereInput | boolean
+    delete?: ComponentCategoryWhereInput | boolean
+    connect?: ComponentCategoryWhereUniqueInput
+    update?: XOR<XOR<ComponentCategoryUpdateToOneWithWhereWithoutComponentsInput, ComponentCategoryUpdateWithoutComponentsInput>, ComponentCategoryUncheckedUpdateWithoutComponentsInput>
   }
 
   export type NestedBigIntFilter<$PrismaModel = never> = {
@@ -4139,6 +6996,22 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
   export type PostImagesCreateWithoutPostInput = {
     id?: bigint | number
     image_url: string
@@ -4246,6 +7119,101 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ComponentCreateWithoutComponent_categoryInput = {
+    comp_name: string
+    created_at?: Date | string
+    app_code: string
+    style_code: string
+  }
+
+  export type ComponentUncheckedCreateWithoutComponent_categoryInput = {
+    comp_id?: number
+    comp_name: string
+    created_at?: Date | string
+    app_code: string
+    style_code: string
+  }
+
+  export type ComponentCreateOrConnectWithoutComponent_categoryInput = {
+    where: ComponentWhereUniqueInput
+    create: XOR<ComponentCreateWithoutComponent_categoryInput, ComponentUncheckedCreateWithoutComponent_categoryInput>
+  }
+
+  export type ComponentCreateManyComponent_categoryInputEnvelope = {
+    data: ComponentCreateManyComponent_categoryInput | ComponentCreateManyComponent_categoryInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ComponentUpsertWithWhereUniqueWithoutComponent_categoryInput = {
+    where: ComponentWhereUniqueInput
+    update: XOR<ComponentUpdateWithoutComponent_categoryInput, ComponentUncheckedUpdateWithoutComponent_categoryInput>
+    create: XOR<ComponentCreateWithoutComponent_categoryInput, ComponentUncheckedCreateWithoutComponent_categoryInput>
+  }
+
+  export type ComponentUpdateWithWhereUniqueWithoutComponent_categoryInput = {
+    where: ComponentWhereUniqueInput
+    data: XOR<ComponentUpdateWithoutComponent_categoryInput, ComponentUncheckedUpdateWithoutComponent_categoryInput>
+  }
+
+  export type ComponentUpdateManyWithWhereWithoutComponent_categoryInput = {
+    where: ComponentScalarWhereInput
+    data: XOR<ComponentUpdateManyMutationInput, ComponentUncheckedUpdateManyWithoutComponent_categoryInput>
+  }
+
+  export type ComponentScalarWhereInput = {
+    AND?: ComponentScalarWhereInput | ComponentScalarWhereInput[]
+    OR?: ComponentScalarWhereInput[]
+    NOT?: ComponentScalarWhereInput | ComponentScalarWhereInput[]
+    comp_id?: IntFilter<"Component"> | number
+    comp_name?: StringFilter<"Component"> | string
+    comp_category?: IntNullableFilter<"Component"> | number | null
+    created_at?: DateTimeFilter<"Component"> | Date | string
+    app_code?: StringFilter<"Component"> | string
+    style_code?: StringFilter<"Component"> | string
+  }
+
+  export type ComponentCategoryCreateWithoutComponentsInput = {
+    category_name: string
+    category_pid?: number
+    created_at?: Date | string
+  }
+
+  export type ComponentCategoryUncheckedCreateWithoutComponentsInput = {
+    category_id?: number
+    category_name: string
+    category_pid?: number
+    created_at?: Date | string
+  }
+
+  export type ComponentCategoryCreateOrConnectWithoutComponentsInput = {
+    where: ComponentCategoryWhereUniqueInput
+    create: XOR<ComponentCategoryCreateWithoutComponentsInput, ComponentCategoryUncheckedCreateWithoutComponentsInput>
+  }
+
+  export type ComponentCategoryUpsertWithoutComponentsInput = {
+    update: XOR<ComponentCategoryUpdateWithoutComponentsInput, ComponentCategoryUncheckedUpdateWithoutComponentsInput>
+    create: XOR<ComponentCategoryCreateWithoutComponentsInput, ComponentCategoryUncheckedCreateWithoutComponentsInput>
+    where?: ComponentCategoryWhereInput
+  }
+
+  export type ComponentCategoryUpdateToOneWithWhereWithoutComponentsInput = {
+    where?: ComponentCategoryWhereInput
+    data: XOR<ComponentCategoryUpdateWithoutComponentsInput, ComponentCategoryUncheckedUpdateWithoutComponentsInput>
+  }
+
+  export type ComponentCategoryUpdateWithoutComponentsInput = {
+    category_name?: StringFieldUpdateOperationsInput | string
+    category_pid?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComponentCategoryUncheckedUpdateWithoutComponentsInput = {
+    category_id?: IntFieldUpdateOperationsInput | number
+    category_name?: StringFieldUpdateOperationsInput | string
+    category_pid?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PostImagesCreateManyPostInput = {
     id?: bigint | number
     image_url: string
@@ -4288,6 +7256,37 @@ export namespace Prisma {
     mime_type?: NullableStringFieldUpdateOperationsInput | string | null
     size_kb?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComponentCreateManyComponent_categoryInput = {
+    comp_id?: number
+    comp_name: string
+    created_at?: Date | string
+    app_code: string
+    style_code: string
+  }
+
+  export type ComponentUpdateWithoutComponent_categoryInput = {
+    comp_name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    app_code?: StringFieldUpdateOperationsInput | string
+    style_code?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ComponentUncheckedUpdateWithoutComponent_categoryInput = {
+    comp_id?: IntFieldUpdateOperationsInput | number
+    comp_name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    app_code?: StringFieldUpdateOperationsInput | string
+    style_code?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ComponentUncheckedUpdateManyWithoutComponent_categoryInput = {
+    comp_id?: IntFieldUpdateOperationsInput | number
+    comp_name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    app_code?: StringFieldUpdateOperationsInput | string
+    style_code?: StringFieldUpdateOperationsInput | string
   }
 
 

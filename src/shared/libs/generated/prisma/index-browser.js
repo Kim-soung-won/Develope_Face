@@ -139,6 +139,22 @@ exports.Prisma.PostImagesScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.ComponentCategoryScalarFieldEnum = {
+  category_id: 'category_id',
+  category_name: 'category_name',
+  category_pid: 'category_pid',
+  created_at: 'created_at'
+};
+
+exports.Prisma.ComponentScalarFieldEnum = {
+  comp_id: 'comp_id',
+  comp_name: 'comp_name',
+  comp_category: 'comp_category',
+  created_at: 'created_at',
+  app_code: 'app_code',
+  style_code: 'style_code'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -157,7 +173,9 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   Post: 'Post',
-  PostImages: 'PostImages'
+  PostImages: 'PostImages',
+  ComponentCategory: 'ComponentCategory',
+  Component: 'Component'
 };
 
 /**

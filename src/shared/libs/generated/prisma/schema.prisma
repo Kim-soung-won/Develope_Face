@@ -39,3 +39,26 @@ model PostImages {
 
   @@map("post_images") // 실제 DB 테이블명이 post_images임을 명시
 }
+
+model ComponentCategory {
+  category_id   Int         @id @default(autoincrement())
+  category_name String      @unique
+  category_pid  Int         @default(-1)
+  created_at    DateTime    @default(now())
+  components    Component[]
+
+  @@map("component_category")
+}
+
+model Component {
+  comp_id       Int      @id @default(autoincrement())
+  comp_name     String
+  comp_category Int?
+  created_at    DateTime @default(now())
+  app_code      String
+  style_code    String
+
+  component_category ComponentCategory? @relation(fields: [comp_category], references: [category_id], onDelete: SetNull)
+
+  @@map("component")
+}

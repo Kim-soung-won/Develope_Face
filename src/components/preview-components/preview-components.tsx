@@ -1,15 +1,8 @@
 'use client'
 import { Typography } from '@mui/material'
-import {
-  SandpackProvider,
-  SandpackLayout,
-  SandpackCodeEditor,
-  SandpackPreview,
-  SandpackFiles,
-  useSandpack, // 1. useSandpack 훅을 import
-} from '@codesandbox/sandpack-react'
+import { SandpackProvider, SandpackFiles } from '@codesandbox/sandpack-react'
 import { useTheme } from '@mui/material'
-import { useState, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import { SandpackEditor } from './sandpack/sandpack-editor'
 
 // --- 초기 파일 내용은 이전과 동일 ---
@@ -54,7 +47,7 @@ export function ComponentPlayground() {
   }
 
   // 5. 자식 컴포넌트로부터 업데이트된 파일 정보를 받아 state를 갱신하는 함수
-  const handleCodeChange = (allFiles: SandpackFiles) => {
+  const handleCodeChange = useCallback((allFiles: SandpackFiles) => {
     const newAppCode =
       typeof allFiles['/App.tsx'] === 'object'
         ? allFiles['/App.tsx']?.code
@@ -70,18 +63,13 @@ export function ComponentPlayground() {
     if (typeof newStyleCode === 'string' && newStyleCode !== styleCode) {
       setStyleCode(newStyleCode)
     }
-  }
+  }, [])
 
   const handleSaveToDB = () => {
     console.log('DB에 저장될 App.tsx 코드:', appCode)
     console.log('DB에 저장될 styles.css 코드:', styleCode)
     alert('콘솔을 확인해보세요! DB에 코드가 저장되었습니다.')
   }
-
-  const [isClient, setIsClient] = useState(false)
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
 
   return (
     <>
@@ -103,16 +91,14 @@ export function ComponentPlayground() {
         </button>
       </div>
 
-      {isClient && (
-        <SandpackProvider
-          template="react-ts"
-          files={files}
-          theme={theme.palette.mode === 'dark' ? 'dark' : 'light'}
-        >
-          {/* 6. 분리된 자식 컴포넌트를 렌더링하고, 콜백 함수를 전달 */}
-          <SandpackEditor onCodeChange={handleCodeChange} />
-        </SandpackProvider>
-      )}
+      <SandpackProvider
+        template="react-ts"
+        files={files}
+        theme={theme.palette.mode === 'dark' ? 'dark' : 'light'}
+      >
+        {/* 6. 분리된 자식 컴포넌트를 렌더링하고, 콜백 함수를 전달 */}
+        <SandpackEditor onCodeChange={handleCodeChange} />
+      </SandpackProvider>
     </>
   )
 }
