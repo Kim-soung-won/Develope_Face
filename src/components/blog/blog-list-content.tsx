@@ -1,11 +1,6 @@
 'use client'
 
-import {
-  Box,
-  List,
-  Typography,
-  useTheme,
-} from '@mui/material'
+import { Box, List, Typography, useTheme } from '@mui/material'
 import { motion } from 'framer-motion'
 import { Fragment, useEffect, useState } from 'react'
 import { GetPostPaginatedsResponseBody } from '@/app/api/posts'
@@ -24,7 +19,7 @@ export function BlogListContent() {
       setIsLoading(true) // 데이터 요청 시작 시 로딩 상태 true
       try {
         const data = await getPosts({
-          pageNo: 0 * 20, // API 스키마에 따라 0 또는 1로 시작 (Zod default가 1이었으므로 1로 가정)
+          pageNo: 0 * 20,
           size: 20,
           orderBy: 'created_at', // 이 필드가 PostApiEntitySchema에 존재하고 정렬 가능해야 함
           order: 'desc',
@@ -47,16 +42,12 @@ export function BlogListContent() {
   }, [])
 
   if (isLoading) {
-    return (
-      <BlogLoadingSuspense />
-    )
+    return <BlogLoadingSuspense />
   }
 
   // 에러 상태 UI
   if (fetchError) {
-    return (
-      <BlogErrorSuspense />
-    )
+    return <BlogErrorSuspense />
   }
 
   if (!postsData || !postsData.list || postsData.list.length === 0) {
@@ -108,9 +99,7 @@ export function BlogListContent() {
             whileHover="hover"
             whileTap="tap"
           >
-            <BlogContentItem 
-              post={post}
-            />
+            <BlogContentItem post={post} />
           </motion.div>
           {index < postsData.list.length - 1 && (
             <Box sx={{ height: theme.spacing(2) }} />
