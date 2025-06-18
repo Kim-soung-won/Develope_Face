@@ -1,1 +1,1 @@
-export { ComponentPlayground } from './preview-components'
+export { MuiButtonExamplePage } from './preview-components'
