@@ -1,4 +1,31 @@
-import { JetBrains_Mono } from 'next/font/google'
+import { Inter, Noto_Sans_KR, Lora, JetBrains_Mono } from 'next/font/google'
+
+// 1. UI/본문용 (산세리프 - 고딕체)
+// 깔끔하고 모던
+export const InterFont = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  display: 'swap',
+  variable: '--font-inter', // CSS 변수로도 사용할 수 있게 설정
+})
+
+// 2. 한국어 본문용 (산세리프 - 고딕체)
+// 한국어 웹의 표준! 가독성이 가장 좋아.
+export const NotoSansKR = Noto_Sans_KR({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  display: 'swap',
+  variable: '--font-noto-sans-kr',
+})
+
+// 3. 블로그/기사 본문용 (세리프 - 명조체)
+// 긴 글을 읽을 때 눈이 편안하고, 클래식한 느낌을 줘.
+export const LoraFont = Lora({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  display: 'swap',
+  variable: '--font-lora',
+})
 
 // Code 미리보기 폰트
 export const JetbrainsMono = JetBrains_Mono({

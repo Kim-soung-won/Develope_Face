@@ -160,7 +160,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\승원\\Desktop\\develope_face\\src\\shared\\libs\\generated\\prisma",
+      "value": "/Users/metabuild/Desktop/private/blog/Develope_Face/src/shared/libs/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -169,12 +169,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\승원\\Desktop\\develope_face\\prisma\\schema.prisma",
+    "sourceFilePath": "/Users/metabuild/Desktop/private/blog/Develope_Face/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

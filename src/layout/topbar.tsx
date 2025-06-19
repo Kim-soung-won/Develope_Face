@@ -1,24 +1,21 @@
-'use client'
 import Link from 'next/link'
 import MenuIcon from '@mui/icons-material/Menu'
 import { AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material'
-import { useTranslation } from 'react-i18next'
 import ThemeToggleSwitch from '@/components/ThemeToggleSwitch'
 
 export function TopMenuBar() {
-  const { t } = useTranslation()
   return (
     <AppBar position="sticky" color="default" elevation={1}>
       <Toolbar>
         {/* 좌측: 메뉴 아이콘 */}
-        <IconButton
+        {/* <IconButton
           edge="start"
           color="inherit"
           aria-label="menu"
           sx={{ mr: 2 }}
         >
           <MenuIcon />
-        </IconButton>
+        </IconButton> */}
         {/* 서비스명 또는 로고 */}
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>

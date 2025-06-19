@@ -1,10 +1,11 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
 import type { Metadata } from 'next'
 import './globals.css'
-import 'highlight.js/styles/github-dark.css';
+import 'highlight.js/styles/github-dark.css'
 import { DefaultProviders } from '@/components/providers'
 import { TopMenuBar } from '@/layout/topbar'
 import { TopNotificationBanner } from '@/shared/ui/Bar'
+import { InterFont, NotoSansKR } from '@/shared/constants/font'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" className={`${InterFont.variable} ${NotoSansKR.variable}`}>
       <body>
         {/* MUI 동적 스타일을 SSR에도 적용하기 위함  */}
         <AppRouterCacheProvider>
