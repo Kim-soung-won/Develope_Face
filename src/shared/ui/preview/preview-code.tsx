@@ -45,8 +45,6 @@ export const PreviewCodeInCompPage = ({ examCode }: PreviewCodeCompProps) => {
               padding={16}
               style={{
                 ...editorStyle,
-                // 패딩을 줘서 우측 상단 버튼과 코드가 겹치지 않게 함
-                paddingTop: '48px',
               }}
               readOnly
             />
