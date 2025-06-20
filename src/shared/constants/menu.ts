@@ -1,26 +1,11 @@
 import { RadioButtonChecked as RadioButtonCheckedIcon } from '@mui/icons-material'
+import { Cat } from 'lucide-react'
 
 export const pathKeys = {
   root: '/',
   Components: {
     root() {
       return pathKeys.root.concat('components')
-    },
-    Mui: {
-      root() {
-        return pathKeys.Components.root().concat('/mui')
-      },
-      Button() {
-        return pathKeys.Components.Mui.root().concat('/button')
-      },
-    },
-    Bootstrap: {
-      root() {
-        return pathKeys.Components.root().concat('/bootstrap')
-      },
-      Button() {
-        return pathKeys.Components.Bootstrap.root().concat('/button')
-      },
     },
     Basic: {
       root() {
@@ -30,23 +15,47 @@ export const pathKeys = {
         return pathKeys.Components.Basic.root().concat('/button')
       },
     },
+    Game: {
+      root() {
+        return pathKeys.Components.root().concat('/game')
+      },
+      FallingCat() {
+        return pathKeys.Components.Game.root().concat('/falling-cat')
+      },
+    },
+    Icon: {
+      root() {
+        return pathKeys.Components.root().concat('/icon')
+      },
+      Lucide() {
+        return pathKeys.Components.Icon.root().concat('/lucide')
+      },
+      Material() {
+        return pathKeys.Components.Icon.root().concat('/mui')
+      },
+    },
   },
 }
 
 export const MenuItems = [
   {
-    text: 'MUI Button',
-    path: pathKeys.Components.Mui.Button(),
-    icon: RadioButtonCheckedIcon,
-  },
-  {
-    text: 'React-Bootstrap Button',
-    path: pathKeys.Components.Bootstrap.Button(),
-    icon: RadioButtonCheckedIcon,
-  },
-  {
-    text: 'Basic Button',
+    text: 'Button',
     path: pathKeys.Components.Basic.Button(),
+    icon: RadioButtonCheckedIcon,
+  },
+  {
+    text: '고양이게임',
+    path: pathKeys.Components.Game.FallingCat(),
+    icon: Cat,
+  },
+  {
+    text: 'Icon Lucide',
+    path: pathKeys.Components.Icon.Lucide(),
+    icon: RadioButtonCheckedIcon,
+  },
+  {
+    text: 'Icon Material',
+    path: pathKeys.Components.Icon.Material(),
     icon: RadioButtonCheckedIcon,
   },
 ]
