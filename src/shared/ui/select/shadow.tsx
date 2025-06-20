@@ -30,7 +30,7 @@ export const ShadowSelectComp = ({
         value={shadow}
         onChange={(_, v) => setShadow(v as number)}
         min={0}
-        max={20}
+        max={10}
       />
       <FormControl sx={{ minWidth: 120 }} size="small">
         <Select
